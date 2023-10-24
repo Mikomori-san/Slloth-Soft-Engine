@@ -1,7 +1,9 @@
 #include<SFML/Graphics.hpp>
 #include<SFML/System.hpp>
 #include<SFML/Window.hpp>
-#include "GameObject.h"
+#include "GameObjects/GameObject.h"
+#include "Manager/AssetManager.h"
+#include "Manager/InputManager.h"
 
 #pragma once
 
