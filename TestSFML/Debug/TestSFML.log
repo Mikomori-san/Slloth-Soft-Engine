@@ -1,3 +1,3 @@
-﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(534,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (TestSFML.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  TestSFML.cpp
-  TestSFML.vcxproj -> C:\FH\3Sem\GameDev1\slipstream-engine\Debug\Slipstream-Engine.exe
+﻿A:\VisualStudio\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Slipstream-Engine.vcxproj, TestSFML.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  Slloth-Soft_Main.cpp
+  TestSFML.vcxproj -> A:\.GameDev\.FH_Games\Sem3\slloth-soft_engine\Debug\Slloth-Soft_Engine.exe
