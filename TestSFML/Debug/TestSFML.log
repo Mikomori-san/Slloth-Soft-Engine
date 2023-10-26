@@ -1,7 +1,66 @@
-﻿  Animationtype.h
-  Game.cpp
-  AssetManager.cpp
-  InputManager.cpp
-  Slloth-Soft_Main.cpp
-  Generating Code...
+﻿  DebugDraw.cpp
+A:\.GameDev\.FH_Games\Sem3\slloth-soft_engine\TestSFML\DebugDraw.cpp(45,52): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+A:\.GameDev\.FH_Games\Sem3\slloth-soft_engine\TestSFML\DebugDraw.cpp(45,38): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+A:\.GameDev\.FH_Games\Sem3\slloth-soft_engine\TestSFML\DebugDraw.cpp(75,58): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+A:\.GameDev\.FH_Games\Sem3\slloth-soft_engine\TestSFML\DebugDraw.cpp(75,51): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+A:\.GameDev\.FH_Games\Sem3\slloth-soft_engine\TestSFML\DebugDraw.cpp(83,67): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+A:\.GameDev\.FH_Games\Sem3\slloth-soft_engine\TestSFML\DebugDraw.cpp(83,55): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+A:\.GameDev\.FH_Games\Sem3\slloth-soft_engine\TestSFML\DebugDraw.cpp(84,52): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+A:\.GameDev\.FH_Games\Sem3\slloth-soft_engine\TestSFML\DebugDraw.cpp(84,41): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
   TestSFML.vcxproj -> A:\.GameDev\.FH_Games\Sem3\slloth-soft_engine\Debug\Slloth-Soft_Engine.exe

@@ -17,6 +17,8 @@ void Player::draw(sf::RenderWindow& window)
 
      DebugDraw.Instance.DrawRectOutline(CollisionRect, Color.Green);
     */
+
+
 }
 
 void Player::initialize()
