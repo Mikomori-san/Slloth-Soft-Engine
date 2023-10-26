@@ -1,7 +1,14 @@
-﻿  Animationtype.h
-  Game.cpp
-  AssetManager.cpp
-  InputManager.cpp
+﻿  Player.cpp
+A:\.GameDev\.FH_Games\Sem3\slloth-soft_engine\TestSFML\GameObjects\Player.cpp(33,110): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+A:\.GameDev\.FH_Games\Sem3\slloth-soft_engine\TestSFML\GameObjects\Player.cpp(33,66): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
   Slloth-Soft_Main.cpp
   Generating Code...
   TestSFML.vcxproj -> A:\.GameDev\.FH_Games\Sem3\slloth-soft_engine\Debug\Slloth-Soft_Engine.exe

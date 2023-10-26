@@ -7,7 +7,7 @@ class AssetManager
 {
 public:
 
-	static AssetManager& instance() 
+	static AssetManager& getInstance() 
 	{ 
 		static AssetManager instance;
 		return instance; 

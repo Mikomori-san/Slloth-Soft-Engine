@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "../Manager/InputManager.h"
+#include "../DebugDraw.h"
 
 void Player::draw(sf::RenderWindow& window)
 {
@@ -7,16 +8,14 @@ void Player::draw(sf::RenderWindow& window)
 
     window.draw(animatedSprite);
 
-    //TODO: IMPLEMENT DEBUG DRAW || C# CODE FOLLOWS
-    /*
-     DebugDraw.Instance.DrawRectOutline(
-            new Vector2f(animatedSprite.GetGlobalBounds().Left, animatedSprite.GetGlobalBounds().Top),
-            (int)animatedSprite.GetGlobalBounds().Width,
-            (int)animatedSprite.GetGlobalBounds().Height,
-            Color.Red);
+    DebugDraw::getInstance().drawRectOutline(
+        sf::Vector2f(animatedSprite.getGlobalBounds().left, animatedSprite.getGlobalBounds().top),
+        static_cast<int>(animatedSprite.getGlobalBounds().width),
+        static_cast<int>(animatedSprite.getGlobalBounds().height),
+        sf::Color::Red
+    );
 
-     DebugDraw.Instance.DrawRectOutline(CollisionRect, Color.Green);
-    */
+    DebugDraw::getInstance().drawRectOutline(CollisionRect, sf::Color::Green);
 }
 
 void Player::initialize()
@@ -74,22 +73,22 @@ void Player::updateCollider()
 
 void Player::handleInput(float deltaTime)
 {
-    if (InputManager::instance().getKeyPressed(sf::Keyboard::W))
+    if (InputManager::getInstance().getKeyPressed(sf::Keyboard::W))
     {
         m_animationType = Animationtype::RunUp;
         move(sf::Vector2f(0, -1) * moveSpeed * deltaTime);
     }
-    else if (InputManager::instance().getKeyPressed(sf::Keyboard::A))
+    else if (InputManager::getInstance().getKeyPressed(sf::Keyboard::A))
     {
         m_animationType = Animationtype::RunLeft;
         move(sf::Vector2f(-1, 0) * moveSpeed * deltaTime);
     }
-    else if (InputManager::instance().getKeyPressed(sf::Keyboard::S))
+    else if (InputManager::getInstance().getKeyPressed(sf::Keyboard::S))
     {
         m_animationType = Animationtype::RunDown;
         move(sf::Vector2f(0, 1) * moveSpeed * deltaTime);
     }
-    else if (InputManager::instance().getKeyPressed(sf::Keyboard::D))
+    else if (InputManager::getInstance().getKeyPressed(sf::Keyboard::D))
     {
         m_animationType = Animationtype::RunRight;
         move(sf::Vector2f(1, 0) * moveSpeed * deltaTime);

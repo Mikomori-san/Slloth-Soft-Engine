@@ -5,7 +5,7 @@ void DebugDraw::initialize(sf::RenderWindow& renderWindow)
 	window = &renderWindow;
 }
 
-void DebugDraw::drawLine(sf::Vector2f& startPoint, sf::Vector2f& endPoint, sf::Color& color)
+void DebugDraw::drawLine(sf::Vector2f startPoint, sf::Vector2f endPoint, sf::Color color)
 {
 	sf::Vertex line[] = {
 		sf::Vertex(startPoint, color),
@@ -14,7 +14,7 @@ void DebugDraw::drawLine(sf::Vector2f& startPoint, sf::Vector2f& endPoint, sf::C
 	window->draw(line, 2, sf::Lines);
 }
 
-void DebugDraw::drawRectOutline(sf::Vector2f& position, int width, int height, sf::Color& color)
+void DebugDraw::drawRectOutline(sf::Vector2f position, int width, int height, sf::Color color)
 {
 	auto bottomLeftPos = sf::Vector2f(position.x, position.y + height);
 	auto topLeftPos = sf::Vector2f(position.x, position.y);
@@ -40,7 +40,7 @@ void DebugDraw::drawRectOutline(sf::Vector2f& position, int width, int height, s
 	window->draw(line, 2, sf::Lines);
 }
 
-void DebugDraw::drawRectOutline(sf::IntRect& intRect, sf::Color& color)
+void DebugDraw::drawRectOutline(sf::IntRect intRect, sf::Color color)
 {
 	auto position = sf::Vector2f(intRect.left, intRect.top);
 	auto width = intRect.width;
@@ -70,7 +70,7 @@ void DebugDraw::drawRectOutline(sf::IntRect& intRect, sf::Color& color)
 	window->draw(line, 2, sf::Lines);
 }
 
-void DebugDraw::drawRectangle(sf::Vector2f& position, int width, int height, sf::Color& color)
+void DebugDraw::drawRectangle(sf::Vector2f position, int width, int height, sf::Color color)
 {
 	auto rectangle = sf::RectangleShape(sf::Vector2f(width, height));
 	rectangle.setPosition(position);
@@ -78,7 +78,7 @@ void DebugDraw::drawRectangle(sf::Vector2f& position, int width, int height, sf:
 	window->draw(rectangle);
 }
 
-void DebugDraw::drawRectangle(sf::IntRect& rect, sf::Color& color)
+void DebugDraw::drawRectangle(sf::IntRect rect, sf::Color color)
 {
 	auto rectangle = sf::RectangleShape(sf::Vector2f(rect.width, rect.height));
 	rectangle.setPosition(sf::Vector2f(rect.left, rect.top));

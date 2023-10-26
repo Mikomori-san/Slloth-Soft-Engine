@@ -7,7 +7,7 @@
 
 int main()
 {
-	AssetManager::instance().loadMusic("something", "H:/Privat/HMMMMM.mp3");
-	AssetManager::instance().Music["something"]->play();
+	AssetManager::getInstance().loadMusic("something", "H:/Privat/HMMMMM.mp3");
+	AssetManager::getInstance().Music["something"]->play();
 	
 }

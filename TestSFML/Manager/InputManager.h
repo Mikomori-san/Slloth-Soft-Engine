@@ -7,7 +7,7 @@ class InputManager
 {
 public:
 	
-	static InputManager& instance()
+	static InputManager& getInstance()
 	{
 		static InputManager instance;
 		return instance;
