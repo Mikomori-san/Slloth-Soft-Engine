@@ -2,6 +2,9 @@
 #include "../Manager/InputManager.h"
 #include "../DebugDraw.h"
 
+
+Player::Player() : animationTimeIndex(0){}
+
 void Player::draw(sf::RenderWindow& window)
 {
     doAnimation();
@@ -110,6 +113,8 @@ void Player::handleIdle()
         break;
     case RunRight:
         m_animationType = Animationtype::IdleRight;
+        break;
+    default:
         break;
     }
 }

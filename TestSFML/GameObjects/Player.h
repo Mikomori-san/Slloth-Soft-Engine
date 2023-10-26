@@ -5,7 +5,7 @@
 class Player : public GameObject
 {
 public:
-	Player() = default;
+	Player();
 	~Player() = default;
 	
 	sf::IntRect getCollisionRect() { return CollisionRect; }

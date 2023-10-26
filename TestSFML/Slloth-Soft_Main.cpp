@@ -4,10 +4,14 @@
 #include <iostream>
 #include <SFML/Window.hpp>
 #include "Manager/AssetManager.h"
+#include "Game.h"
+#include <filesystem>
 
 int main()
 {
-	AssetManager::getInstance().loadMusic("something", "H:/Privat/HMMMMM.mp3");
-	AssetManager::getInstance().Music["something"]->play();
 	
+	std::cout << "Press ESC to close the window" << std::endl;
+	Game game;
+	game.run();
+	std::cout << "All done" << std::endl;
 }

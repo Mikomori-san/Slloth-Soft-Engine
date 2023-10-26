@@ -1,14 +1,46 @@
-﻿  Player.cpp
-A:\.GameDev\.FH_Games\Sem3\slloth-soft_engine\TestSFML\GameObjects\Player.cpp(33,110): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+﻿  Game.cpp
+A:\.GameDev\.FH_Games\Sem3\slloth-soft_engine\TestSFML\Game.cpp(23,53): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-A:\.GameDev\.FH_Games\Sem3\slloth-soft_engine\TestSFML\GameObjects\Player.cpp(33,66): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+A:\.GameDev\.FH_Games\Sem3\slloth-soft_engine\TestSFML\Game.cpp(23,41): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+A:\.GameDev\.FH_Games\Sem3\slloth-soft_engine\TestSFML\Game.cpp(46,10): warning C4244: 'argument': conversion from 'sf::Int32' to 'float', possible loss of data
+A:\.GameDev\.FH_Games\Sem3\slloth-soft_engine\TestSFML\Game.cpp(107,68): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+A:\.GameDev\.FH_Games\Sem3\slloth-soft_engine\TestSFML\Game.cpp(110,65): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+A:\.GameDev\.FH_Games\Sem3\slloth-soft_engine\TestSFML\Game.cpp(113,42): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+A:\.GameDev\.FH_Games\Sem3\slloth-soft_engine\TestSFML\Game.cpp(116,41): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+A:\.GameDev\.FH_Games\Sem3\slloth-soft_engine\TestSFML\Game.cpp(121,53): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+A:\.GameDev\.FH_Games\Sem3\slloth-soft_engine\TestSFML\Game.cpp(121,41): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
   Slloth-Soft_Main.cpp
+A:\VisualStudio\VC\Tools\MSVC\14.37.32822\include\filesystem(13): warning STL4038: The contents of <filesystem> are available only with C++17 or later.
   Generating Code...
   TestSFML.vcxproj -> A:\.GameDev\.FH_Games\Sem3\slloth-soft_engine\Debug\Slloth-Soft_Engine.exe

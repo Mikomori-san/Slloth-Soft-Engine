@@ -1,4 +1,5 @@
 #include<SFML/Graphics.hpp>
+#pragma once
 
 class GameObject : public sf::Transformable
 {

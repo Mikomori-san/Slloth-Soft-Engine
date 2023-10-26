@@ -4,31 +4,33 @@
 #include "GameObjects/GameObject.h"
 #include "Manager/AssetManager.h"
 #include "Manager/InputManager.h"
+#include "DebugDraw.h"
+#include "GameObjects/Player.h"
 
 #pragma once
-
-using namespace sf;
 
 class Game
 {
 public:
-	Game();
 	void run();
+	Game();
 private:
 	const int WIDTH = 640;
 	const int HEIGHT = 480;
 	const char* TITLE = "SLLOTH-SOFT";
-	Color BG_COLOR = Color(50, 50, 50);
-	Clock clock;
-	VideoMode mode;
-	RenderWindow* window;
+	sf::Color BG_COLOR = sf::Color(50, 50, 50);
+	sf::Clock clock;
+	sf::VideoMode mode;
+	sf::RenderWindow window;
 	std::vector<GameObject*> gameObjects;
 
-	void closeGame(const Event& event);
+	Player* player = new Player{};
+
+	void closeGame(const sf::Event& event);
 	void initialize();
 	void handleEvents();
 	void draw();
-	void drawFloor(Vector2f position, Vector2i tiles, Vector2i tileSize);
+	void drawFloor(sf::Vector2f position, sf::Vector2i tiles, sf::Vector2i tileSize);
 	void update(float deltaTime);
 	void checkAreaBorders();
 	void respawnPlayer();
