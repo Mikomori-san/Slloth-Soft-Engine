@@ -132,3 +132,8 @@ void Player::doAnimation()
     animatedSprite.setTextureRect(textureRect);
 
 }
+
+void Player::setSprite(std::shared_ptr<sf::Texture> texture)
+{
+    animatedSprite.setTexture(*texture);
+}

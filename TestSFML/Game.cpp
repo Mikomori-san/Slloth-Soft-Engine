@@ -21,11 +21,14 @@ void Game::initialize()
 	gameObjects = std::vector<GameObject*>();
 
 	player->setPosition(sf::Vector2f(WIDTH / 2, HEIGHT / 2));
+	
+	AssetManager::getInstance().loadTexture("PlayerTexture", "Assets\\Textures\\playerSpriteSheet.png");
 
+	player->setSprite(AssetManager::getInstance().Textures["PlayerTexture"]);
 	gameObjects.push_back(player);
 
-	AssetManager::loadSound("CompleteSound", "Assets\\Sounds\\completeSound.wav");
-	AssetManager::loadMusic("MusicTrack", "Assets\\Music\\musicTrack.ogg");
+	AssetManager::getInstance().loadSound("CompleteSound", "Assets\\Sounds\\completeSound.wav");
+	AssetManager::getInstance().loadMusic("MusicTrack", "Assets\\Music\\musicTrack.ogg");
 	AssetManager::Music["MusicTrack"]->play();
 
 	for(auto gameObject : gameObjects)
@@ -40,7 +43,7 @@ void Game::run()
 
 	while (window.isOpen())
 	{
-		auto deltaTime = clock.restart().asMilliseconds();
+		auto deltaTime = clock.restart().asSeconds();
 
 		handleEvents();
 		update(deltaTime);
@@ -54,8 +57,10 @@ void Game::handleEvents()
 
 	while (window.pollEvent(event))
 	{
-		if (event.type == sf::Event::Closed || (event.type == sf::Event::KeyPressed && sf::Keyboard::Escape))
+		if (event.type == sf::Event::Closed || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Key::Escape))
 			window.close();
+		
+		InputManager::getInstance().handleEvents(event);	
 	}
 }
 

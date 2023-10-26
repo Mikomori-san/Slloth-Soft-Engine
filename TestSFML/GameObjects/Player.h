@@ -15,6 +15,8 @@ public:
 	void initialize() override;
 	void update(float deltaTime) override;
 
+	void setSprite(std::shared_ptr<sf::Texture> texture);
+
 	sf::Sprite getAnimatedSprite() { return animatedSprite; }
 	int* getAnimationTypeFramesCount() { return animationTypeFramesCount; }
 	sf::Vector2i getColliderSize() { return colliderSize; }
