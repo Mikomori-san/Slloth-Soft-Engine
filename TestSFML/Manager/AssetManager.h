@@ -13,15 +13,15 @@ public:
 		return instance; 
 	}
 
-	std::map<std::string, sf::Texture> Textures = std::map<std::string, sf::Texture>{};
-	std::map<std::string, sf::Sound> Sounds = std::map<std::string, sf::Sound>{};
-	std::map<std::string, std::shared_ptr<sf::Music>> Music = std::map<std::string, std::shared_ptr<sf::Music>>{};
-	std::map<std::string, sf::Font> Fonts = std::map<std::string, sf::Font>{};
+	static std::map<std::string, std::shared_ptr<sf::Texture>> Textures;
+	static std::map<std::string, std::shared_ptr<sf::Sound>> Sounds;
+	static std::map<std::string, std::shared_ptr<sf::Music>> Music;
+	static std::map<std::string, std::shared_ptr<sf::Font>> Fonts;
 
-	void loadTexture(const std::string& name, const std::string& fileName);
-	void loadSound(const std::string& name, const std::string& fileName);
-	void loadMusic(const std::string& name, const std::string& fileName);
-	void loadFont(const std::string& name, const std::string& fileName);
+	static void loadTexture(const std::string& name, const std::string& fileName);
+	static void loadSound(const std::string& name, const std::string& fileName);
+	static void loadMusic(const std::string& name, const std::string& fileName);
+	static void loadFont(const std::string& name, const std::string& fileName);
 
 private:
 

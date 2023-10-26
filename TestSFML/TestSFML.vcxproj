@@ -144,15 +144,19 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Animationtype.cpp" />
+    <ClCompile Include="Animationtype.h" />
+    <ClCompile Include="DebugDraw.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameObjects\Player.cpp" />
     <ClCompile Include="Manager\AssetManager.cpp" />
     <ClCompile Include="Manager\InputManager.cpp" />
     <ClCompile Include="Slloth-Soft_Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DebugDraw.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObjects\GameObject.h" />
+    <ClInclude Include="GameObjects\Player.h" />
     <ClInclude Include="Manager\AssetManager.h" />
     <ClInclude Include="Manager\InputManager.h" />
   </ItemGroup>

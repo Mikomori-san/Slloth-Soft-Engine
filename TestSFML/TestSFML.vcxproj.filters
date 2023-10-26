@@ -30,7 +30,7 @@
     <ClCompile Include="Slloth-Soft_Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Animationtype.cpp">
+    <ClCompile Include="Animationtype.h">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
@@ -40,6 +40,9 @@
       <Filter>Source Files\Manager</Filter>
     </ClCompile>
     <ClCompile Include="Manager\InputManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -54,6 +57,9 @@
       <Filter>Header Files\Manager</Filter>
     </ClInclude>
     <ClInclude Include="Manager\InputManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,4 +1,7 @@
-﻿  Game.cpp
+﻿  Animationtype.h
+  Game.cpp
+  AssetManager.cpp
   InputManager.cpp
+  Slloth-Soft_Main.cpp
   Generating Code...
   TestSFML.vcxproj -> A:\.GameDev\.FH_Games\Sem3\slloth-soft_engine\Debug\Slloth-Soft_Engine.exe
