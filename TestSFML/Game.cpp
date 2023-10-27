@@ -69,8 +69,8 @@ void Game::draw()
 	window.clear(BG_COLOR);
 
 	drawFloor(sf::Vector2f(0, 0),
-		sf::Vector2i(static_cast<int>(window.getSize().x / 64) + 1, static_cast<int>(window.getSize().y / 64) + 1),
-		sf::Vector2i(64, 64)
+		sf::Vector2i(static_cast<int>(window.getSize().x / TILE_SIZE) + 1, static_cast<int>(window.getSize().y / TILE_SIZE) + 1),
+		sf::Vector2i(TILE_SIZE, TILE_SIZE)
 	);
 
 	for (auto gameObject : gameObjects)

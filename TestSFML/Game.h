@@ -18,6 +18,7 @@ private:
 	const int WIDTH = 640;
 	const int HEIGHT = 480;
 	const char* TITLE = "SLLOTH-SOFT";
+	const int TILE_SIZE = 64;
 	sf::Color BG_COLOR = sf::Color(50, 50, 50);
 	sf::Clock clock;
 	sf::VideoMode mode;
