@@ -69,7 +69,7 @@ void Game::draw()
 	window.clear(BG_COLOR);
 
 	drawFloor(sf::Vector2f(0, 0),
-		sf::Vector2i(10, 10),
+		sf::Vector2i(20, 20),
 		sf::Vector2i(64, 64)
 	);
 
@@ -105,8 +105,8 @@ void Game::checkAreaBorders()
 {
 	auto left = 0;
 	auto top = 0;
-	auto right = 640;
-	auto bottom = 480;
+	auto right = window.getSize().x;
+	auto bottom = window.getSize().y;
 
 	if (player->getPosition().y > bottom - player->getCollisionRect().height / 2)
 		player->setPosition(sf::Vector2f(player->getPosition().x, bottom - player->getCollisionRect().height / 2));
