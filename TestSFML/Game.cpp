@@ -69,7 +69,7 @@ void Game::draw()
 	window.clear(BG_COLOR);
 
 	drawFloor(sf::Vector2f(0, 0),
-		sf::Vector2i(20, 20),
+		sf::Vector2i(static_cast<int>(window.getSize().x / 64) + 1, static_cast<int>(window.getSize().y / 64) + 1),
 		sf::Vector2i(64, 64)
 	);
 
