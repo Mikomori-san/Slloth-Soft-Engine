@@ -6,12 +6,14 @@
 #include "Manager/AssetManager.h"
 #include "Game.h"
 #include <filesystem>
+#include <unordered_set>
 
 int main()
 {
-	
 	std::cout << "Press ESC to close the window" << std::endl;
+
 	Game game;
 	game.run();
+
 	std::cout << "All done" << std::endl;
 }

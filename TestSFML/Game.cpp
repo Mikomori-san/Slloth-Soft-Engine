@@ -1,6 +1,6 @@
 #include "Game.h"
 
-Game::Game() : window(sf::VideoMode(800, 600), TITLE)
+Game::Game() : window(sf::VideoMode(WIDTH, HEIGHT), TITLE)
 {
 	window.setVerticalSyncEnabled(true);
 	window.setKeyRepeatEnabled(false);

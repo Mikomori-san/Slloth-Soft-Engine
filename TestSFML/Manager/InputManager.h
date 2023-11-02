@@ -27,7 +27,7 @@ private:
 	InputManager(const InputManager&) = delete;
 	InputManager& operator=(const InputManager&) = delete;
 
-	std::map<sf::Keyboard::Key, bool> isKeyDown = std::map<sf::Keyboard::Key, bool>{};
-	std::map<sf::Keyboard::Key, bool> isKeyPressed = std::map<sf::Keyboard::Key, bool>{};
-	std::map<sf::Keyboard::Key, bool> isKeyUp = std::map<sf::Keyboard::Key, bool>{};
+	std::map<sf::Keyboard::Key, bool> isKeyDown;
+	std::map<sf::Keyboard::Key, bool> isKeyPressed;
+	std::map<sf::Keyboard::Key, bool> isKeyUp;
 };
