@@ -7,8 +7,6 @@
 class GameStateManager
 {
 public:
-    GameStateManager() {}
-    ~GameStateManager() {}
 
     static GameStateManager& getInstance()
     {
@@ -22,6 +20,8 @@ public:
     void render();
 
 private:
+    GameStateManager() {}
+    ~GameStateManager() {}
     GameStateManager(const GameStateManager&) = delete;
     GameStateManager& operator= (const GameStateManager&) = delete;
 
