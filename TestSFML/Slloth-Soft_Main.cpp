@@ -5,8 +5,6 @@
 #include <SFML/Window.hpp>
 #include "Manager/AssetManager.h"
 #include "Game.h"
-#include <filesystem>
-#include <unordered_set>
 
 int main()
 {

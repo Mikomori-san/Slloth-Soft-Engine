@@ -1,6 +1,6 @@
 #pragma once
 #include "GameObject.h"
-#include "../Animationtype.h"
+#include "../Enums/Animationtype.h"
 
 class Player : public GameObject
 {
