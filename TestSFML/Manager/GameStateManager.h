@@ -26,5 +26,5 @@ private:
     GameStateManager& operator= (const GameStateManager&) = delete;
 
     std::unique_ptr<GameState> currentState;
-    std::map<std::string, GameState> states;
+    std::map<std::string, std::unique_ptr<GameState>> states;
 };

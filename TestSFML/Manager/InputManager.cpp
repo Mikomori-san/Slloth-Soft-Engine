@@ -69,5 +69,4 @@ void InputManager::handleEvents(sf::Event& event)
 		isKeyUp[event.key.code] = true;
 		isKeyPressed[event.key.code] = false;
 	}
-		
 }
