@@ -5,7 +5,7 @@
 #include "Manager/AssetManager.h"
 #include "Manager/InputManager.h"
 #include "DebugDraw.h"
-#include "GameObjects/Player.h"
+#include "GameObjects/GameObject.h"
 #include "Manager/GameStateManager.h"
 
 #pragma once
@@ -26,7 +26,7 @@ private:
 	sf::RenderWindow window;
 	std::vector<GameObject*> gameObjects;
 
-	Player* player = new Player{};
+	GameObject* player = new GameObject(1);
 
 	void closeGame(const sf::Event& event);
 	void initialize();

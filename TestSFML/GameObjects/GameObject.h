@@ -1,10 +1,30 @@
-#include<SFML/Graphics.hpp>
 #pragma once
 
-class GameObject : public sf::Transformable
-{
+#include <unordered_map>
+#include <typeindex>
+#include <memory>
+#include "../Components/Components.h"
+
+class GameObject {
 public:
-	virtual void initialize() = 0;
-	virtual void update(float deltaTime) = 0;
-	virtual void draw(sf::RenderWindow& window) = 0;
+    GameObject(int id);
+    virtual ~GameObject();
+
+    template <typename T, typename... Args>
+    T* addComponent(Args&&... args);
+
+    template <typename T>
+    T* getComponent() const;
+
+    void start();
+    void update(float dt);
+    void destroy();
+
+    int getId() const;
+
+private:
+    int id;
+    //std::unordered_map<std::type_index, std::unique_ptr<Component>> components;
 };
+
+#include "GameObject.cpp" 
