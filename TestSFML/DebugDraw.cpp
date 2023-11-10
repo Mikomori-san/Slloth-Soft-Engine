@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "DebugDraw.h"
 
 void DebugDraw::initialize(sf::RenderWindow& renderWindow)

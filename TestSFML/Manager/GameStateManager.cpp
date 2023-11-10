@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "GameStateManager.h"
 
 void GameStateManager::reg(std::string name, std::shared_ptr<GameState> state)

@@ -7,7 +7,6 @@
 #include "GameStates/MenuState.h"
 #include "GameStates/GameplayState.h"
 #include "GameStates/ExitState.h"
-#include "stdafx.h"
 #pragma once
 
 class Game

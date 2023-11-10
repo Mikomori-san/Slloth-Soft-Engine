@@ -1,6 +1,5 @@
 #pragma once
 #include "GameState.h"
-#include "../stdafx.h"
 
 class ExitState : public GameState
 {

@@ -4,7 +4,6 @@
 #include "../GameObjects/GameObject.h"
 #include "../Manager/AssetManager.h"
 #include "../DebugDraw.h"
-#include "../stdafx.h"
 
 class GameplayState : public GameState
 {

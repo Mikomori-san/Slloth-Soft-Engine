@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "GameplayState.h"
 
 void GameplayState::init(sf::RenderWindow& rWindow)

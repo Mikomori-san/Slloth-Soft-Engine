@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Player.h"
 #include "../Manager/InputManager.h"
 #include "../DebugDraw.h"

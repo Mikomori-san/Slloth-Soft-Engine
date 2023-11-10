@@ -1,7 +1,6 @@
 #pragma once
 #include "GameObject.h"
 #include "../Enums/Animationtype.h"
-#include "../stdafx.h"
 
 class Player : public GameObject
 {
