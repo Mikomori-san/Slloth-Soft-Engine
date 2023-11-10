@@ -1,8 +1,8 @@
 #pragma once
 #include "../GameStates/GameState.h"
-#include <map>
-#include <string>
-#include <memory>
+#include "../stdafx.h"
+
+class GameState;
 
 class GameStateManager
 {
@@ -14,8 +14,8 @@ public:
         return instance;
     }
 
-    void reg(std::string name, GameState* state);
-    void setState(std::string name);
+    void reg(std::string name, std::shared_ptr<GameState> state);
+    void setState(std::string name, sf::RenderWindow& window);
     void update(float deltaTime);
     void render();
 
@@ -25,6 +25,6 @@ private:
     GameStateManager(const GameStateManager&) = delete;
     GameStateManager& operator= (const GameStateManager&) = delete;
 
-    std::unique_ptr<GameState> currentState;
-    std::map<std::string, std::unique_ptr<GameState>> states;
+    std::shared_ptr<GameState> currentState;
+    std::map<std::string, std::shared_ptr<GameState>> states;
 };

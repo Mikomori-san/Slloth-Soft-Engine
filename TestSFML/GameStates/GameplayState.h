@@ -1,11 +1,25 @@
 #pragma once
-#pragma once
 #include "GameState.h"
+#include "../GameObjects/Player.h"
+#include "../GameObjects/GameObject.h"
+#include "../Manager/AssetManager.h"
+#include "../DebugDraw.h"
+#include "../stdafx.h"
+
 class GameplayState : public GameState
 {
 public:
-	void init() override;
+	void init(sf::RenderWindow& rWindow) override;
 	void exit() override;
 	void update(float deltaTime) override;
 	void render() override;
+private:
+	std::vector<std::shared_ptr<GameObject>> gameObjects;
+	std::shared_ptr<Player> player = std::make_shared<Player>();
+	std::shared_ptr<sf::RenderWindow> window;
+	const int TILE_SIZE = 64;
+
+	void checkAreaBorders();
+	void drawFloor(sf::Vector2f position, sf::Vector2i tiles, sf::Vector2i tileSize);
+	void respawnPlayer();
 };

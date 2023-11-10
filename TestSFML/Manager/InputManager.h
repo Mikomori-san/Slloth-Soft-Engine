@@ -1,7 +1,5 @@
 #pragma once
-
-#include <SFML/Window.hpp>
-#include <map>
+#include "../stdafx.h"
 
 class InputManager
 {

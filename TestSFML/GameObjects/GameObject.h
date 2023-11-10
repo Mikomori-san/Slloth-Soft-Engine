@@ -1,4 +1,4 @@
-#include<SFML/Graphics.hpp>
+#include "../stdafx.h"
 #pragma once
 
 class GameObject : public sf::Transformable

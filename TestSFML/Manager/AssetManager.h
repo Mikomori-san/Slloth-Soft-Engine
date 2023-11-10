@@ -1,7 +1,5 @@
 #pragma once
-
-#include <SFML/Audio.hpp>
-#include <SFML/Graphics.hpp>
+#include "../stdafx.h"
 
 class AssetManager
 {

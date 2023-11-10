@@ -148,7 +148,11 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClCompile Include="DebugDraw.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObjects\Player.cpp" />
+    <ClCompile Include="GameStates\ExitState.cpp" />
+    <ClCompile Include="GameStates\GameplayState.cpp" />
+    <ClCompile Include="GameStates\MenuState.cpp" />
     <ClCompile Include="Manager\AssetManager.cpp" />
+    <ClCompile Include="Manager\GameStateManager.cpp" />
     <ClCompile Include="Manager\InputManager.cpp" />
     <ClCompile Include="Slloth-Soft_Main.cpp" />
     <ClCompile Include="Utils.cpp" />
@@ -159,8 +163,14 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObjects\GameObject.h" />
     <ClInclude Include="GameObjects\Player.h" />
+    <ClInclude Include="GameStates\ExitState.h" />
+    <ClInclude Include="GameStates\GameplayState.h" />
+    <ClInclude Include="GameStates\GameState.h" />
+    <ClInclude Include="GameStates\MenuState.h" />
     <ClInclude Include="Manager\AssetManager.h" />
+    <ClInclude Include="Manager\GameStateManager.h" />
     <ClInclude Include="Manager\InputManager.h" />
+    <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
