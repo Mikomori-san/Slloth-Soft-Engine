@@ -21,6 +21,8 @@ public:
 	static void loadMusic(const std::string& name, const std::string& fileName);
 	static void loadFont(const std::string& name, const std::string& fileName);
 
+	static void unloadAssets();
+
 private:
 
 	AssetManager() = default;

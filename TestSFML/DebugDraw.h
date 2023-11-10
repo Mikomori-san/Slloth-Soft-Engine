@@ -16,6 +16,7 @@ public:
     void drawRectOutline(sf::IntRect intRect, sf::Color color);
     void drawRectangle(sf::Vector2f position, int width, int height, sf::Color color);
     void drawRectangle(sf::IntRect rect, sf::Color color);
+    void unload();
 
 private:
     DebugDraw() = default;

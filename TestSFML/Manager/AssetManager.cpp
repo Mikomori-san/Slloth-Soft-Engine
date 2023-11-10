@@ -60,3 +60,31 @@ void AssetManager::loadFont(const std::string& name, const std::string& fileName
 
 	Fonts[name] = font;
 }
+
+void AssetManager::unloadAssets()
+{
+	for (auto& texturePair : Textures)
+	{
+		texturePair.second.reset();
+	}
+	Textures.clear();
+
+	for (auto& soundPair : Sounds)
+	{
+		soundPair.second.reset();
+	}
+	Sounds.clear();
+
+	for (auto& musicPair : Music)
+	{
+		musicPair.second->stop();
+		musicPair.second.reset();
+	}
+	Music.clear();
+
+	for (auto& fontPair : Fonts)
+	{
+		fontPair.second.reset();
+	}
+	Fonts.clear();
+}

@@ -15,8 +15,6 @@ void Game::closeGame(const sf::Event& event)
 void Game::initialize()
 {
 	InputManager::getInstance().init(window);
-	
-	DebugDraw::getInstance().initialize(window);
 
 	GameStateManager::getInstance().reg("Start", std::make_shared<MenuState>());
 	GameStateManager::getInstance().reg("Gameplay", std::make_shared<GameplayState>());
@@ -63,6 +61,11 @@ void Game::draw()
 
 void Game::update(float deltaTime)
 {
+	if (InputManager::getInstance().getKeyDown(sf::Keyboard::Num1))
+		GameStateManager::getInstance().setState("Gameplay", window);
+	else if (InputManager::getInstance().getKeyDown(sf::Keyboard::Num2))
+		GameStateManager::getInstance().setState("Start", window);
+
 	GameStateManager::getInstance().update(deltaTime);
 
 	InputManager::getInstance().update();

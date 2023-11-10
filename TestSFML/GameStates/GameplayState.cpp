@@ -2,7 +2,11 @@
 
 void GameplayState::init(sf::RenderWindow& rWindow)
 {
+	this->player = std::make_shared<Player>();
+
 	this->window.reset(&rWindow, [](sf::RenderWindow*) {}); //Hahaha, ich bin ein böser Hacker :]
+
+	DebugDraw::getInstance().initialize(*window);
 
 	player->setPosition(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2));
 
@@ -23,7 +27,17 @@ void GameplayState::init(sf::RenderWindow& rWindow)
 
 void GameplayState::exit()
 {
+	for (auto gameObject : gameObjects)
+	{
+		gameObject.reset();
+	}
+	gameObjects.clear();
 
+	this->player.reset();
+	this->window.reset();
+	DebugDraw::getInstance().unload();
+
+	AssetManager::getInstance().unloadAssets();
 }
 
 void GameplayState::update(float deltaTime)

@@ -85,3 +85,8 @@ void DebugDraw::drawRectangle(sf::IntRect rect, sf::Color color)
 	rectangle.setFillColor(color);
 	window->draw(rectangle);
 }
+
+void DebugDraw::unload()
+{
+	this->window = nullptr;
+}

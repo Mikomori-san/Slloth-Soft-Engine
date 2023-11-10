@@ -15,7 +15,7 @@ public:
 	void render() override;
 private:
 	std::vector<std::shared_ptr<GameObject>> gameObjects;
-	std::shared_ptr<Player> player = std::make_shared<Player>();
+	std::shared_ptr<Player> player;
 	std::shared_ptr<sf::RenderWindow> window;
 	const int TILE_SIZE = 64;
 
