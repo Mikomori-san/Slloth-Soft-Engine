@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "InputManager.h"
 
 void InputManager::init(sf::Window& window)

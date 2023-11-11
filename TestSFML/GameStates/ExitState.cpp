@@ -1,6 +1,7 @@
+#include "stdafx.h"
 #include "ExitState.h"
 
-void ExitState::init()
+void ExitState::init(sf::RenderWindow& rWindow)
 {
 
 }

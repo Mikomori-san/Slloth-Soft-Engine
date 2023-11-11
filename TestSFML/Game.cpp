@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Game.h"
 
 Game::Game() : window(sf::VideoMode(WIDTH, HEIGHT), TITLE)
@@ -15,11 +16,17 @@ void Game::closeGame(const sf::Event& event)
 void Game::initialize()
 {
 	InputManager::getInstance().init(window);
+<<<<<<< HEAD
 
 	DebugDraw::getInstance().initialize(window);
+=======
+>>>>>>> GameState_Implementing
 
-	gameObjects = std::vector<GameObject*>();
+	GameStateManager::getInstance().reg("Start", std::make_shared<MenuState>());
+	GameStateManager::getInstance().reg("Gameplay", std::make_shared<GameplayState>());
+	GameStateManager::getInstance().reg("Exit", std::make_shared<ExitState>());
 
+<<<<<<< HEAD
 	player->setPosition(sf::Vector2f(WIDTH / 2, HEIGHT / 2));
 
 	AssetManager::getInstance().loadTexture("PlayerTexture", "Assets\\Textures\\playerSpriteSheet.png");
@@ -35,6 +42,9 @@ void Game::initialize()
 	{
 		gameObject->initialize();
 	}
+=======
+	GameStateManager::getInstance().setState("Gameplay", window);
+>>>>>>> GameState_Implementing
 }
 
 void Game::run()
@@ -59,7 +69,11 @@ void Game::handleEvents()
 	{
 		if (event.type == sf::Event::Closed || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Key::Escape))
 			window.close();
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> GameState_Implementing
 		InputManager::getInstance().handleEvents(event);
 	}
 }
@@ -68,37 +82,22 @@ void Game::draw()
 {
 	window.clear(BG_COLOR);
 
-	drawFloor(sf::Vector2f(0, 0),
-		sf::Vector2i(static_cast<int>(window.getSize().x / TILE_SIZE) + 1, static_cast<int>(window.getSize().y / TILE_SIZE) + 1),
-		sf::Vector2i(TILE_SIZE, TILE_SIZE)
-	);
-
-	for (auto gameObject : gameObjects)
-		gameObject->draw(window);
-
+	GameStateManager::getInstance().render();
+	
 	window.display();
-}
-
-void Game::drawFloor(sf::Vector2f position, sf::Vector2i tiles, sf::Vector2i tileSize)
-{
-	for (auto x = 0; x < tiles.x; x++)
-	{
-		for (auto y = 0; y < tiles.y; y++)
-		{
-			auto tilepos = sf::Vector2f(position.x + x * tileSize.x, position.y + y * tileSize.y);
-			DebugDraw::getInstance().drawRectangle(tilepos, tileSize.x, tileSize.y, (x + y) % 2 == 0 ? sf::Color::White : sf::Color::Black);
-		}
-	}
 }
 
 void Game::update(float deltaTime)
 {
-	for (auto gameObject : gameObjects)
-		gameObject->update(deltaTime);
+	if (InputManager::getInstance().getKeyDown(sf::Keyboard::Num1))
+		GameStateManager::getInstance().setState("Gameplay", window);
+	else if (InputManager::getInstance().getKeyDown(sf::Keyboard::Num2))
+		GameStateManager::getInstance().setState("Start", window);
 
-	checkAreaBorders();
+	GameStateManager::getInstance().update(deltaTime);
 
 	InputManager::getInstance().update();
+<<<<<<< HEAD
 }
 
 void Game::checkAreaBorders()
@@ -125,3 +124,6 @@ void Game::respawnPlayer()
 {
 	player->setPosition(sf::Vector2f(WIDTH / 2, HEIGHT / 2));
 }
+=======
+}
+>>>>>>> GameState_Implementing

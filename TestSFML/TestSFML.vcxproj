@@ -78,6 +78,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SFMLROOT)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -100,6 +101,7 @@ sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SFMLROOT)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -144,13 +146,28 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <ClCompile Include="Components\ColliderComponent.cpp" />
     <ClCompile Include="Components\RectColliderComponent.cpp" />
     <ClCompile Include="Enums\Animationtype.h" />
     <ClCompile Include="DebugDraw.cpp" />
+=======
+    <ClInclude Include="Enums\Animationtype.h" />
+    <ClCompile Include="DebugDraw.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameObjects\Player.cpp" />
+    <ClCompile Include="GameStates\ExitState.cpp" />
+    <ClCompile Include="GameStates\GameplayState.cpp" />
+    <ClCompile Include="GameStates\MenuState.cpp" />
+>>>>>>> GameState_Implementing
     <ClCompile Include="Manager\AssetManager.cpp" />
+    <ClCompile Include="Manager\GameStateManager.cpp" />
     <ClCompile Include="Manager\InputManager.cpp" />
     <ClCompile Include="Slloth-Soft_Main.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -161,9 +178,21 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="Components\TransformComponent.h" />
     <ClInclude Include="DebugDraw.h" />
     <ClInclude Include="Enums\GameState.h" />
+<<<<<<< HEAD
     <ClInclude Include="GameObjects\GameObjectSharer.h" />
+=======
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameObjects\GameObject.h" />
+    <ClInclude Include="GameObjects\Player.h" />
+    <ClInclude Include="GameStates\ExitState.h" />
+    <ClInclude Include="GameStates\GameplayState.h" />
+    <ClInclude Include="GameStates\GameState.h" />
+    <ClInclude Include="GameStates\MenuState.h" />
+>>>>>>> GameState_Implementing
     <ClInclude Include="Manager\AssetManager.h" />
+    <ClInclude Include="Manager\GameStateManager.h" />
     <ClInclude Include="Manager\InputManager.h" />
+    <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

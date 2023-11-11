@@ -1,6 +1,7 @@
+#include "stdafx.h"
 #include "MenuState.h"
 
-void MenuState::init()
+void MenuState::init(sf::RenderWindow& rWindow)
 {
 
 }

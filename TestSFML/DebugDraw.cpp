@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "DebugDraw.h"
 
 void DebugDraw::initialize(sf::RenderWindow& renderWindow)
@@ -84,4 +85,9 @@ void DebugDraw::drawRectangle(sf::IntRect rect, sf::Color color)
 	rectangle.setPosition(sf::Vector2f(rect.left, rect.top));
 	rectangle.setFillColor(color);
 	window->draw(rectangle);
+}
+
+void DebugDraw::unload()
+{
+	this->window = nullptr;
 }

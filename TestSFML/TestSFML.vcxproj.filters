@@ -30,7 +30,11 @@
     <ClCompile Include="Slloth-Soft_Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Enums\Animationtype.h">
+=======
+    <ClCompile Include="Game.cpp">
+>>>>>>> GameState_Implementing
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Manager\AssetManager.cpp">
@@ -45,10 +49,26 @@
     <ClCompile Include="Utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Components\ColliderComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Components\RectColliderComponent.cpp">
+=======
+    <ClCompile Include="Manager\GameStateManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStates\ExitState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStates\GameplayState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStates\MenuState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+>>>>>>> GameState_Implementing
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -65,6 +85,7 @@
     <ClInclude Include="Enums\GameState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Components\Components.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -83,5 +104,28 @@
     <ClInclude Include="Components\TransformComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+=======
+    <ClInclude Include="Manager\GameStateManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStates\ExitState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStates\GameplayState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStates\GameState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStates\MenuState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\Animationtype.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+>>>>>>> GameState_Implementing
   </ItemGroup>
 </Project>

@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 #include <cmath>

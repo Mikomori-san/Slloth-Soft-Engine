@@ -1,8 +1,5 @@
 #pragma once
 
-#include <SFML/Audio.hpp>
-#include <SFML/Graphics.hpp>
-
 class AssetManager
 {
 public:
@@ -22,6 +19,8 @@ public:
 	static void loadSound(const std::string& name, const std::string& fileName);
 	static void loadMusic(const std::string& name, const std::string& fileName);
 	static void loadFont(const std::string& name, const std::string& fileName);
+
+	static void unloadAssets();
 
 private:
 

@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+#include "../stdafx.h"
+>>>>>>> GameState_Implementing
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <vector>
