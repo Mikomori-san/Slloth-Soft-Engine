@@ -30,11 +30,10 @@
     <ClCompile Include="Slloth-Soft_Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="Enums\Animationtype.h">
-=======
     <ClCompile Include="Game.cpp">
->>>>>>> GameState_Implementing
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\Animationtype.h">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Manager\AssetManager.cpp">
@@ -49,12 +48,6 @@
     <ClCompile Include="Utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="Components\ColliderComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\RectColliderComponent.cpp">
-=======
     <ClCompile Include="Manager\GameStateManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -68,7 +61,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
->>>>>>> GameState_Implementing
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\ColliderComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\RectColliderComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -85,7 +83,6 @@
     <ClInclude Include="Enums\GameState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-<<<<<<< HEAD
     <ClInclude Include="Components\Components.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -104,7 +101,6 @@
     <ClInclude Include="Components\TransformComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-=======
     <ClInclude Include="Manager\GameStateManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -126,6 +122,5 @@
     <ClInclude Include="Enums\Animationtype.h">
       <Filter>Source Files</Filter>
     </ClInclude>
->>>>>>> GameState_Implementing
   </ItemGroup>
 </Project>

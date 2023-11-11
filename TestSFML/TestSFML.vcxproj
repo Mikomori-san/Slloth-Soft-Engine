@@ -146,12 +146,6 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-<<<<<<< HEAD
-    <ClCompile Include="Components\ColliderComponent.cpp" />
-    <ClCompile Include="Components\RectColliderComponent.cpp" />
-    <ClCompile Include="Enums\Animationtype.h" />
-    <ClCompile Include="DebugDraw.cpp" />
-=======
     <ClInclude Include="Enums\Animationtype.h" />
     <ClCompile Include="DebugDraw.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -159,7 +153,6 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClCompile Include="GameStates\ExitState.cpp" />
     <ClCompile Include="GameStates\GameplayState.cpp" />
     <ClCompile Include="GameStates\MenuState.cpp" />
->>>>>>> GameState_Implementing
     <ClCompile Include="Manager\AssetManager.cpp" />
     <ClCompile Include="Manager\GameStateManager.cpp" />
     <ClCompile Include="Manager\InputManager.cpp" />
@@ -178,9 +171,6 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="Components\TransformComponent.h" />
     <ClInclude Include="DebugDraw.h" />
     <ClInclude Include="Enums\GameState.h" />
-<<<<<<< HEAD
-    <ClInclude Include="GameObjects\GameObjectSharer.h" />
-=======
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObjects\GameObject.h" />
     <ClInclude Include="GameObjects\Player.h" />
@@ -188,7 +178,6 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="GameStates\GameplayState.h" />
     <ClInclude Include="GameStates\GameState.h" />
     <ClInclude Include="GameStates\MenuState.h" />
->>>>>>> GameState_Implementing
     <ClInclude Include="Manager\AssetManager.h" />
     <ClInclude Include="Manager\GameStateManager.h" />
     <ClInclude Include="Manager\InputManager.h" />
