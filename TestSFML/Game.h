@@ -26,8 +26,6 @@ private:
 	sf::RenderWindow window;
 	std::vector<GameObject*> gameObjects;
 
-	GameObject* player = new GameObject(1);
-
 	void closeGame(const sf::Event& event);
 	void initialize();
 	void handleEvents();
