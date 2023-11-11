@@ -28,6 +28,6 @@ public:
 
 private:
 	std::string specificComponentId = "rect";
-	sf::FloatRect Rect_Collider;
+	sf::FloatRect rect_Collider;
 	std::string collider_Tag = "";
 };

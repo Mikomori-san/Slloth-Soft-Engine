@@ -144,21 +144,24 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Components\ColliderComponent.cpp" />
+    <ClCompile Include="Components\RectColliderComponent.cpp" />
     <ClCompile Include="Enums\Animationtype.h" />
     <ClCompile Include="DebugDraw.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameObjects\GameObject.cpp" />
     <ClCompile Include="Manager\AssetManager.cpp" />
     <ClCompile Include="Manager\InputManager.cpp" />
     <ClCompile Include="Slloth-Soft_Main.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Components\ColliderComponent.h" />
     <ClInclude Include="Components\Components.h" />
+    <ClInclude Include="Components\GraphicsComponent.h" />
+    <ClInclude Include="Components\RectColliderComponent.h" />
+    <ClInclude Include="Components\TransformComponent.h" />
     <ClInclude Include="DebugDraw.h" />
     <ClInclude Include="Enums\GameState.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="GameObjects\GameObject.h" />
+    <ClInclude Include="GameObjects\GameObjectSharer.h" />
     <ClInclude Include="Manager\AssetManager.h" />
     <ClInclude Include="Manager\InputManager.h" />
   </ItemGroup>

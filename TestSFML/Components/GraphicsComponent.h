@@ -11,7 +11,7 @@ class GraphicsComponent : public Component
 public:
 	virtual void draw(sf::RenderWindow& window, std::shared_ptr<TransformComponent> t) = 0;
 
-	virtual void initializeGraphics(std::string bitmapName, sf::Vector2f objectSize) = 0;
+	virtual void initializeGraphics(std::shared_ptr<sf::Texture> texture) = 0;
 
 	std::string Component::getId()
 	{

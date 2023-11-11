@@ -15,13 +15,13 @@ void Game::closeGame(const sf::Event& event)
 void Game::initialize()
 {
 	InputManager::getInstance().init(window);
-	
+
 	DebugDraw::getInstance().initialize(window);
 
 	gameObjects = std::vector<GameObject*>();
 
 	player->setPosition(sf::Vector2f(WIDTH / 2, HEIGHT / 2));
-	
+
 	AssetManager::getInstance().loadTexture("PlayerTexture", "Assets\\Textures\\playerSpriteSheet.png");
 
 	player->setSprite(AssetManager::getInstance().Textures["PlayerTexture"]);
@@ -31,7 +31,7 @@ void Game::initialize()
 	AssetManager::getInstance().loadMusic("MusicTrack", "Assets\\Music\\musicTrack.ogg");
 	AssetManager::Music["MusicTrack"]->play();
 
-	for(auto gameObject : gameObjects)
+	for (auto gameObject : gameObjects)
 	{
 		gameObject->initialize();
 	}
@@ -59,8 +59,8 @@ void Game::handleEvents()
 	{
 		if (event.type == sf::Event::Closed || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Key::Escape))
 			window.close();
-		
-		InputManager::getInstance().handleEvents(event);	
+
+		InputManager::getInstance().handleEvents(event);
 	}
 }
 
@@ -110,13 +110,13 @@ void Game::checkAreaBorders()
 
 	if (player->getPosition().y > bottom - player->getCollisionRect().height / 2)
 		player->setPosition(sf::Vector2f(player->getPosition().x, bottom - player->getCollisionRect().height / 2));
-	
+
 	if (player->getPosition().y < top + player->getPlayerCollisionRect().height / 2)
 		player->setPosition(sf::Vector2f(player->getPosition().x, top + player->getCollisionRect().height / 2));
-	
+
 	if (player->getPosition().x > right - player->getCollisionRect().width / 2)
 		player->setPosition(sf::Vector2f(right - player->getCollisionRect().width / 2, player->getPosition().y));
-	
+
 	if (player->getPosition().x < left + player->getCollisionRect().width / 2)
 		player->setPosition(sf::Vector2f(left + player->getCollisionRect().width / 2, player->getPosition().y));
 }
