@@ -1,17 +1,19 @@
 #pragma once
-#include "../GameObjects/GameObjectSharer.h"
+#include "../GameObjects/GameObject.h"
 #include <string>
-
-class GameObject;
 
 class Component
 {
-public:
-	virtual std::string getId() = 0;
-	virtual std::string getSpecificId() = 0;
-	virtual void disableComonent() = 0;
-	virtual void enableComponent() = 0;
-	virtual bool enabled() = 0;
-	virtual void start(GameObjectSharer* gos, GameObject* self) = 0;
+private:
+    std::weak_ptr<GameObject> gameObject;
 
+public:
+    Component(std::weak_ptr<GameObject> gameObject)
+        : gameObject(gameObject) {}
+
+    virtual ~Component() = default;
+    virtual void update() = 0;
+    virtual void receive(int message) = 0;
+    virtual std::string getComponentId() = 0;
+    virtual std::string getSpecificComponentId() = 0;
 };
