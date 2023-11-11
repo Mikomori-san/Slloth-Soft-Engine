@@ -1,12 +1,12 @@
 #pragma once
 #include "GraphicsComponent.h"
 
-class StandardGC : public GraphicsComponent 
+class StandardGraphicsCP : public GraphicsComponent
 {
 private:
     std::string specificComponentId = "standardGC";
 public:
-    StandardGC(std::weak_ptr<GameObject> gameObject, const sf::Sprite& sprite)
+    StandardGraphicsCP(std::weak_ptr<GameObject> gameObject, const sf::Sprite& sprite)
         : GraphicsComponent(gameObject, sprite) {}
 
     void update() override;
