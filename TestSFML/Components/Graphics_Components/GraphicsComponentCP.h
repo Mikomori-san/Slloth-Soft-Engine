@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <memory>
-#include "../Components.h"
+#include "../Component.h"
 
 class GameObject;
 

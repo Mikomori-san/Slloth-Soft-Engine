@@ -10,3 +10,18 @@ void GameObject::update() {
         comp->update();
     }
 }
+
+void GameObject::setVelocity(float newVelocity)
+{
+    velocity = newVelocity;
+}
+
+void GameObject::setPosition(sf::Vector2f newPosition)
+{
+    position = newPosition;
+}
+
+void GameObject::setDirectin(sf::Vector2f newDirection)
+{
+    direction = newDirection;
+}

@@ -1,5 +1,5 @@
 #pragma once
-#include "GraphicsComponent.h"
+#include "GraphicsComponentCP.h"
 
 class AnimatedGraphicsCP : public GraphicsComponent {
 private:
@@ -12,8 +12,6 @@ public:
         : GraphicsComponent(gameObject, sprite), rows(rows), columns(columns) {}
     
     void update() override;
-    
-    void receive(int message) override;
 
     std::string Component::getSpecificComponentId()
     {

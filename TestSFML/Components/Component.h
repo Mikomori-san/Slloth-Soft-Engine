@@ -13,7 +13,6 @@ public:
 
     virtual ~Component() = default;
     virtual void update() = 0;
-    virtual void receive(int message) = 0;
     virtual std::string getComponentId() = 0;
     virtual std::string getSpecificComponentId() = 0;
 };

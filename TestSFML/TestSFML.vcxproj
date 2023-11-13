@@ -146,9 +146,15 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Components\Collision_Components\CollisionComponent.h" />
+    <ClInclude Include="Components\Graphics_Components\AnimatedGraphicsCP.h" />
+    <ClInclude Include="Components\Graphics_Components\GraphicsComponent.h" />
+    <ClInclude Include="Components\Graphics_Components\StandardGraphicsCP.h" />
     <ClInclude Include="Enums\Animationtype.h" />
+    <ClCompile Include="Components\Collision_Components\RectCollisionCP.cpp" />
     <ClCompile Include="DebugDraw.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameObjects\GameObject.cpp" />
     <ClCompile Include="GameObjects\Player.cpp" />
     <ClCompile Include="GameStates\ExitState.cpp" />
     <ClCompile Include="GameStates\GameplayState.cpp" />
