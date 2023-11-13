@@ -8,8 +8,7 @@ private:
     std::weak_ptr<GameObject> gameObject;
 
 public:
-    Component(std::weak_ptr<GameObject> gameObject)
-        : gameObject(gameObject) {}
+    Component(std::weak_ptr<GameObject> gameObject) : gameObject(gameObject) {}
 
     virtual ~Component() = default;
     virtual void update() = 0;

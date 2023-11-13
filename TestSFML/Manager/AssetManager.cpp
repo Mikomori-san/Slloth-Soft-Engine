@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "AssetManager.h"
-#include <iostream>
 
 std::map<std::string, std::shared_ptr<sf::Texture>> AssetManager::Textures;
 std::map<std::string, std::shared_ptr<sf::Sound>> AssetManager::Sounds;

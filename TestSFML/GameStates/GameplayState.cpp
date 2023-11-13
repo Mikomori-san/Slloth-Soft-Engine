@@ -1,12 +1,15 @@
 #include "stdafx.h"
 #include "GameplayState.h"
+#include "../Components/Specific_Components/PlayerGraphicsCP.h"
 
 void GameplayState::init(sf::RenderWindow& rWindow)
 {
-	this->player = std::make_shared<Player>();
-
 	this->window.reset(&rWindow, [](sf::RenderWindow*) {}); //Hahaha, ich bin ein böser Hacker :]
 
+	this->player = std::make_shared<GameObject>();
+	
+	//PlayerGraphicsCP playerGraphicsCP(player);
+	//player->addComponent(std::make_shared<PlayerGraphicsCP>(playerGraphicsCP));
 	DebugDraw::getInstance().initialize(*window);
 
 	player->setPosition(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2));

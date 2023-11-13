@@ -1,15 +1,15 @@
 #pragma once
-#include "GraphicsComponentCP.h"
+#include "GraphicsCP.h"
 
-class AnimatedGraphicsCP : public GraphicsComponent {
+class AnimatedGraphicsCP : public GraphicsCP {
 private:
     int rows;
     int columns;
     std::string specificComponentId = "animatedGC";
 
 public:
-    AnimatedGraphicsCP(std::weak_ptr<GameObject> gameObject, const sf::Sprite& sprite, int rows, int columns)
-        : GraphicsComponent(gameObject, sprite), rows(rows), columns(columns) {}
+    AnimatedGraphicsCP(std::weak_ptr<GameObject> gameObject, const sf::Sprite& sprite, int rows, int columns) 
+        : GraphicsCP(gameObject, sprite), rows(rows), columns(columns) {}
     
     void update() override;
 

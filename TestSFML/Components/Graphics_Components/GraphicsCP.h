@@ -5,17 +5,17 @@
 
 class GameObject;
 
-class GraphicsComponent : public Component 
+class GraphicsCP : public Component 
 {
 private:
     std::string componentId = "graphics";
     sf::Sprite sprite;
 
 public:
-    GraphicsComponent(std::weak_ptr<GameObject> gameObject, const sf::Sprite& sprite)
+    GraphicsCP(std::weak_ptr<GameObject> gameObject, const sf::Sprite& sprite)
         : Component(gameObject), sprite(sprite) {}
 
-    virtual ~GraphicsComponent() = default;
+    virtual ~GraphicsCP() = default;
 
     std::string Component::getComponentId()
     {
