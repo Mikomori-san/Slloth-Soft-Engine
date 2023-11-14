@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "GameplayState.h"
-#include "../Components/Specific_Components/PlayerGraphicsCP.h"
+#include "../Components/Graphics_Components/AnimatedGraphicsCP.h"
 
 void GameplayState::init(sf::RenderWindow& rWindow)
 {
@@ -8,15 +8,12 @@ void GameplayState::init(sf::RenderWindow& rWindow)
 
 	this->player = std::make_shared<GameObject>();
 	
-	//PlayerGraphicsCP playerGraphicsCP(player);
-	//player->addComponent(std::make_shared<PlayerGraphicsCP>(playerGraphicsCP));
+	addPlayerComponents();
+	
 	DebugDraw::getInstance().initialize(*window);
 
 	player->setPosition(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2));
 
-	AssetManager::getInstance().loadTexture("PlayerTexture", "Assets\\Textures\\playerSpriteSheet.png");
-
-	player->setSprite(AssetManager::getInstance().Textures["PlayerTexture"]);
 	gameObjects.push_back(player);
 
 	AssetManager::getInstance().loadSound("CompleteSound", "Assets\\Sounds\\completeSound.wav");
@@ -25,7 +22,7 @@ void GameplayState::init(sf::RenderWindow& rWindow)
 
 	for (auto& gameObject : gameObjects)
 	{
-		gameObject->initialize();
+		gameObject->init();
 	}
 }
 
@@ -99,4 +96,14 @@ void GameplayState::drawFloor(sf::Vector2f position, sf::Vector2i tiles, sf::Vec
 void GameplayState::respawnPlayer()
 {
 	player->setPosition(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2));
+}
+
+void GameplayState::addPlayerComponents()
+{
+	const int PLAYER_ANIMATION_SPEED = 8;
+	AssetManager::getInstance().loadTexture("PlayerTexture", "Assets\\Textures\\playerSpriteSheet.png");
+	std::vector<int> playerSpriteSheetAnimationCounts = { 3, 3, 1, 3, 10, 10, 10, 10 };
+
+	AnimatedGraphicsCP playerGraphicsCP(player, "PlayerSpriteCP", *window, *AssetManager::getInstance().Textures["PlayerTexture"], playerSpriteSheetAnimationCounts, PLAYER_ANIMATION_SPEED);
+	player->addComponent(std::make_shared<AnimatedGraphicsCP>(playerGraphicsCP));
 }

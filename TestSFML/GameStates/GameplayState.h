@@ -21,4 +21,5 @@ private:
 	void checkAreaBorders();
 	void drawFloor(sf::Vector2f position, sf::Vector2i tiles, sf::Vector2i tileSize);
 	void respawnPlayer();
+	void addPlayerComponents();
 };

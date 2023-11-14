@@ -12,11 +12,11 @@ public:
 	~GameObject(){}
 
 	void addComponent(std::shared_ptr<Component> component);
-	void update();
+	void update(float deltaTime);
 	void setVelocity(float newVelocity);
 	void setPosition(sf::Vector2f newPosition);
 	void setDirectin(sf::Vector2f newDirection);
-
+    void init();
 private:
 	float velocity;
 
@@ -30,32 +30,8 @@ private:
 
 
 /*
-Player Draw:
-
-doAnimation();
-
-	window.draw(animatedSprite);
-
-	DebugDraw::getInstance().drawRectOutline(
-		sf::Vector2f(animatedSprite.getGlobalBounds().left, animatedSprite.getGlobalBounds().top),
-		static_cast<int>(animatedSprite.getGlobalBounds().width),
-		static_cast<int>(animatedSprite.getGlobalBounds().height),
-		sf::Color::Red
-	);
-
-	DebugDraw::getInstance().drawRectOutline(CollisionRect, sf::Color::Green);
 
 Player Initialize:
-
-animatedSprite.setScale(sf::Vector2f(1, 1));
-	animatedSprite.setPosition(sf::Vector2f(0, 0));
-
-	animatedSprite.setTextureRect(sf::IntRect(
-		0,
-		0,
-		animatedSprite.getTextureRect().width / TILING_X,
-		animatedSprite.getTextureRect().height / TILING_Y
-	));
 
 	setOrigin(sf::Vector2f(animatedSprite.getTextureRect().width / 2, animatedSprite.getTextureRect().height / 2));
 
@@ -65,19 +41,16 @@ animatedSprite.setScale(sf::Vector2f(1, 1));
 Player Update:
 
 updateTransform();
-	updateCollider();
-	handleIdle();
+updateCollider();
 
-	handleInput(deltaTime);
+handleInput(deltaTime);
 
-	animationTimeIndex += deltaTime * ANIMATION_SPEED;
-
-	PlayerCollisionRect = sf::IntRect(
-		(int)getPosition().x,
-		(int)getPosition().y,
-		(int)animatedSprite.getGlobalBounds().width,
-		(int)animatedSprite.getGlobalBounds().height
-	);
+PlayerCollisionRect = sf::IntRect(
+	(int)getPosition().x,
+	(int)getPosition().y,
+	(int)animatedSprite.getGlobalBounds().width,
+	(int)animatedSprite.getGlobalBounds().height
+);
 
 
 void Player::updateTransform()
@@ -120,45 +93,4 @@ void Player::handleInput(float deltaTime)
         move(sf::Vector2f(1, 0) * moveSpeed * deltaTime);
     }
 }
-
-void Player::handleIdle()
-{
-    switch (m_animationType)
-    {
-    case RunDown:
-        m_animationType = Animationtype::IdleDown;
-        break;
-    case RunLeft:
-        m_animationType = Animationtype::IdleLeft;
-        break;
-    case RunUp:
-        m_animationType = Animationtype::IdleUp;
-        break;
-    case RunRight:
-        m_animationType = Animationtype::IdleRight;
-        break;
-    default:
-        break;
-    }
-}
-
-void Player::doAnimation()
-{
-    auto animationFrame = (int)animationTimeIndex % animationTypeFramesCount[(int)m_animationType];
-
-    sf::IntRect textureRect;
-    textureRect.left = animationFrame * animatedSprite.getTextureRect().width;
-    textureRect.top = m_animationType * animatedSprite.getTextureRect().height;
-    textureRect.width = animatedSprite.getTextureRect().width;
-    textureRect.height = animatedSprite.getTextureRect().height;
-
-    animatedSprite.setTextureRect(textureRect);
-
-}
-
-void Player::setSprite(std::shared_ptr<sf::Texture> texture)
-{
-    animatedSprite.setTexture(*texture);
-}
-
 */

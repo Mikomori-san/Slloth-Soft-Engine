@@ -5,9 +5,9 @@ void GameObject::addComponent(std::shared_ptr<Component> component) {
     components.push_back(component);
 }
 
-void GameObject::update() {
+void GameObject::update(float deltaTime) {
     for (auto& comp : components) {
-        comp->update();
+        comp->update(deltaTime);
     }
 }
 
@@ -24,4 +24,11 @@ void GameObject::setPosition(sf::Vector2f newPosition)
 void GameObject::setDirectin(sf::Vector2f newDirection)
 {
     direction = newDirection;
+}
+
+void GameObject::init()
+{
+    for (auto& comp : components) {
+        comp->init();
+    }
 }
