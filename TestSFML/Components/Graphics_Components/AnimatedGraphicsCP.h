@@ -24,6 +24,7 @@ public:
     void update(float deltaTime) override;
     void draw() override;
     void setSprite(std::shared_ptr<sf::Texture> texture) override;
+    void setAnimationType();
     
 private:
     std::shared_ptr<sf::RenderWindow> window;

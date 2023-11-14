@@ -66,7 +66,7 @@
     <ClCompile Include="Components\Graphics_Components\AnimatedGraphicsCP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Components\Input_Components\PlayerInputComponentCP.cpp">
+    <ClCompile Include="Components\Input_Components\MovementInputCP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameObjects\GameObject.cpp">
@@ -76,6 +76,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Components\Graphics_Components\GraphicsCP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Collision_Components\CircleCollisionCP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -146,10 +149,10 @@
     <ClInclude Include="Components\Graphics_Components\StandardGraphicsCP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Components\Input_Components\InputComponentCP.h">
+    <ClInclude Include="Components\Input_Components\InputCP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Components\Input_Components\PlayerInputComponentCP.h">
+    <ClInclude Include="Components\Input_Components\MovementInputCP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
@@ -159,6 +162,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameObjects\Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Collision_Components\RectCollisionCP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Collision_Components\CircleCollisionCP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
