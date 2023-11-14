@@ -58,7 +58,7 @@ void GameplayState::render()
 
 	for (auto gameObject : gameObjects)
 		gameObject->draw(*window);
-
+	//If GameObject got a Component that needs to be drawn, implement the logic here => AnimatedSpriteCP for example, draw() currently in their update method
 }
 
 void GameplayState::checkAreaBorders()

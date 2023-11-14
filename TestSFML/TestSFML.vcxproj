@@ -196,6 +196,19 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="Manager\InputManager.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Textures\crystal.png" />
+    <Image Include="Assets\Textures\LavaTile.png" />
+    <Image Include="Assets\Textures\playerSpriteSheet.png" />
+    <Image Include="Assets\Textures\projectile.png" />
+    <Image Include="Assets\Textures\skull.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Assets\Sounds\completeSound.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Music\musicTrack.ogg" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
