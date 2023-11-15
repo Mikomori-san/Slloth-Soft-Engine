@@ -84,6 +84,9 @@
     <ClCompile Include="Components\Input_Components\InputCP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Components\Transformation_Components\TransformationCP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Manager\AssetManager.h">
@@ -171,6 +174,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Components\Collision_Components\CircleCollisionCP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Transformation_Components\TransformationCP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

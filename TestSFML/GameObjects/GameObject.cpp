@@ -21,7 +21,7 @@ void GameObject::setPosition(sf::Vector2f newPosition)
     position = newPosition;
 }
 
-void GameObject::setDirectin(sf::Vector2f newDirection)
+void GameObject::setDirection(sf::Vector2f newDirection)
 {
     direction = newDirection;
 }

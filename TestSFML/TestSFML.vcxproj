@@ -156,6 +156,7 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="Components\Graphics_Components\StandardGraphicsCP.h" />
     <ClInclude Include="Components\Input_Components\InputCP.h" />
     <ClInclude Include="Components\Input_Components\MovementInputCP.h" />
+    <ClInclude Include="Components\Transformation_Components\TransformationCP.h" />
     <ClInclude Include="Enums\Animationtype.h" />
     <ClCompile Include="Components\Collision_Components\CircleCollisionCP.cpp" />
     <ClCompile Include="Components\Collision_Components\RectCollisionCP.cpp" />
@@ -163,6 +164,7 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClCompile Include="Components\Graphics_Components\GraphicsCP.cpp" />
     <ClCompile Include="Components\Input_Components\InputCP.cpp" />
     <ClCompile Include="Components\Input_Components\MovementInputCP.cpp" />
+    <ClCompile Include="Components\Transformation_Components\TransformationCP.cpp" />
     <ClCompile Include="DebugDraw.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObjects\GameObject.cpp" />
