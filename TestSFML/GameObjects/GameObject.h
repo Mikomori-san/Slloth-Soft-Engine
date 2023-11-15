@@ -13,18 +13,12 @@ public:
 
 	void addComponent(std::shared_ptr<Component> component);
 	void update(float deltaTime);
-	void setVelocity(float newVelocity);
 	void setPosition(sf::Vector2f newPosition);
-	void setDirectin(sf::Vector2f newDirection);
     void init();
 private:
-	float velocity;
 
 	sf::Vector2f position;
-	sf::Vector2f direction;
-
 	std::string id;
-	
 	std::vector<std::shared_ptr<Component>> components;
 };
 
@@ -43,7 +37,6 @@ Player Update:
 updateTransform();
 updateCollider();
 
-handleInput(deltaTime);
 
 PlayerCollisionRect = sf::IntRect(
 	(int)getPosition().x,
@@ -68,29 +61,5 @@ void Player::updateCollider()
         (int)getPosition().y - colliderSize.y / 2,
         colliderSize.x,
         colliderSize.y);
-}
-
-void Player::handleInput(float deltaTime)
-{
-    if (InputManager::getInstance().getKeyPressed(sf::Keyboard::W))
-    {
-        m_animationType = Animationtype::RunUp;
-        move(sf::Vector2f(0, -1) * moveSpeed * deltaTime);
-    }
-    else if (InputManager::getInstance().getKeyPressed(sf::Keyboard::A))
-    {
-        m_animationType = Animationtype::RunLeft;
-        move(sf::Vector2f(-1, 0) * moveSpeed * deltaTime);
-    }
-    else if (InputManager::getInstance().getKeyPressed(sf::Keyboard::S))
-    {
-        m_animationType = Animationtype::RunDown;
-        move(sf::Vector2f(0, 1) * moveSpeed * deltaTime);
-    }
-    else if (InputManager::getInstance().getKeyPressed(sf::Keyboard::D))
-    {
-        m_animationType = Animationtype::RunRight;
-        move(sf::Vector2f(1, 0) * moveSpeed * deltaTime);
-    }
 }
 */

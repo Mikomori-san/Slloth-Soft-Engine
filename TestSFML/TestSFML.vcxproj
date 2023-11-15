@@ -161,6 +161,7 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClCompile Include="Components\Collision_Components\RectCollisionCP.cpp" />
     <ClCompile Include="Components\Graphics_Components\AnimatedGraphicsCP.cpp" />
     <ClCompile Include="Components\Graphics_Components\GraphicsCP.cpp" />
+    <ClCompile Include="Components\Input_Components\InputCP.cpp" />
     <ClCompile Include="Components\Input_Components\MovementInputCP.cpp" />
     <ClCompile Include="DebugDraw.cpp" />
     <ClCompile Include="Game.cpp" />

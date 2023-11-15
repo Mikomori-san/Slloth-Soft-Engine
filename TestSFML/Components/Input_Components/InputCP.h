@@ -3,7 +3,7 @@
 #include "../../Manager/InputManager.h"
 
 
-class InputCP : Component
+class InputCP : protected Component
 {
 public:
 	InputCP(std::weak_ptr<GameObject> gameObject, std::string id)
@@ -12,9 +12,10 @@ public:
 
 	virtual ~InputCP() = default;
 
-	virtual std::string getComponentId() override { return componentId; }
-	virtual void update(float deltaTime) override;
-	virtual void procesInput();
+	virtual std::string getComponentId() override { return this->componentId; }
+	virtual void setComponentId(std::string id) override { this->componentId = id; }
+	virtual void update(float deltaTime) override {};
+	virtual void processInput() {};
 
 private:
 

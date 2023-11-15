@@ -5,7 +5,7 @@
 
 class GameObject;
 
-class GraphicsCP : public Component 
+class GraphicsCP : protected Component 
 {
 public:
     GraphicsCP(std::weak_ptr<GameObject> gameObject, std::string id, const sf::Texture& texture)
@@ -15,7 +15,7 @@ public:
     virtual ~GraphicsCP() = default;
 
     virtual std::string getComponentId() override { return componentId; }
-    virtual void setComponentId(std::string id) { this->componentId = id; }
+    virtual void setComponentId(std::string id) override { this->componentId = id; }
 
     virtual void update(float deltaTime) override;
     virtual void init() override;

@@ -46,6 +46,11 @@ void AnimatedGraphicsCP::setSprite(std::shared_ptr<sf::Texture> texture)
 	this->sprite->setTexture(*texture);
 }
 
+void AnimatedGraphicsCP::setAnimationType(Animationtype type)
+{
+	this->m_animationType = type;
+}
+
 void AnimatedGraphicsCP::doAnimation()
 {
 	auto animationFrame = (int)animationTimeIndex % animationTypeFramesCount[(int)m_animationType];
