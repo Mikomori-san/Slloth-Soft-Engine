@@ -18,6 +18,7 @@ public:
 	virtual void setVelocity(float vel) { this->velocity = vel; }
 	virtual void setDirection(sf::Vector2f dir) { this->direction = dir; }
 	virtual void setDirection(float x, float y) { this->direction = sf::Vector2f(x, y); }
+	void init() override;
 
 protected:
 	float velocity = 0;

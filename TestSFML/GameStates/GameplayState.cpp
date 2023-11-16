@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "GameplayState.h"
 #include "../Components/Graphics_Components/AnimatedGraphicsCP.h"
+#include "../Components/Transformation_Components/TransformationCP.h"
+#include "../Components/Input_Components/MovementInputCP.h"
 
 void GameplayState::init(sf::RenderWindow& rWindow)
 {
@@ -56,9 +58,16 @@ void GameplayState::render()
 		sf::Vector2i(TILE_SIZE, TILE_SIZE)
 	);
 
-	for (auto gameObject : gameObjects)
-		gameObject->draw(*window);
-	//If GameObject got a Component that needs to be drawn, implement the logic here => AnimatedSpriteCP for example, draw() currently in their update method
+	for (auto& gameObject : gameObjects)
+	{
+		for (auto& component : gameObject->getComponents())
+		{
+			if (std::shared_ptr<AnimatedGraphicsCP> aniGraphCP = std::dynamic_pointer_cast<AnimatedGraphicsCP>(component))
+			{
+				aniGraphCP->draw();
+			}
+		}
+	}	
 }
 
 void GameplayState::checkAreaBorders()
@@ -105,5 +114,14 @@ void GameplayState::addPlayerComponents()
 	std::vector<int> playerSpriteSheetAnimationCounts = { 3, 3, 1, 3, 10, 10, 10, 10 };
 
 	AnimatedGraphicsCP playerGraphicsCP(player, "PlayerSpriteCP", *window, *AssetManager::getInstance().Textures["PlayerTexture"], playerSpriteSheetAnimationCounts, PLAYER_ANIMATION_SPEED);
-	player->addComponent(std::make_shared<AnimatedGraphicsCP>(playerGraphicsCP));
+	player->addComponent(std::make_shared<Component>(playerGraphicsCP));
+
+	const float VELOCITY = 8;
+	TransformationCP transCP(player, "PlayerTransformation");
+	transCP.setVelocity(VELOCITY);
+	player->addComponent(std::make_shared<Component>(transCP));
+
+	MovementInputCP movementInputCP(player, "MovementInputCP", std::make_shared<AnimatedGraphicsCP>(playerGraphicsCP), std::make_shared<TransformationCP>(transCP));
+	player->addComponent(std::make_shared<Component>(movementInputCP));
+
 }

@@ -13,8 +13,10 @@ public:
 
 	void addComponent(std::shared_ptr<Component> component);
 	void update(float deltaTime);
-	void setPosition(sf::Vector2f newPosition);
+	void setPosition(sf::Vector2f newPosition) { position = position; }
+	sf::Vector2f getPosition() { return position; }
     void init();
+	std::vector<std::shared_ptr<Component>>& getComponents() { return components; }
 private:
 
 	sf::Vector2f position;

@@ -11,21 +11,6 @@ void GameObject::update(float deltaTime) {
     }
 }
 
-void GameObject::setVelocity(float newVelocity)
-{
-    velocity = newVelocity;
-}
-
-void GameObject::setPosition(sf::Vector2f newPosition)
-{
-    position = newPosition;
-}
-
-void GameObject::setDirection(sf::Vector2f newDirection)
-{
-    direction = newDirection;
-}
-
 void GameObject::init()
 {
     for (auto& comp : components) {

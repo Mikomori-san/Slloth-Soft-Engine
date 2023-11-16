@@ -41,3 +41,8 @@ void MovementInputCP::processInput()
         }
     }
 }
+
+void MovementInputCP::init()
+{
+
+}

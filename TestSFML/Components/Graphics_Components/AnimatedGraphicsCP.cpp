@@ -19,7 +19,6 @@ void AnimatedGraphicsCP::update(float deltaTime)
 {
 	animationTimeIndex += deltaTime * ANIMATION_SPEED;
 	handleIdle();
-	draw();
 }
 
 void AnimatedGraphicsCP::draw()

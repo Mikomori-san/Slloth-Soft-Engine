@@ -15,9 +15,11 @@ public:
 	std::string getComponentId() override { return this->componentId; }
 	void setComponentId(std::string id) { this->componentId = id; }
 	void update(float deltatime) override;
-	void processInput() override;
+	void init() override;
 
 private:
 	std::weak_ptr<AnimatedGraphicsCP> animatedGraphicsCP;
 	std::weak_ptr<TransformationCP> transformationCP;
+	
+	void processInput() override;
 };
