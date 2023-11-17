@@ -137,9 +137,6 @@
     <ClInclude Include="Enums\Animationtype.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Components\Collision_Components\CollisionComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Components\Component.h">
       <Filter>Header Files</Filter>
     </ClInclude>

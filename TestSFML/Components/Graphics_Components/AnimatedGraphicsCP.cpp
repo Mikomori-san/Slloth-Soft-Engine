@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "AnimatedGraphicsCP.h"
 #include "../../DebugDraw.h"
+#include "../Transformation_Components/TransformationCP.h"
+#include "../Collision_Components/RectCollisionCP.h"
 
 void AnimatedGraphicsCP::init()
 {
@@ -19,6 +21,17 @@ void AnimatedGraphicsCP::update(float deltaTime)
 {
 	animationTimeIndex += deltaTime * ANIMATION_SPEED;
 	handleIdle();
+	if (!gameObject.expired())
+	{
+		std::shared_ptr<GameObject> go = gameObject.lock();
+		std::shared_ptr<TransformationCP> transform = std::dynamic_pointer_cast<TransformationCP>(go->getComponent("PlayerTransformationCP"));
+
+
+		sprite->setPosition(transform->getPosition());
+		sprite->setRotation(transform->getRotation());
+		sprite->setScale(transform->getScale(), transform->getScale());
+		sprite->setOrigin(transform->getOrigin());
+	}
 }
 
 void AnimatedGraphicsCP::draw()
@@ -26,18 +39,18 @@ void AnimatedGraphicsCP::draw()
 	doAnimation();
 	window->draw(*sprite);
 
-	/* 
-	In Cooperation with the Physics Component:
-
 	DebugDraw::getInstance().drawRectOutline(
 		sf::Vector2f(sprite->getGlobalBounds().left, sprite->getGlobalBounds().top),
 		static_cast<int>(sprite->getGlobalBounds().width),
 		static_cast<int>(sprite->getGlobalBounds().height),
 		sf::Color::Red
 	);
-
-	DebugDraw::getInstance().drawRectOutline(CollisionRect, sf::Color::Green);
-	*/
+	if (!gameObject.expired())
+	{
+		std::shared_ptr<GameObject> go = gameObject.lock();
+		std::shared_ptr<RectCollisionCP> collision = std::dynamic_pointer_cast<RectCollisionCP>(go->getComponent("PlayerCollisionCP"));
+		DebugDraw::getInstance().drawRectOutline(collision->getCollisionRect(), sf::Color::Green);
+	}
 }
 
 void AnimatedGraphicsCP::setSprite(std::shared_ptr<sf::Texture> texture)

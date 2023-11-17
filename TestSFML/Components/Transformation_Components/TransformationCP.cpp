@@ -1,17 +1,21 @@
 #include "stdafx.h"
 #include "TransformationCP.h"
+#include "../Graphics_Components/AnimatedGraphicsCP.h"
 
 void TransformationCP::update(float deltaTime)
 {
-	if (!gameObject.expired())
-	{
-		std::shared_ptr<GameObject> go = gameObject.lock();
-
-		go->setPosition(go->getPosition() + direction * velocity * deltaTime);
-	}
+	position = position + direction * velocity * deltaTime;
 }
 
 void TransformationCP::init()
 {
+	if (!gameObject.expired())
+	{
+		std::shared_ptr<GameObject> go = gameObject.lock();
+		
+		std::shared_ptr<AnimatedGraphicsCP> ani = std::dynamic_pointer_cast<AnimatedGraphicsCP>(go->getComponent("PlayerSpriteCP"));
+		sf::Vector2f origin(ani->getSprite().getTextureRect().width / 2, ani->getSprite().getTextureRect().height / 2);
+		setOrigin(origin);
+	}
 	
 }

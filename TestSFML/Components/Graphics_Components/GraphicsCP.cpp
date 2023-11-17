@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "GraphicsCP.h"
 
 void GraphicsCP::update(float deltaTime)

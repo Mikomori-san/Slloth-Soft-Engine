@@ -147,7 +147,6 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Components\Collision_Components\CircleCollisionCP.h" />
-    <ClInclude Include="Components\Collision_Components\CollisionComponent.h" />
     <ClInclude Include="Components\Collision_Components\RectCollisionCP.h" />
     <ClInclude Include="Components\Component.h" />
     <ClInclude Include="Components\Graphics_Components\AnimatedGraphicsCP.h" />

@@ -2,6 +2,8 @@
 #include "../GameObjects/GameObject.h"
 #include <string>
 
+class GameObject;
+
 class Component
 {
 public:

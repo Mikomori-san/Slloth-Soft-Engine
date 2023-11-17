@@ -25,6 +25,7 @@ public:
     void draw() override;
     void setSprite(std::shared_ptr<sf::Texture> texture) override;
     void setAnimationType(Animationtype type);
+    sf::Sprite& getSprite() { return *sprite; }
     
 private:
     std::shared_ptr<sf::RenderWindow> window;
