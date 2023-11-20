@@ -3,7 +3,7 @@
 #include "../../Manager/InputManager.h"
 
 
-class TransformationCP : protected Component
+class TransformationCP : public Component
 {
 public:
 	TransformationCP(std::weak_ptr<GameObject> gameObject, std::string id, sf::Vector2f& pos, float rotation, float scale)

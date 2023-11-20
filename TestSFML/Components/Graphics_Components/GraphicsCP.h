@@ -5,7 +5,7 @@
 
 class GameObject;
 
-class GraphicsCP : protected Component 
+class GraphicsCP : public Component 
 {
 public:
     GraphicsCP(std::weak_ptr<GameObject> gameObject, std::string id, const sf::Texture& texture)

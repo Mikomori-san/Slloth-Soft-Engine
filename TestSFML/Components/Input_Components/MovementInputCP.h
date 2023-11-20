@@ -4,7 +4,7 @@
 #include "../Graphics_Components/AnimatedGraphicsCP.h"
 #include "../Transformation_Components/TransformationCP.h"
 
-class MovementInputCP : protected InputCP
+class MovementInputCP : public InputCP
 {
 public:
 	MovementInputCP(std::weak_ptr<GameObject> gameObject, std::string id, std::weak_ptr<AnimatedGraphicsCP> animatedGraphicsCP_, std::weak_ptr<TransformationCP> transformationCP_)

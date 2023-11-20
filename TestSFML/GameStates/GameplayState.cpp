@@ -9,7 +9,7 @@ void GameplayState::init(sf::RenderWindow& rWindow)
 {
 	this->window.reset(&rWindow, [](sf::RenderWindow*) {}); //Hahaha, ich bin ein böser Hacker :]
 
-	this->player = std::make_shared<GameObject>();
+	this->player = std::make_shared<GameObject>("Player");
 	
 	addPlayerComponents();
 	
@@ -130,7 +130,6 @@ void GameplayState::respawnPlayer()
 			transf->setPosition(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2));
 		}
 	}
-	
 }
 
 void GameplayState::addPlayerComponents()
@@ -139,16 +138,21 @@ void GameplayState::addPlayerComponents()
 	AssetManager::getInstance().loadTexture("PlayerTexture", "Assets\\Textures\\playerSpriteSheet.png");
 	std::vector<int> playerSpriteSheetAnimationCounts = { 3, 3, 1, 3, 10, 10, 10, 10 };
 
-	AnimatedGraphicsCP playerGraphicsCP(player, "PlayerSpriteCP", *window, *AssetManager::getInstance().Textures["PlayerTexture"], playerSpriteSheetAnimationCounts, PLAYER_ANIMATION_SPEED);
-	player->addComponent(std::make_shared<Component>(playerGraphicsCP));
+	std::shared_ptr<AnimatedGraphicsCP> playerGraphicsCP = std::make_shared<AnimatedGraphicsCP>(
+		player, "PlayerSpriteCP", window, *AssetManager::getInstance().Textures.at("PlayerTexture"), playerSpriteSheetAnimationCounts, PLAYER_ANIMATION_SPEED
+	);
+
+	player->addComponent(playerGraphicsCP);
 
 	const float VELOCITY = 8;
 	sf::Vector2f pos(window->getSize().x / 2, window->getSize().y / 2);
-	TransformationCP transCP(player, "PlayerTransformationCP", pos, 0, 1);
-	transCP.setVelocity(VELOCITY);
-	player->addComponent(std::make_shared<Component>(transCP));
+	std::shared_ptr<TransformationCP> transCP = std::make_shared<TransformationCP>(player, "PlayerTransformationCP", pos, 0, 1);
+	transCP->setVelocity(VELOCITY);
+	player->addComponent(transCP);
 
-	MovementInputCP movementInputCP(player, "MovementInputCP", std::make_shared<AnimatedGraphicsCP>(playerGraphicsCP), std::make_shared<TransformationCP>(transCP));
-	player->addComponent(std::make_shared<Component>(movementInputCP));
+	std::shared_ptr<MovementInputCP> movementInputCP = std::make_shared<MovementInputCP>(
+		player, "MovementInputCP", std::make_shared<AnimatedGraphicsCP>(playerGraphicsCP), std::make_shared<TransformationCP>(transCP)
+	);
+	player->addComponent(movementInputCP);
 
 }

@@ -3,7 +3,7 @@
 #include "../../Manager/InputManager.h"
 
 
-class InputCP : protected Component
+class InputCP : public Component
 {
 public:
 	InputCP(std::weak_ptr<GameObject> gameObject, std::string id)
