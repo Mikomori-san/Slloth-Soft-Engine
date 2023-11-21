@@ -18,6 +18,8 @@ public:
             TILING_Y(animationTypeFramesCount.size())
     {}
 
+    ~AnimatedGraphicsCP() = default;
+
     std::string getComponentId() override { return componentId; }
     void setComponentId(std::string id) override { this->componentId = id; }
     void init() override;
@@ -25,7 +27,7 @@ public:
     void draw() override;
     void setSprite(std::shared_ptr<sf::Texture> texture) override;
     void setAnimationType(Animationtype type);
-    sf::Sprite& getSprite() { return *sprite; }
+    sf::Sprite& getSprite() override { return *sprite; }
     
 private:
     std::shared_ptr<sf::RenderWindow> window;

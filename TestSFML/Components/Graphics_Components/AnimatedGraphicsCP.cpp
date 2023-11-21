@@ -49,7 +49,7 @@ void AnimatedGraphicsCP::draw()
 	{
 		std::shared_ptr<GameObject> go = gameObject.lock();
 		std::shared_ptr<RectCollisionCP> collision = std::dynamic_pointer_cast<RectCollisionCP>(go->getComponent("PlayerCollisionCP"));
-		DebugDraw::getInstance().drawRectOutline(collision->getCollisionRect(), sf::Color::Green);
+		//DebugDraw::getInstance().drawRectOutline(collision->getCollisionRect(), sf::Color::Green);
 	}
 }
 
