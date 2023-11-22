@@ -33,9 +33,9 @@ void RectCollisionCP::init()
 void RectCollisionCP::updateCollider(std::shared_ptr<GameObject> go)
 {
     std::shared_ptr<TransformationCP> playerCol = std::dynamic_pointer_cast<TransformationCP>(go->getComponent("PlayerTransformationCP"));
-        collisionRect = sf::IntRect(
-            (int)playerCol->getPosition().x - colliderSize.x / 2,
-            (int)playerCol->getPosition().y - colliderSize.y / 2,
-            colliderSize.x,
-            colliderSize.y);
+    collisionRect = sf::IntRect(
+        (int)playerCol->getPosition().x - colliderSize.x / 2,
+        (int)playerCol->getPosition().y - colliderSize.y / 2,
+        colliderSize.x,
+        colliderSize.y);
 }

@@ -34,7 +34,7 @@ public:
 	sf::Vector2f& getOrigin() { return origin; }
 	void setOrigin(sf::Vector2f ori) { origin = ori; }
 
-	void setPosition(sf::Vector2f newPosition) { position = position; }
+	void setPosition(sf::Vector2f newPosition) { position = newPosition; }
 	sf::Vector2f& getPosition() { return position; }
 
 protected:

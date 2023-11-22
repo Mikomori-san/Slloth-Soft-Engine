@@ -3,6 +3,9 @@
 class RectCollisionCP : public Component
 {
 public:
+
+    RectCollisionCP(std::weak_ptr<GameObject> gameObject, std::string id) : Component(gameObject, id){}
+
     void update(float deltaTime) override;
     std::string getComponentId() override { return this->componentId; };
     void setComponentId(std::string id) override { this->componentId = id; }

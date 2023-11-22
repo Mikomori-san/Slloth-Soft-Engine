@@ -145,4 +145,7 @@ void GameplayState::addPlayerComponents()
 		player, "MovementInputCP", playerGraphicsCP, transCP
 	);
 	player->addComponent(movementInputCP);
+
+	std::shared_ptr<RectCollisionCP> playerCollisionCP = std::make_shared<RectCollisionCP>(player, "PlayerCollisionCP");
+	player->addComponent(playerCollisionCP);
 }
