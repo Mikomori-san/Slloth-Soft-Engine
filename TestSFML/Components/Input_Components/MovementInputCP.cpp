@@ -8,7 +8,7 @@ void MovementInputCP::update(float deltatime)
 
 void MovementInputCP::processInput()
 {
-    if (!animatedGraphicsCP.expired() && !transformationCP.expired())
+    if (!animatedGraphicsCP.expired() && !transformationCP.expired() && !gameObject.expired())
     {
         std::shared_ptr<GameObject> go = gameObject.lock();
         std::shared_ptr<AnimatedGraphicsCP> aniGraphics = animatedGraphicsCP.lock();

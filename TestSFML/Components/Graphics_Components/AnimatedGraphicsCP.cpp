@@ -26,7 +26,6 @@ void AnimatedGraphicsCP::update(float deltaTime)
 		std::shared_ptr<GameObject> go = gameObject.lock();
 		std::shared_ptr<TransformationCP> transform = std::dynamic_pointer_cast<TransformationCP>(go->getComponent("PlayerTransformationCP"));
 
-
 		sprite->setPosition(transform->getPosition());
 		sprite->setRotation(transform->getRotation());
 		sprite->setScale(transform->getScale(), transform->getScale());
