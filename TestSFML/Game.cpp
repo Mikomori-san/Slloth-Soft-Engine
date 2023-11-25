@@ -22,8 +22,6 @@ void Game::initialize()
 	GameStateManager::getInstance().reg("Exit", std::make_shared<ExitState>());
 
 	GameStateManager::getInstance().setState("Gameplay", window);
-
-	//Test if i am on the right branch
 }
 
 void Game::run()
