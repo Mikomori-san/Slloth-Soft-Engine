@@ -133,3 +133,114 @@ void MapLoader::loadMap(const fs::path& filename, const Vector2f& offset)
 		}
 	}
 }
+
+GameObjectPtr MapLoader::loadSprite(tson::Object& object) const
+{
+	auto gameObject = make_shared<GameObject>();
+
+	IntRect textureRect{};
+	textureRect.width = object.getSize().x;
+	textureRect.height = object.getSize().y;
+
+	// IMPORTANT: note how custom attributes (object->properties) created 
+	// in the Tiled editor are parsed and used to initialize data for Components and
+	// GameObjects.	
+	// also note again: the GameObject is simplified for this example. A SpriteComponent should
+	// be created instead.
+	for (const auto* const property : object.getProperties().get())
+	{
+		auto name = property->getName();
+		if (name == "Texture" &&
+			!gameObject->m_texture.loadFromFile((m_resourcePath / std::any_cast<string>(property->getValue())).string()))
+		{
+			err() << "loadSprite: Could not load texture for sprite: " <<
+				m_resourcePath / std::any_cast<string>(property->getValue()) << endl;
+		}
+		else if (name == "TextureRectLeft")
+		{
+			textureRect.left = std::any_cast<int>(property->getValue());
+		}
+		else if (name == "TextureRectTop")
+		{
+			textureRect.top = std::any_cast<int>(property->getValue());
+		}
+	}
+	gameObject->m_sprite.setTexture(gameObject->m_texture);
+	gameObject->m_sprite.setTextureRect(textureRect);
+	gameObject->m_sprite.setPosition(object.getPosition().x, object.getPosition().y);
+	return gameObject;
+}
+
+
+/*
+bool init()
+	{
+		const VideoMode vm(800, 600);
+		m_window.create(vm, "GameDev1 - TileMap Demo");
+		m_window.setFramerateLimit(60);
+
+		if (!m_offscreen.create(vm.width, vm.height))
+		{
+			err() << "Could not initialize offscreen render target" << endl;
+			return false;
+		}
+		// We use the offscreen texture to avoid interpolation
+		// artifacts. For this purpose, we have to activate smoothing.
+		m_offscreen.setSmooth(true);
+		m_offscreenSprite.setTexture(m_offscreen.getTexture());
+
+		loadMap(m_resourcePath / "game.tmj", Vector2f());
+
+		return true;
+	}
+
+	void update()
+	{
+		static Clock clock; ///< starts the clock
+		const Time deltaTime = clock.restart();
+		const float fDeltaTimeSeconds = deltaTime.asSeconds();
+
+		constexpr float fScrollBaseSpeed = 10.0F; ///< pixels / second
+
+		// Hint: move pixel precise to avoid camera artifacts, but
+		// accumulate changes over time. Otherwise, the camera may
+		// not move at all.
+		m_fScrollOffset += fDeltaTimeSeconds * fScrollBaseSpeed;
+		m_fScrollOffsetPixelPrecise = floor(m_fScrollOffset);
+		m_fScrollOffset -= m_fScrollOffsetPixelPrecise;
+	}
+
+	static void drawLayer(RenderTarget& renderTarget, const vector<SpritePtr>& layer)
+	{
+		for (const auto& sprite : layer)
+		{
+			renderTarget.draw(*sprite);
+		}
+	}
+
+	void draw()
+	{
+		m_window.clear();
+
+		// move camera pixel precisely to avoid render artifacts
+		View view = m_window.getView();
+		view.move(m_fScrollOffsetPixelPrecise, 0.0F);
+		m_window.setView(view);
+
+		// draw layers
+		// IMPORTANT: you can provides IDs for layers so that a
+		// RenderManager can render layers in the correct order. The order
+		// can be specified as custom attribute in Tiled. then you
+		// do not have to hard code the render order as done here.
+		drawLayer(m_window, m_layers[0]); // Floor
+		drawLayer(m_window, m_layers[1]); // Background
+		for (auto& object : m_objects)
+		{
+			m_window.draw(object.second->m_sprite);
+		}
+		drawLayer(m_window, m_layers[2]); // Player/Objects
+		drawLayer(m_window, m_layers[3]); // Top
+
+		m_window.display();
+	}
+*/

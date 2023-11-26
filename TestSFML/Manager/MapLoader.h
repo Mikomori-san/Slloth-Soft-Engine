@@ -25,6 +25,7 @@ public:
 
 private:
 	void loadMap(const fs::path& filename, const Vector2f& offset);
+	GameObjectPtr loadSprite(tson::Object& object) const;
 
 	unordered_map<string, TexturePtr> m_tileSetTexture;
 	const fs::path m_resourcePath{ "../Assets/Maps/" };
