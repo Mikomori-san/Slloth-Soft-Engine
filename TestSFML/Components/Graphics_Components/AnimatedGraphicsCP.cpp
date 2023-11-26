@@ -24,13 +24,21 @@ void AnimatedGraphicsCP::update(float deltaTime)
 	handleIdle();
 	if (!gameObject.expired())
 	{
+		std::shared_ptr<TransformationCP> transform;
 		std::shared_ptr<GameObject> go = gameObject.lock();
-		std::shared_ptr<TransformationCP> transform = std::dynamic_pointer_cast<TransformationCP>(go->getComponent("PlayerTransformationCP"));
+		
+		if (go->getId() == "Player")
+		{
+			transform = std::dynamic_pointer_cast<TransformationCP>(go->getComponent("PlayerTransformationCP"));
+		}
 
-		sprite->setPosition(transform->getPosition());
-		sprite->setRotation(transform->getRotation());
-		sprite->setScale(transform->getScale(), transform->getScale());
-		sprite->setOrigin(transform->getOrigin());
+		if (transform)
+		{
+			sprite->setPosition(transform->getPosition());
+			sprite->setRotation(transform->getRotation());
+			sprite->setScale(transform->getScale(), transform->getScale());
+			sprite->setOrigin(transform->getOrigin());
+		}
 	}
 }
 

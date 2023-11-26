@@ -87,6 +87,9 @@
     <ClCompile Include="Components\Graphics_Components\RenderCP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Manager\MapLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Manager\AssetManager.h">
@@ -177,6 +180,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Components\Graphics_Components\RenderCP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\MapLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\tileson.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tileson.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

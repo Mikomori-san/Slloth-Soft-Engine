@@ -79,6 +79,8 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SFMLROOT)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -175,12 +177,14 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClCompile Include="Manager\AssetManager.cpp" />
     <ClCompile Include="Manager\GameStateManager.cpp" />
     <ClCompile Include="Manager\InputManager.cpp" />
+    <ClCompile Include="Manager\MapLoader.cpp" />
     <ClCompile Include="Slloth-Soft_Main.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Utils.cpp" />
+    <ClInclude Include="tileson.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\ColliderComponent.h" />
@@ -200,6 +204,8 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="Manager\AssetManager.h" />
     <ClInclude Include="Manager\GameStateManager.h" />
     <ClInclude Include="Manager\InputManager.h" />
+    <ClInclude Include="Manager\MapLoader.h" />
+    <ClInclude Include="Manager\tileson.hpp" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
