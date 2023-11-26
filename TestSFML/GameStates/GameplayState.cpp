@@ -4,6 +4,7 @@
 #include "../Components/Transformation_Components/TransformationCP.h"
 #include "../Components/Input_Components/MovementInputCP.h"
 #include "../Components/Collision_Components/RectCollisionCP.h"
+#include "../Components/Graphics_Components/RenderCP.h"
 
 void GameplayState::init(sf::RenderWindow& rWindow)
 {
@@ -65,9 +66,9 @@ void GameplayState::render()
 	{
 		for (auto& component : gameObject->getComponents())
 		{
-			if (std::shared_ptr<AnimatedGraphicsCP> aniGraphCP = std::dynamic_pointer_cast<AnimatedGraphicsCP>(component))
+			if (std::shared_ptr<RenderCP> renderCP = std::dynamic_pointer_cast<RenderCP>(component))
 			{
-				aniGraphCP->draw();
+				renderCP->draw();
 			}
 		}
 	}	
@@ -130,7 +131,7 @@ void GameplayState::addPlayerComponents()
 	std::vector<int> playerSpriteSheetAnimationCounts = { 3, 3, 1, 3, 10, 10, 10, 10 };
 
 	std::shared_ptr<AnimatedGraphicsCP> playerGraphicsCP = std::make_shared<AnimatedGraphicsCP>(
-		player, "PlayerSpriteCP", window, *AssetManager::getInstance().Textures.at("PlayerTexture"), playerSpriteSheetAnimationCounts, PLAYER_ANIMATION_SPEED
+		player, "PlayerSpriteCP", *AssetManager::getInstance().Textures.at("PlayerTexture"), playerSpriteSheetAnimationCounts, PLAYER_ANIMATION_SPEED
 	);
 
 	player->addComponent(playerGraphicsCP);
@@ -148,4 +149,7 @@ void GameplayState::addPlayerComponents()
 
 	std::shared_ptr<RectCollisionCP> playerCollisionCP = std::make_shared<RectCollisionCP>(player, "PlayerCollisionCP");
 	player->addComponent(playerCollisionCP);
+
+	std::shared_ptr<RenderCP> playerRenderCP = std::make_shared<RenderCP>(player, "PlayerRenderCP", window);
+	player->addComponent(playerRenderCP);
 }

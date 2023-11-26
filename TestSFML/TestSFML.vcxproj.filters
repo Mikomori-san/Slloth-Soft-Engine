@@ -72,9 +72,6 @@
     <ClCompile Include="GameObjects\GameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameObjects\Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Components\Graphics_Components\GraphicsCP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -85,6 +82,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Components\Transformation_Components\TransformationCP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Graphics_Components\RenderCP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -174,6 +174,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Components\Transformation_Components\TransformationCP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Graphics_Components\RenderCP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -18,6 +18,8 @@ public:
     void init();
 	std::vector<std::shared_ptr<Component>>& getComponents() { return components; }
 	std::shared_ptr<Component> getComponent(std::string id);
+	std::string getId() { return  this->id; }
+	void setId(std::string id) { this->id = id; }
 
 private:
 

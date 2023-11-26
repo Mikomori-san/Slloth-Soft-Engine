@@ -20,6 +20,7 @@ void AnimatedGraphicsCP::init()
 void AnimatedGraphicsCP::update(float deltaTime)
 {
 	animationTimeIndex += deltaTime * ANIMATION_SPEED;
+	doAnimation();
 	handleIdle();
 	if (!gameObject.expired())
 	{
@@ -30,25 +31,6 @@ void AnimatedGraphicsCP::update(float deltaTime)
 		sprite->setRotation(transform->getRotation());
 		sprite->setScale(transform->getScale(), transform->getScale());
 		sprite->setOrigin(transform->getOrigin());
-	}
-}
-
-void AnimatedGraphicsCP::draw()
-{
-	doAnimation();
-	window->draw(*sprite);
-
-	DebugDraw::getInstance().drawRectOutline(
-		sf::Vector2f(sprite->getGlobalBounds().left, sprite->getGlobalBounds().top),
-		static_cast<int>(sprite->getGlobalBounds().width),
-		static_cast<int>(sprite->getGlobalBounds().height),
-		sf::Color::Red
-	);
-	if (!gameObject.expired())
-	{
-		std::shared_ptr<GameObject> go = gameObject.lock();
-		std::shared_ptr<RectCollisionCP> collision = std::dynamic_pointer_cast<RectCollisionCP>(go->getComponent("PlayerCollisionCP"));
-		DebugDraw::getInstance().drawRectOutline(collision->getCollisionRect(), sf::Color::Green);
 	}
 }
 

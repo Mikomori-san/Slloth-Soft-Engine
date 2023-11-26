@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "MovementInputCP.h"
+#include <iostream>
 
 void MovementInputCP::update(float deltatime)
 {
