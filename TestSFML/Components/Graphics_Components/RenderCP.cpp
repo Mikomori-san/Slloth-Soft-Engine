@@ -39,6 +39,6 @@ void RenderCP::init()
 	if (!gameObject.expired())
 	{
 		std::shared_ptr<GameObject> go = gameObject.lock();
-		renderComponents.push_back(std::dynamic_pointer_cast<GraphicsCP>(go->getComponent("PlayerSpriteCP")));
+		renderComponents = go->getComponentsOfType<GraphicsCP>();
 	}
 }
