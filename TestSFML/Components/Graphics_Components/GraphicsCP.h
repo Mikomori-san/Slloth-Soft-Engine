@@ -20,7 +20,6 @@ public:
     virtual void update(float deltaTime) override;
     virtual void init() override;
     virtual void setSprite(std::shared_ptr<sf::Texture> texture);
-    virtual void draw();
     virtual sf::Sprite& getSprite() { return *sprite; }
 private:
     

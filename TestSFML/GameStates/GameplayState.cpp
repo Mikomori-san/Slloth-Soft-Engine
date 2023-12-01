@@ -4,6 +4,7 @@
 #include "../Components/Transformation_Components/TransformationCP.h"
 #include "../Components/Input_Components/MovementInputCP.h"
 #include "../Components/Collision_Components/RectCollisionCP.h"
+#include "../Components/Graphics_Components/RenderCP.h"
 
 void GameplayState::init(sf::RenderWindow& rWindow)
 {
@@ -63,12 +64,9 @@ void GameplayState::render()
 
 	for (auto& gameObject : gameObjects)
 	{
-		for (auto& component : gameObject->getComponents())
+		for (auto& component : gameObject->getComponentsOfType<RenderCP>())
 		{
-			if (std::shared_ptr<AnimatedGraphicsCP> aniGraphCP = std::dynamic_pointer_cast<AnimatedGraphicsCP>(component))
-			{
-				aniGraphCP->draw();
-			}
+			component->draw();
 		}
 	}	
 }
@@ -117,8 +115,10 @@ void GameplayState::respawnPlayer()
 	{
 		if (comp->getComponentId() == "PlayerTransformCP")
 		{
-			std::shared_ptr<TransformationCP> transf = std::dynamic_pointer_cast<TransformationCP>(comp);
-			transf->setPosition(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2));
+			if (std::shared_ptr<TransformationCP> transf = std::dynamic_pointer_cast<TransformationCP>(comp))
+			{
+				transf->setPosition(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2));
+			}
 		}
 	}
 }
@@ -130,7 +130,7 @@ void GameplayState::addPlayerComponents()
 	std::vector<int> playerSpriteSheetAnimationCounts = { 3, 3, 1, 3, 10, 10, 10, 10 };
 
 	std::shared_ptr<AnimatedGraphicsCP> playerGraphicsCP = std::make_shared<AnimatedGraphicsCP>(
-		player, "PlayerSpriteCP", window, *AssetManager::getInstance().Textures.at("PlayerTexture"), playerSpriteSheetAnimationCounts, PLAYER_ANIMATION_SPEED
+		player, "PlayerSpriteCP", *AssetManager::getInstance().Textures.at("PlayerTexture"), playerSpriteSheetAnimationCounts, PLAYER_ANIMATION_SPEED
 	);
 
 	player->addComponent(playerGraphicsCP);
@@ -148,4 +148,7 @@ void GameplayState::addPlayerComponents()
 
 	std::shared_ptr<RectCollisionCP> playerCollisionCP = std::make_shared<RectCollisionCP>(player, "PlayerCollisionCP");
 	player->addComponent(playerCollisionCP);
+
+	std::shared_ptr<RenderCP> playerRenderCP = std::make_shared<RenderCP>(player, "PlayerRenderCP", window);
+	player->addComponent(playerRenderCP);
 }

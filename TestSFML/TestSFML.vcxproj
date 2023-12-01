@@ -79,6 +79,8 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SFMLROOT)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -152,6 +154,7 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="Components\Graphics_Components\AnimatedGraphicsCP.h" />
     <ClInclude Include="Components\Graphics_Components\GraphicsComponent.h" />
     <ClInclude Include="Components\Graphics_Components\GraphicsCP.h" />
+    <ClInclude Include="Components\Graphics_Components\RenderCP.h" />
     <ClInclude Include="Components\Graphics_Components\StandardGraphicsCP.h" />
     <ClInclude Include="Components\Input_Components\InputCP.h" />
     <ClInclude Include="Components\Input_Components\MovementInputCP.h" />
@@ -161,6 +164,7 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClCompile Include="Components\Collision_Components\RectCollisionCP.cpp" />
     <ClCompile Include="Components\Graphics_Components\AnimatedGraphicsCP.cpp" />
     <ClCompile Include="Components\Graphics_Components\GraphicsCP.cpp" />
+    <ClCompile Include="Components\Graphics_Components\RenderCP.cpp" />
     <ClCompile Include="Components\Input_Components\InputCP.cpp" />
     <ClCompile Include="Components\Input_Components\MovementInputCP.cpp" />
     <ClCompile Include="Components\Transformation_Components\TransformationCP.cpp" />
@@ -179,6 +183,7 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Utils.cpp" />
+    <ClInclude Include="tileson.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\ColliderComponent.h" />
@@ -198,6 +203,7 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="Manager\AssetManager.h" />
     <ClInclude Include="Manager\GameStateManager.h" />
     <ClInclude Include="Manager\InputManager.h" />
+    <ClInclude Include="Manager\tileson.hpp" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
