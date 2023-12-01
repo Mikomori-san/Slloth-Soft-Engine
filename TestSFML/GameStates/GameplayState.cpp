@@ -64,12 +64,9 @@ void GameplayState::render()
 
 	for (auto& gameObject : gameObjects)
 	{
-		for (auto& component : gameObject->getComponents())
+		for (auto& component : gameObject->getComponentsOfType<RenderCP>())
 		{
-			if (std::shared_ptr<RenderCP> renderCP = std::dynamic_pointer_cast<RenderCP>(component))
-			{
-				renderCP->draw();
-			}
+			component->draw();
 		}
 	}	
 }
@@ -118,8 +115,10 @@ void GameplayState::respawnPlayer()
 	{
 		if (comp->getComponentId() == "PlayerTransformCP")
 		{
-			std::shared_ptr<TransformationCP> transf = std::dynamic_pointer_cast<TransformationCP>(comp);
-			transf->setPosition(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2));
+			if (std::shared_ptr<TransformationCP> transf = std::dynamic_pointer_cast<TransformationCP>(comp))
+			{
+				transf->setPosition(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2));
+			}
 		}
 	}
 }
