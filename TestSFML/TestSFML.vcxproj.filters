@@ -90,6 +90,9 @@
     <ClCompile Include="Components\Graphics_Components\StandardGraphicsCP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Components\Input_Components\MovementInputArrowsCP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Manager\AssetManager.h">
@@ -186,6 +189,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="tileson.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Input_Components\MovementInputArrowsCP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

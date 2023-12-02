@@ -3,6 +3,7 @@
 #include "../Components/Graphics_Components/AnimatedGraphicsCP.h"
 #include "../Components/Transformation_Components/TransformationCP.h"
 #include "../Components/Input_Components/MovementInput_WASD_CP.h"
+#include "../Components/Input_Components/MovementInputArrowsCP.h"
 #include "../Components/Collision_Components/RectCollisionCP.h"
 #include "../Components/Graphics_Components/RenderCP.h"
 
@@ -141,7 +142,7 @@ void GameplayState::addPlayerComponents()
 	transCP->setVelocity(VELOCITY);
 	player->addComponent(transCP);
 
-	std::shared_ptr<MovementInputWASDCP> movementInputCP = std::make_shared<MovementInputWASDCP>(
+	std::shared_ptr<MovementInputArrowsCP> movementInputCP = std::make_shared<MovementInputArrowsCP>(
 		player, "MovementInputCP", playerGraphicsCP, transCP
 	);
 	player->addComponent(movementInputCP);
