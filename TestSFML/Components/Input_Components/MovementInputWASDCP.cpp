@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MovementInput_WASD_CP.h"
+#include "MovementInputWASDCP.h"
 #include <iostream>
 
 void MovementInputWASDCP::update(float deltatime)

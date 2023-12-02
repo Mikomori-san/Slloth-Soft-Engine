@@ -1,20 +1,18 @@
 #pragma once
 #include "GraphicsCP.h"
 
-/*
-class StandardGraphicsCP : public GraphicsCP
-{
-private:
-    std::string specificComponentId = "standardGC";
+class StandardGraphicsCP : public GraphicsCP {
 public:
-    StandardGraphicsCP(std::weak_ptr<GameObject> gameObject, const sf::Sprite& sprite)
-        : GraphicsCP(gameObject, sprite) {}
+    StandardGraphicsCP(std::weak_ptr<GameObject> gameObject, std::string id, const sf::Texture& texture)
+        : GraphicsCP(gameObject, id, texture)
+    {}
 
-    void update() override;
+    ~StandardGraphicsCP() = default;
 
-    std::string Component::getSpecificComponentId()
-    {
-        return specificComponentId;
-    }
+    std::string getComponentId() override { return componentId; }
+    void setComponentId(std::string id) override { this->componentId = id; }
+    void init() override;
+    void update(float deltaTime) override;
+    void setSprite(std::shared_ptr<sf::Texture> texture) override;
+    sf::Sprite& getSprite() override { return *sprite; }
 };
-*/

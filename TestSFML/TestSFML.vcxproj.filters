@@ -66,7 +66,7 @@
     <ClCompile Include="Components\Graphics_Components\AnimatedGraphicsCP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Components\Input_Components\MovementInput_WASD_CP.cpp">
+    <ClCompile Include="Components\Input_Components\MovementInputWASDCP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameObjects\GameObject.cpp">
@@ -161,7 +161,7 @@
     <ClInclude Include="Components\Input_Components\InputCP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Components\Input_Components\MovementInput_WASD_CP.h">
+    <ClInclude Include="Components\Input_Components\MovementInputWASDCP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
