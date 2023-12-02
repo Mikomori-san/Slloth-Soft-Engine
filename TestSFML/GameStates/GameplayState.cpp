@@ -10,12 +10,17 @@
 
 void GameplayState::init(sf::RenderWindow& rWindow)
 {
-	this->window.reset(&rWindow, [](sf::RenderWindow*) {}); //Hahaha, ich bin ein böser Hacker :]
+	this->window.reset(&rWindow, [](sf::RenderWindow*) {
+		this->playerTwo = std::make_shared<GameObject>("PlayerTwo");
+		addPlayerTwoComponents();
+		std::shared_ptr<TransformationCP> playerTwoTransf = std::dynamic_pointer_cast<TransformationCP>(playerTwo->getComponent("PlayerTwoTransformationCP"));
+		playerTwoTransf->setPosition(sf::Vector2f(window->getSize().x / 4, window->getSize().y / 4));  // Different spawn position
+		}); //Hahaha, ich bin ein b?ser Hacker :]
 
 	this->player = std::make_shared<GameObject>("Player");
-	
+
 	addPlayerComponents();
-	
+
 	DebugDraw::getInstance().initialize(*window);
 
 	std::shared_ptr<TransformationCP> playerTransf = std::dynamic_pointer_cast<TransformationCP>(player->getComponent("PlayerTransformationCP"));
@@ -70,7 +75,7 @@ void GameplayState::render()
 		{
 			component->draw();
 		}
-	}	
+	}
 }
 
 void GameplayState::checkAreaBorders()
@@ -153,4 +158,9 @@ void GameplayState::addPlayerComponents()
 
 	std::shared_ptr<RenderCP> playerRenderCP = std::make_shared<RenderCP>(player, "PlayerRenderCP", window);
 	player->addComponent(playerRenderCP);
+}
+void GameplayState::addPlayerTwoComponents()
+{
+	// Add components to playerTwo similar to player but with MovementInputWASDCP
+	// Assuming MovementInputWASDCP works similar to MovementInputArrowsCP but with different key bindings
 }
