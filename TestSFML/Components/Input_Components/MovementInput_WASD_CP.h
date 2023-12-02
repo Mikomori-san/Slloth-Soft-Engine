@@ -4,13 +4,13 @@
 #include "../Graphics_Components/AnimatedGraphicsCP.h"
 #include "../Transformation_Components/TransformationCP.h"
 
-class MovementInputCP : public InputCP
+class MovementInputWASDCP : public InputCP
 {
 public:
-	MovementInputCP(std::weak_ptr<GameObject> gameObject, std::string id, std::weak_ptr<AnimatedGraphicsCP> animatedGraphicsCP_, std::weak_ptr<TransformationCP> transformationCP_)
+	MovementInputWASDCP(std::weak_ptr<GameObject> gameObject, std::string id, std::weak_ptr<AnimatedGraphicsCP> animatedGraphicsCP_, std::weak_ptr<TransformationCP> transformationCP_)
 		: InputCP(gameObject, id), animatedGraphicsCP(animatedGraphicsCP_), transformationCP(transformationCP_)
 	{}	
-	~MovementInputCP() = default;
+	~MovementInputWASDCP() = default;
 	
 	std::string getComponentId() override { return this->componentId; }
 	void setComponentId(std::string id) { this->componentId = id; }

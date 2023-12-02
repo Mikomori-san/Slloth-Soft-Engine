@@ -1,13 +1,13 @@
 #include "stdafx.h"
-#include "MovementInputCP.h"
+#include "MovementInput_WASD_CP.h"
 #include <iostream>
 
-void MovementInputCP::update(float deltatime)
+void MovementInputWASDCP::update(float deltatime)
 {
     processInput();
 }
 
-void MovementInputCP::processInput()
+void MovementInputWASDCP::processInput()
 {
     if (!animatedGraphicsCP.expired() && !transformationCP.expired() && !gameObject.expired())
     {
@@ -44,7 +44,7 @@ void MovementInputCP::processInput()
     }
 }
 
-void MovementInputCP::init()
+void MovementInputWASDCP::init()
 {
 
 }

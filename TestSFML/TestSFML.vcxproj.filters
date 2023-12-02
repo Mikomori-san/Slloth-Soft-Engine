@@ -66,7 +66,7 @@
     <ClCompile Include="Components\Graphics_Components\AnimatedGraphicsCP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Components\Input_Components\MovementInputCP.cpp">
+    <ClCompile Include="Components\Input_Components\MovementInput_WASD_CP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameObjects\GameObject.cpp">
@@ -87,7 +87,7 @@
     <ClCompile Include="Components\Graphics_Components\RenderCP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Manager\MapLoader.cpp">
+    <ClCompile Include="Components\Graphics_Components\StandardGraphicsCP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -158,7 +158,7 @@
     <ClInclude Include="Components\Input_Components\InputCP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Components\Input_Components\MovementInputCP.h">
+    <ClInclude Include="Components\Input_Components\MovementInput_WASD_CP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
@@ -180,9 +180,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Components\Graphics_Components\RenderCP.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Manager\MapLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Manager\tileson.hpp">

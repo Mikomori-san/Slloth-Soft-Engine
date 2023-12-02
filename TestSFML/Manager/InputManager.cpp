@@ -12,6 +12,10 @@ void InputManager::init(sf::Window& window)
 	isKeyDown[sf::Keyboard::Key::Space] = false;
 	isKeyDown[sf::Keyboard::Key::Num1] = false;
 	isKeyDown[sf::Keyboard::Key::Num2] = false;
+	isKeyDown[sf::Keyboard::Key::Up] = false;
+	isKeyDown[sf::Keyboard::Key::Left] = false;
+	isKeyDown[sf::Keyboard::Key::Down] = false;
+	isKeyDown[sf::Keyboard::Key::Right] = false;
 
 	isKeyUp[sf::Keyboard::Key::W] = false;
 	isKeyUp[sf::Keyboard::Key::A] = false;
@@ -20,6 +24,10 @@ void InputManager::init(sf::Window& window)
 	isKeyUp[sf::Keyboard::Key::Space] = false;
 	isKeyUp[sf::Keyboard::Key::Num1] = false;
 	isKeyUp[sf::Keyboard::Key::Num2] = false;
+	isKeyUp[sf::Keyboard::Key::Up] = false;
+	isKeyUp[sf::Keyboard::Key::Left] = false;
+	isKeyUp[sf::Keyboard::Key::Down] = false;
+	isKeyUp[sf::Keyboard::Key::Right] = false;
 
 	isKeyPressed[sf::Keyboard::Key::W] = false;
 	isKeyPressed[sf::Keyboard::Key::A] = false;
@@ -28,6 +36,11 @@ void InputManager::init(sf::Window& window)
 	isKeyPressed[sf::Keyboard::Key::Space] = false;
 	isKeyPressed[sf::Keyboard::Key::Num1] = false;
 	isKeyPressed[sf::Keyboard::Key::Num2] = false;
+	isKeyPressed[sf::Keyboard::Key::Up] = false;
+	isKeyPressed[sf::Keyboard::Key::Left] = false;
+	isKeyPressed[sf::Keyboard::Key::Down] = false;
+	isKeyPressed[sf::Keyboard::Key::Right] = false;
+
 }
 
 void InputManager::update()
