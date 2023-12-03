@@ -14,6 +14,7 @@ public:
 
 private:
 	std::vector<std::shared_ptr<GameObject>> gameObjects;
+	std::shared_ptr<GameObject> background;
 	std::shared_ptr<GameObject> player;
 	std::shared_ptr<GameObject> player2;
 	std::shared_ptr<sf::RenderWindow> window;

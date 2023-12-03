@@ -174,8 +174,8 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClCompile Include="DebugDraw.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObjects\GameObject.cpp" />
-    <ClCompile Include="GameStates\ExitState.cpp" />
     <ClCompile Include="GameStates\GameplayState.cpp" />
+    <ClCompile Include="GameStates\ExitState.cpp" />
     <ClCompile Include="GameStates\MenuState.cpp" />
     <ClCompile Include="Manager\AssetManager.cpp" />
     <ClCompile Include="Manager\GameStateManager.cpp" />
