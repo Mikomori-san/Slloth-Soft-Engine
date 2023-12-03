@@ -15,11 +15,12 @@ public:
 private:
 	std::vector<std::shared_ptr<GameObject>> gameObjects;
 	std::shared_ptr<GameObject> player;
+	std::shared_ptr<GameObject> player2;
 	std::shared_ptr<sf::RenderWindow> window;
 	const int TILE_SIZE = 64;
 
 	void checkAreaBorders();
 	void drawFloor(sf::Vector2f position, sf::Vector2i tiles, sf::Vector2i tileSize);
 	void respawnPlayer();
-	void addPlayerComponents();
+	void addPlayerComponents(std::shared_ptr<GameObject> player, bool useArrowKeys);
 };
