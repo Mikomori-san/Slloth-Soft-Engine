@@ -83,22 +83,29 @@ void GameplayState::checkAreaBorders()
 	auto right = window->getSize().x;
 	auto bottom = window->getSize().y;
 
-	std::shared_ptr<TransformationCP> transf = std::dynamic_pointer_cast<TransformationCP>(player->getComponent("PlayerTransformationCP"));
-	std::shared_ptr<RectCollisionCP> collision = std::dynamic_pointer_cast<RectCollisionCP>(player->getComponent("PlayerCollisionCP"));
+	std::shared_ptr<TransformationCP> transf;
+	std::shared_ptr<RectCollisionCP> collision;
 
-	if (transf && collision)
+	for (auto& go : gameObjects)
 	{
-		if (transf->getPosition().y > bottom - collision->getCollisionRect().height / 2)
-			transf->setPosition(sf::Vector2f(transf->getPosition().x, bottom - collision->getCollisionRect().height / 2));
+		//Check for both players
+		if ((transf = std::dynamic_pointer_cast<TransformationCP>(go->getComponent("PlayerTransformationCP"))) && (collision = std::dynamic_pointer_cast<RectCollisionCP>(go->getComponent("PlayerCollisionCP"))))
+		{
+			if (transf && collision)
+			{
+				if (transf->getPosition().y > bottom - collision->getCollisionRect().height / 2)
+					transf->setPosition(sf::Vector2f(transf->getPosition().x, bottom - collision->getCollisionRect().height / 2));
 
-		if (transf->getPosition().y < top + collision->getCollisionRect().height / 2)
-			transf->setPosition(sf::Vector2f(transf->getPosition().x, top + collision->getCollisionRect().height / 2));
+				if (transf->getPosition().y < top + collision->getCollisionRect().height / 2)
+					transf->setPosition(sf::Vector2f(transf->getPosition().x, top + collision->getCollisionRect().height / 2));
 
-		if (transf->getPosition().x > right - collision->getCollisionRect().width / 2)
-			transf->setPosition(sf::Vector2f(right - collision->getCollisionRect().width / 2, transf->getPosition().y));
+				if (transf->getPosition().x > right - collision->getCollisionRect().width / 2)
+					transf->setPosition(sf::Vector2f(right - collision->getCollisionRect().width / 2, transf->getPosition().y));
 
-		if (transf->getPosition().x < left + collision->getCollisionRect().width / 2)
-			transf->setPosition(sf::Vector2f(left + collision->getCollisionRect().width / 2, transf->getPosition().y));
+				if (transf->getPosition().x < left + collision->getCollisionRect().width / 2)
+					transf->setPosition(sf::Vector2f(left + collision->getCollisionRect().width / 2, transf->getPosition().y));
+			}
+		}
 	}
 }
 
@@ -131,7 +138,10 @@ void GameplayState::respawnPlayer()
 void GameplayState::addPlayerComponents(std::shared_ptr<GameObject> player, bool useArrowKeys)
 {
 	const int PLAYER_ANIMATION_SPEED = 8;
-	AssetManager::getInstance().loadTexture("PlayerTexture", "Assets\\Textures\\playerSpriteSheet.png");
+	if (!AssetManager::getInstance().Textures["PlayerTexture"])
+	{
+		AssetManager::getInstance().loadTexture("PlayerTexture", "Assets\\Textures\\playerSpriteSheet.png");
+	}
 	std::vector<int> playerSpriteSheetAnimationCounts = { 3, 3, 1, 3, 10, 10, 10, 10 };
 
 	std::shared_ptr<AnimatedGraphicsCP> playerGraphicsCP = std::make_shared<AnimatedGraphicsCP>(

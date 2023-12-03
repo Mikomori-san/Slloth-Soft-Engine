@@ -22,12 +22,16 @@ void MovementInputWASDCP::processInput()
             aniGraphics->setAnimationType(Animationtype::RunUp);
             transformation->setDirection(sf::Vector2f(0, -1));
             transformation->setVelocity(150);
+            std::cout << go->getId() << " PosX: " << transformation->getPosition().x << std::endl;
+            std::cout << go->getId() << " PosY: " << transformation->getPosition().y << std::endl;
         }
         else if (InputManager::getInstance().getKeyPressed(sf::Keyboard::A))
         {
             aniGraphics->setAnimationType(Animationtype::RunLeft);
             transformation->setDirection(sf::Vector2f(-1, 0));
             transformation->setVelocity(150);
+            std::cout << go->getId() << " PosX: " << transformation->getPosition().x << std::endl;
+            std::cout << go->getId() << " PosY: " << transformation->getPosition().y << std::endl;
         }
         else if (InputManager::getInstance().getKeyPressed(sf::Keyboard::S))
         {
@@ -40,6 +44,8 @@ void MovementInputWASDCP::processInput()
             aniGraphics->setAnimationType(Animationtype::RunRight);
             transformation->setDirection(sf::Vector2f(1, 0));
             transformation->setVelocity(150);
+            std::cout << go->getId() << " PosX: " << transformation->getPosition().x << std::endl;
+            std::cout << go->getId() << " PosY: " << transformation->getPosition().y << std::endl;
         }
     }
 }

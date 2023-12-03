@@ -1,221 +1,73 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Source Files\GameObjects">
-      <UniqueIdentifier>{36016843-831b-415e-8332-c864716d2078}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\GameObjects">
-      <UniqueIdentifier>{914ab28a-bcd9-4856-8871-5b7829c7c6c5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Manager">
-      <UniqueIdentifier>{a7a62657-fbd8-4675-a8ff-dc4aa331f237}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Manager">
-      <UniqueIdentifier>{8a397a11-54db-48e5-9e16-898cf486edbd}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="Components\Collision_Components\CircleCollisionCP.cpp" />
+    <ClCompile Include="Components\Collision_Components\RectCollisionCP.cpp" />
+    <ClCompile Include="Components\Graphics_Components\AnimatedGraphicsCP.cpp" />
+    <ClCompile Include="Components\Graphics_Components\StandardGraphicsCP.cpp" />
+    <ClCompile Include="Components\Graphics_Components\GraphicsCP.cpp" />
+    <ClCompile Include="Components\Graphics_Components\RenderCP.cpp" />
+    <ClCompile Include="Components\Input_Components\InputCP.cpp" />
+    <ClCompile Include="Components\Input_Components\MovementInputArrowsCP.cpp" />
+    <ClCompile Include="Components\Input_Components\MovementInputWASDCP.cpp" />
+    <ClCompile Include="Components\Transformation_Components\TransformationCP.cpp" />
+    <ClCompile Include="DebugDraw.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameObjects\GameObject.cpp" />
+    <ClCompile Include="GameStates\ExitState.cpp" />
+    <ClCompile Include="GameStates\GameplayState.cpp" />
+    <ClCompile Include="GameStates\MenuState.cpp" />
+    <ClCompile Include="Manager\AssetManager.cpp" />
+    <ClCompile Include="Manager\GameStateManager.cpp" />
+    <ClCompile Include="Manager\InputManager.cpp" />
+    <ClCompile Include="Slloth-Soft_Main.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Slloth-Soft_Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Manager\AssetManager.cpp">
-      <Filter>Source Files\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="Manager\InputManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DebugDraw.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Utils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Manager\GameStateManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameStates\ExitState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameStates\MenuState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\Collision_Components\RectCollisionCP.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\Graphics_Components\AnimatedGraphicsCP.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\Input_Components\MovementInputWASDCP.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObjects\GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\Graphics_Components\GraphicsCP.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\Collision_Components\CircleCollisionCP.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\Input_Components\InputCP.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\Transformation_Components\TransformationCP.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\Graphics_Components\RenderCP.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\Graphics_Components\StandardGraphicsCP.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\Input_Components\MovementInputArrowsCP.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameStates\GameplayState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClInclude Include="Components\Collision_Components\CircleCollisionCP.h" />
+    <ClInclude Include="Components\Collision_Components\RectCollisionCP.h" />
+    <ClInclude Include="Components\Component.h" />
+    <ClInclude Include="Components\Graphics_Components\AnimatedGraphicsCP.h" />
+    <ClInclude Include="Components\Graphics_Components\GraphicsComponent.h" />
+    <ClInclude Include="Components\Graphics_Components\GraphicsCP.h" />
+    <ClInclude Include="Components\Graphics_Components\RenderCP.h" />
+    <ClInclude Include="Components\Graphics_Components\StandardGraphicsCP.h" />
+    <ClInclude Include="Components\Input_Components\InputCP.h" />
+    <ClInclude Include="Components\Input_Components\MovementInputArrowsCP.h" />
+    <ClInclude Include="Components\Input_Components\MovementInputWASDCP.h" />
+    <ClInclude Include="Components\Transformation_Components\TransformationCP.h" />
+    <ClInclude Include="Enums\Animationtype.h" />
+    <ClInclude Include="tileson.hpp" />
+    <ClInclude Include="Components\ColliderComponent.h" />
+    <ClInclude Include="Components\Components.h" />
+    <ClInclude Include="Components\GraphicsComponent.h" />
+    <ClInclude Include="Components\RectColliderComponent.h" />
+    <ClInclude Include="Components\TransformComponent.h" />
+    <ClInclude Include="DebugDraw.h" />
+    <ClInclude Include="Enums\GameState.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameObjects\GameObject.h" />
+    <ClInclude Include="GameObjects\Player.h" />
+    <ClInclude Include="GameStates\ExitState.h" />
+    <ClInclude Include="GameStates\GameplayState.h" />
+    <ClInclude Include="GameStates\GameState.h" />
+    <ClInclude Include="GameStates\MenuState.h" />
+    <ClInclude Include="Manager\AssetManager.h" />
+    <ClInclude Include="Manager\GameStateManager.h" />
+    <ClInclude Include="Manager\InputManager.h" />
+    <ClInclude Include="Manager\tileson.hpp" />
+    <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Manager\AssetManager.h">
-      <Filter>Header Files\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Manager\InputManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DebugDraw.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Enums\GameState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\Components.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\ColliderComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\RectColliderComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\GraphicsComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\TransformComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Manager\GameStateManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameStates\ExitState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameStates\GameplayState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameStates\GameState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameStates\MenuState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Enums\Animationtype.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\Component.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\Graphics_Components\AnimatedGraphicsCP.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\Graphics_Components\GraphicsComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\Graphics_Components\GraphicsCP.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\Graphics_Components\StandardGraphicsCP.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\Input_Components\InputCP.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\Input_Components\MovementInputWASDCP.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObjects\GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObjects\Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\Collision_Components\RectCollisionCP.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\Collision_Components\CircleCollisionCP.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\Transformation_Components\TransformationCP.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\Graphics_Components\RenderCP.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Manager\tileson.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tileson.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\Input_Components\MovementInputArrowsCP.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <Media Include="Assets\Sounds\completeSound.wav" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Assets\Textures\playerSpriteSheet.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\Textures\LavaTile.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\Textures\crystal.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\Textures\projectile.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\Textures\skull.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <Media Include="Assets\Sounds\completeSound.wav">
-      <Filter>Resource Files</Filter>
-    </Media>
+    <Image Include="Assets\Textures\crystal.png" />
+    <Image Include="Assets\Textures\LavaTile.png" />
+    <Image Include="Assets\Textures\playerSpriteSheet.png" />
+    <Image Include="Assets\Textures\projectile.png" />
+    <Image Include="Assets\Textures\skull.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Music\musicTrack.ogg" />

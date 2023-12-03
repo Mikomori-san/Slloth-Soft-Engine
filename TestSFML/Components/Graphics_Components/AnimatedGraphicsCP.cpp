@@ -27,10 +27,7 @@ void AnimatedGraphicsCP::update(float deltaTime)
 		std::shared_ptr<TransformationCP> transform;
 		std::shared_ptr<GameObject> go = gameObject.lock();
 		
-		if (go->getId() == "Player")
-		{
-			transform = std::dynamic_pointer_cast<TransformationCP>(go->getComponent("PlayerTransformationCP"));
-		}
+		transform = std::dynamic_pointer_cast<TransformationCP>(go->getComponentsOfType<TransformationCP>().at(0));
 
 		if (transform)
 		{
