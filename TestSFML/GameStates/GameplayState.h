@@ -26,4 +26,5 @@ private:
 	void respawnPlayer();
 	void addPlayerComponents(std::shared_ptr<GameObject> player, bool useArrowKeys);
 	void addBackgroundComponents(std::shared_ptr<GameObject> player);
+	void checkBackgroundPos();
 };

@@ -37,4 +37,11 @@ void StandardGraphicsCP::setSprite(std::shared_ptr<sf::Texture> texture)
     this->sprite->setTexture(*texture);
 }
 
+sf::Vector2f StandardGraphicsCP::getSize() {
+    if (sprite && sprite->getTexture()) {
+        sf::Vector2u textureSize = sprite->getTexture()->getSize();
+        return sf::Vector2f(static_cast<float>(textureSize.x), static_cast<float>(textureSize.y));
+    }
+    return sf::Vector2f(0.0f, 0.0f);
+}
 

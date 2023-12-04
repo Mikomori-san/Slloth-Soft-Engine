@@ -14,5 +14,6 @@ public:
     void init() override;
     void update(float deltaTime) override;
     void setSprite(std::shared_ptr<sf::Texture> texture) override;
+    sf::Vector2f getSize();
     sf::Sprite& getSprite() override { return *sprite; }
 };

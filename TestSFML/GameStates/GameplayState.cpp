@@ -26,10 +26,14 @@ void GameplayState::init(sf::RenderWindow& rWindow)
 
 	std::shared_ptr<BackgroundTransformationCP> background1Transf = std::dynamic_pointer_cast<BackgroundTransformationCP>(background1->getComponent("BackgroundTransformationCP"));
 	background1Transf->setPosition(sf::Vector2f(0, 0));
+	background1Transf->setDirection(-1, 0);
+	background1Transf->setVelocity(150);
 	gameObjects.push_back(background1);
 
 	std::shared_ptr<TransformationCP> background2Transf = std::dynamic_pointer_cast<TransformationCP>(background2->getComponent("BackgroundTransformationCP"));
-	background1Transf->setPosition(sf::Vector2f(window->getSize().x, 0));
+	background2Transf->setPosition(sf::Vector2f(window->getSize().x, 0));
+	background2Transf->setDirection(-1, 0);
+	background2Transf->setVelocity(150);
 	gameObjects.push_back(background2);
 
 
@@ -81,8 +85,45 @@ void GameplayState::update(float deltaTime)
 	for (auto gameObject : gameObjects)
 		gameObject->update(deltaTime);
 
+	checkBackgroundPos();
 	checkAreaBorders();
 }
+
+void GameplayState::checkBackgroundPos()
+{
+	std::shared_ptr<BackgroundTransformationCP> backgroundTransCP;
+	std::shared_ptr<StandardGraphicsCP> backgroundGraphicsCP;
+
+	sf::Vector2f pos;
+	sf::Vector2f scale;
+
+	for (auto& gameObject : gameObjects)
+	{
+		
+		auto backgroundTransformations = gameObject->getComponentsOfType<BackgroundTransformationCP>();
+		if (backgroundTransformations.size() > 0)
+		{
+			backgroundTransCP = backgroundTransformations.at(0);
+			pos = backgroundTransCP->getPosition();
+
+			auto backgroundGraphicsCP = gameObject->getComponentsOfType<StandardGraphicsCP>();
+			if (backgroundGraphicsCP.size() > 0)
+			{
+				scale = backgroundGraphicsCP.at(0)->getSize();
+			}
+			std::cout << "X position:           " << pos.x << std::endl;
+			std::cout << "width of backgroun:   " << scale.x << std::endl;
+			std::cout << "----------------------------------" << std::endl;
+			if (pos.x < -(scale.x))
+			{
+				std::cout << pos.x << std::endl;
+				std::cout << scale.x << std::endl;
+				backgroundTransCP->setPosition(sf::Vector2f(scale.x, 0));
+			}
+		}
+	}
+}
+
 
 void GameplayState::render()
 {

@@ -16,7 +16,5 @@ void BackgroundTransformationCP::init()
 
 void BackgroundTransformationCP::update(float deltaTime)
 {
-	direction = sf::Vector2f(-1, 0);
-	velocity = 150;
 	position = position + direction * velocity * deltaTime;
 }
