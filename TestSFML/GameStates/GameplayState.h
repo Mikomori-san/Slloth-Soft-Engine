@@ -19,6 +19,7 @@ private:
 	std::shared_ptr<GameObject> player;
 	std::shared_ptr<GameObject> player2;
 	std::shared_ptr<sf::RenderWindow> window;
+	std::shared_ptr<GameObject> camera;
 	const int TILE_SIZE = 64;
 
 	void checkAreaBorders();

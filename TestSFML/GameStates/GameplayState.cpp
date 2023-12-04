@@ -8,6 +8,8 @@
 #include "../Components/Input_Components/MovementInputArrowsCP.h"
 #include "../Components/Collision_Components/RectCollisionCP.h"
 #include "../Components/Graphics_Components/RenderCP.h"
+#include "../Components/CameraCP.h"
+#include "../Components/Transformation_Components/CameraTransformationCP.h"
 
 void GameplayState::init(sf::RenderWindow& rWindow)
 {
@@ -15,7 +17,7 @@ void GameplayState::init(sf::RenderWindow& rWindow)
 
 	DebugDraw::getInstance().initialize(*window);
 
-
+	this->camera = std::make_shared<GameObject>("Camera");
 
 	// Create the Bckgrounds
 	this->background1 = std::make_shared<GameObject>("Background1");
@@ -27,13 +29,13 @@ void GameplayState::init(sf::RenderWindow& rWindow)
 	std::shared_ptr<BackgroundTransformationCP> background1Transf = std::dynamic_pointer_cast<BackgroundTransformationCP>(background1->getComponent("BackgroundTransformationCP"));
 	background1Transf->setPosition(sf::Vector2f(0, 0));
 	background1Transf->setDirection(-1, 0);
-	background1Transf->setVelocity(150);
+	background1Transf->setVelocity(0);
 	gameObjects.push_back(background1);
 
 	std::shared_ptr<TransformationCP> background2Transf = std::dynamic_pointer_cast<TransformationCP>(background2->getComponent("BackgroundTransformationCP"));
 	background2Transf->setPosition(sf::Vector2f(window->getSize().x, 0));
 	background2Transf->setDirection(-1, 0);
-	background2Transf->setVelocity(150);
+	background2Transf->setVelocity(0);
 	gameObjects.push_back(background2);
 
 
@@ -44,6 +46,17 @@ void GameplayState::init(sf::RenderWindow& rWindow)
 
 	addPlayerComponents(player, true);
 	addPlayerComponents(player2, false);
+
+	std::shared_ptr<CameraCP> cameraCP = std::make_shared<CameraCP>(camera, "CameraCP", (sf::Vector2f)window->getSize(), window);
+	sf::Vector2f camPos(window->getSize().x / 2, window->getSize().y / 2);
+	std::shared_ptr<CameraTransformationCP> cameraTransf = std::make_shared<CameraTransformationCP>(camera, "CameraTransformationCP", camPos, 0, 1);
+
+	cameraTransf->setVelocity(50);
+	cameraTransf->setDirection(1, 0);
+
+	camera->addComponent(cameraCP);
+	camera->addComponent(cameraTransf);
+	gameObjects.push_back(camera);
 
 	std::shared_ptr<TransformationCP> playerTransf = std::dynamic_pointer_cast<TransformationCP>(player->getComponent("PlayerTransformationCP"));
 	playerTransf->setPosition(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2));
@@ -143,10 +156,10 @@ void GameplayState::render()
 
 void GameplayState::checkAreaBorders()
 {
-	auto left = 0;
-	auto top = 0;
-	auto right = window->getSize().x;
-	auto bottom = window->getSize().y;
+	auto left = window->getView().getCenter().x - window->getView().getSize().x / 2;
+	auto top = window->getView().getCenter().y - window->getView().getSize().y / 2;
+	auto right = window->getView().getCenter().x + window->getView().getSize().x / 2;
+	auto bottom = window->getView().getCenter().y + window->getView().getSize().y / 2;
 
 	std::shared_ptr<TransformationCP> transf;
 	std::shared_ptr<RectCollisionCP> collision;

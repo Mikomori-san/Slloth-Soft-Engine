@@ -12,8 +12,8 @@ public:
 
 	virtual ~TransformationCP() = default;
 
-	void init() override;
-	void update(float deltaTime) override;
+	virtual void init() override;
+	virtual void update(float deltaTime) override;
 
 	virtual std::string getComponentId() override { return this->componentId; }
 	virtual void setComponentId(std::string id) override { this->componentId = id; }

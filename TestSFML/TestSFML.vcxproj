@@ -148,6 +148,7 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Components\CameraCP.h" />
     <ClInclude Include="Components\Collision_Components\CircleCollisionCP.h" />
     <ClInclude Include="Components\Collision_Components\RectCollisionCP.h" />
     <ClInclude Include="Components\Component.h" />
@@ -160,8 +161,10 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="Components\Input_Components\MovementInputArrowsCP.h" />
     <ClInclude Include="Components\Input_Components\MovementInputWASDCP.h" />
     <ClInclude Include="Components\Transformation_Components\BackgroundTransformationCP.h" />
+    <ClInclude Include="Components\Transformation_Components\CameraTransformationCP.h" />
     <ClInclude Include="Components\Transformation_Components\TransformationCP.h" />
     <ClInclude Include="Enums\Animationtype.h" />
+    <ClCompile Include="Components\CameraCP.cpp" />
     <ClCompile Include="Components\Collision_Components\CircleCollisionCP.cpp" />
     <ClCompile Include="Components\Collision_Components\RectCollisionCP.cpp" />
     <ClCompile Include="Components\Graphics_Components\AnimatedGraphicsCP.cpp" />
@@ -172,6 +175,7 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClCompile Include="Components\Input_Components\MovementInputArrowsCP.cpp" />
     <ClCompile Include="Components\Input_Components\MovementInputWASDCP.cpp" />
     <ClCompile Include="Components\Transformation_Components\BackgroundTransformationCP.cpp" />
+    <ClCompile Include="Components\Transformation_Components\CameraTransformationCP.cpp" />
     <ClCompile Include="Components\Transformation_Components\TransformationCP.cpp" />
     <ClCompile Include="DebugDraw.cpp" />
     <ClCompile Include="Game.cpp" />
