@@ -205,7 +205,10 @@ void GameplayState::addPlayerComponents(std::shared_ptr<GameObject> player, bool
 
 void GameplayState::addBackgroundComponents(std::shared_ptr<GameObject> Background)
 {
-	AssetManager::getInstance().loadTexture("BackgroundTexture", "Assets\\Textures\\background.png");
+	if (!AssetManager::getInstance().Textures["BackgroundTexture"])
+	{
+		AssetManager::getInstance().loadTexture("BackgroundTexture", "Assets\\Textures\\background.png");
+	}
 	std::shared_ptr<StandardGraphicsCP> backgroundGraphicsCP = std::make_shared<StandardGraphicsCP>(Background, "BackgroudTexture", *AssetManager::getInstance().Textures.at("BackgroundTexture"));
 	Background->addComponent(backgroundGraphicsCP);
 

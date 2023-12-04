@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "StandardGraphicsCP.h"
 #include "../Transformation_Components/TransformationCP.h"
+#include "../Transformation_Components/BackgroundTransformationCP.h"
+
 
 void StandardGraphicsCP::init()
 {
@@ -17,7 +19,7 @@ void StandardGraphicsCP::update(float deltaTime)
 
         if (go)
         {
-            transform = std::dynamic_pointer_cast<TransformationCP>(go->getComponent("TransformationCP"));
+            transform = std::dynamic_pointer_cast<TransformationCP>(go->getComponent("BackgroundTransformationCP"));
         }
 
         if (transform)

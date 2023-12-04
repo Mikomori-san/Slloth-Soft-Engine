@@ -15,8 +15,8 @@ public:
 	void run();
 	Game();
 private:
-	const int WIDTH = 640;
-	const int HEIGHT = 480;
+	const int WIDTH = 1792;
+	const int HEIGHT = 1024;
 	const char* TITLE = "SLLOTH-SOFT";
 	sf::Color BG_COLOR = sf::Color(50, 50, 50);
 	sf::Clock clock;
