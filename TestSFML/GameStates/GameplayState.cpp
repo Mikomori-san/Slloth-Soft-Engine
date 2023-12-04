@@ -124,14 +124,16 @@ void GameplayState::checkBackgroundPos()
 			{
 				scale = backgroundGraphicsCP.at(0)->getSize();
 			}
-			std::cout << "X position:           " << pos.x << std::endl;
-			std::cout << "width of backgroun:   " << scale.x << std::endl;
-			std::cout << "----------------------------------" << std::endl;
-			if (pos.x < -(scale.x))
+
+			auto left = window->getView().getCenter().x - window->getView().getSize().x / 2;
+			auto right = window->getView().getCenter().x + window->getView().getSize().x / 2;
+
+			if ((pos.x + scale.x) < left)
 			{
+
 				std::cout << pos.x << std::endl;
 				std::cout << scale.x << std::endl;
-				backgroundTransCP->setPosition(sf::Vector2f(scale.x, 0));
+				backgroundTransCP->setPosition(sf::Vector2f(right, 0));
 			}
 		}
 	}
