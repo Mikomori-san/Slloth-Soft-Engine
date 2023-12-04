@@ -3,6 +3,7 @@
 #include "../Components/Graphics_Components/AnimatedGraphicsCP.h"
 #include "../Components/Graphics_Components/StandardGraphicsCP.h"
 #include "../Components/Transformation_Components/TransformationCP.h"
+#include "../Components/Transformation_Components/BackgroundTransformationCP.h"
 #include "../Components/Input_Components/MovementInputWASDCP.h"
 #include "../Components/Input_Components/MovementInputArrowsCP.h"
 #include "../Components/Collision_Components/RectCollisionCP.h"
@@ -10,40 +11,35 @@
 
 void GameplayState::init(sf::RenderWindow& rWindow)
 {
-	this->window.reset(&rWindow, [](sf::RenderWindow*) {}); //Hahaha, ich bin ein böser Hacker :]
+	this->window.reset(&rWindow, [](sf::RenderWindow*) {}); //Hahaha, ich bin ein böser Hacker :] / Ich nicht :(
 
-	// Load the background texture
-    AssetManager::loadTexture("backgroundTextureKey", "path/to/your/background/image.png");
+	DebugDraw::getInstance().initialize(*window);
 
-    // Existing initialization code...
 
-    // Instantiate the Background GameObject
-    this->background = std::make_shared<GameObject>();
 
-    // Retrieve the texture for the background from the AssetManager
-    sf::Texture& backgroundTexture = AssetManager::Textures["backgroundTextureKey"];
+	// Create the Bckgrounds
+	this->background1 = std::make_shared<GameObject>("Background1");
+	this->background2 = std::make_shared<GameObject>("Background2");
+	
+	addBackgroundComponents(background1);
+	addBackgroundComponents(background2);
 
-    // Create and add StandardGraphicsCP to the Background
-    std::shared_ptr<StandardGraphicsCP> backgroundGraphics = std::make_shared<StandardGraphicsCP>(this->background, "backgroundGraphics", backgroundTexture);
-    this->background->addComponent(backgroundGraphics);
+	std::shared_ptr<BackgroundTransformationCP> background1Transf = std::dynamic_pointer_cast<BackgroundTransformationCP>(background1->getComponent("BackgroundTransformationCP"));
+	background1Transf->setPosition(sf::Vector2f(0, 0));
+	gameObjects.push_back(background1);
 
-    // Create and add TransformationCP to the Background
-    std::shared_ptr<TransformationCP> backgroundTransform = std::make_shared<TransformationCP>(this->background, "backgroundTransform");
-    // Set the initial position and scale as needed
-    backgroundTransform->setPosition(sf::Vector2f(0, 0));
-    backgroundTransform->setScale(1); // Adjust scale as needed
-    this->background->addComponent(backgroundTransform);
+	std::shared_ptr<TransformationCP> background2Transf = std::dynamic_pointer_cast<TransformationCP>(background2->getComponent("BackgroundTransformationCP"));
+	background1Transf->setPosition(sf::Vector2f(window->getSize().x, 0));
+	gameObjects.push_back(background2);
 
-    // Add the Background to the gameObjects list
-    this->gameObjects.push_back(this->background);
 
+
+	// Create the players
 	this->player = std::make_shared<GameObject>("Player");
 	this->player2 = std::make_shared<GameObject>("Player2");
 
 	addPlayerComponents(player, true);
 	addPlayerComponents(player2, false);
-
-	DebugDraw::getInstance().initialize(*window);
 
 	std::shared_ptr<TransformationCP> playerTransf = std::dynamic_pointer_cast<TransformationCP>(player->getComponent("PlayerTransformationCP"));
 	playerTransf->setPosition(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2));
@@ -52,6 +48,8 @@ void GameplayState::init(sf::RenderWindow& rWindow)
 	std::shared_ptr<TransformationCP> player2Transf = std::dynamic_pointer_cast<TransformationCP>(player2->getComponent("PlayerTransformationCP"));
 	player2Transf->setPosition(sf::Vector2f(window->getSize().x / 3, window->getSize().y / 3));
 	gameObjects.push_back(player2);
+
+
 
 	AssetManager::getInstance().loadSound("CompleteSound", "Assets\\Sounds\\completeSound.wav");
 	AssetManager::getInstance().loadMusic("MusicTrack", "Assets\\Music\\musicTrack.ogg");
@@ -88,10 +86,10 @@ void GameplayState::update(float deltaTime)
 
 void GameplayState::render()
 {
-	drawFloor(sf::Vector2f(0, 0),
+	/*drawFloor(sf::Vector2f(0, 0),
 		sf::Vector2i(static_cast<int>(window->getSize().x / TILE_SIZE) + 1, static_cast<int>(window->getSize().y / TILE_SIZE + 1)),
 		sf::Vector2i(TILE_SIZE, TILE_SIZE)
-	);
+	);*/
 
 	for (auto& gameObject : gameObjects)
 	{
@@ -201,4 +199,22 @@ void GameplayState::addPlayerComponents(std::shared_ptr<GameObject> player, bool
 
 	std::shared_ptr<RenderCP> playerRenderCP = std::make_shared<RenderCP>(player, "PlayerRenderCP", window);
 	player->addComponent(playerRenderCP);
+}
+
+
+
+void GameplayState::addBackgroundComponents(std::shared_ptr<GameObject> Background)
+{
+	AssetManager::getInstance().loadTexture("BackgroundTexture", "Assets\\Textures\\background.png");
+	std::shared_ptr<StandardGraphicsCP> backgroundGraphicsCP = std::make_shared<StandardGraphicsCP>(Background, "BackgroudTexture", *AssetManager::getInstance().Textures.at("BackgroundTexture"));
+	Background->addComponent(backgroundGraphicsCP);
+
+	const float VELOCITY = 8;
+	sf::Vector2f pos(0, 0);
+	std::shared_ptr<BackgroundTransformationCP> transCP = std::make_shared<BackgroundTransformationCP>(Background, "BackgroundTransformationCP", pos, 0, 1);
+	transCP->setVelocity(VELOCITY);
+	Background->addComponent(transCP);
+
+	std::shared_ptr<RenderCP> backgroundRenderCP = std::make_shared<RenderCP>(Background, "BackgroundRenderCP", window);
+	Background->addComponent(backgroundRenderCP);
 }

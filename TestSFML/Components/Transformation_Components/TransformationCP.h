@@ -13,7 +13,7 @@ public:
 	virtual ~TransformationCP() = default;
 
 	void init() override;
-	virtual void update(float deltaTime) override;
+	void update(float deltaTime) override;
 
 	virtual std::string getComponentId() override { return this->componentId; }
 	virtual void setComponentId(std::string id) override { this->componentId = id; }
@@ -31,11 +31,11 @@ public:
 	virtual float getScale() { return scale; }
 	virtual void setScale(float scale) { this->scale = scale; }
 
-	sf::Vector2f& getOrigin() { return origin; }
-	void setOrigin(sf::Vector2f ori) { origin = ori; }
+	virtual sf::Vector2f& getOrigin() { return origin; }
+	virtual void setOrigin(sf::Vector2f ori) { origin = ori; }
 
-	void setPosition(sf::Vector2f newPosition) { position = newPosition; }
-	sf::Vector2f& getPosition() { return position; }
+	virtual void setPosition(sf::Vector2f newPosition) { position = newPosition; }
+	virtual sf::Vector2f& getPosition() { return position; }
 
 protected:
 	sf::Vector2f position;
