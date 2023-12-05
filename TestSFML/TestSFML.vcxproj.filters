@@ -66,7 +66,7 @@
     <ClCompile Include="Components\Input_Components\MovementInputWASDCP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameObjects\GameObject.cpp">
+    <ClCompile Include="GameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Components\Graphics_Components\GraphicsCP.cpp">
@@ -79,9 +79,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Components\Transformation_Components\TransformationCP.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\Graphics_Components\RenderCP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Components\Graphics_Components\StandardGraphicsCP.cpp">
@@ -102,7 +99,10 @@
     <ClCompile Include="Components\Transformation_Components\CameraTransformationCP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Manager\MapLoader.cpp">
+    <ClCompile Include="Components\Graphics_Components\LayerCP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Graphics_Components\SpriteRenderCP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -176,7 +176,7 @@
     <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameObjects\GameObject.h">
+    <ClInclude Include="GameObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameObjects\Player.h">
@@ -212,7 +212,13 @@
     <ClInclude Include="Enums\Animationtype.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Manager\MapLoader.h">
+    <ClInclude Include="Components\Graphics_Components\LayerCP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Graphics_Components\SpriteRenderCP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\RenderManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

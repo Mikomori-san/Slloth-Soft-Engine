@@ -1,6 +1,6 @@
 #pragma once
 #include "GameState.h"
-#include "../GameObjects/GameObject.h"
+#include "../GameObject.h"
 #include "../Manager/AssetManager.h"
 #include "../DebugDraw.h"
 

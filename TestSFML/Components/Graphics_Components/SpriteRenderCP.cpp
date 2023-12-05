@@ -1,9 +1,9 @@
 #include "stdafx.h"
-#include "RenderCP.h"
+#include "SpriteRenderCP.h"
 #include "../../DebugDraw.h"
 #include "../Collision_Components/RectCollisionCP.h"
 
-void RenderCP::draw()
+void SpriteRenderCP::draw()
 {
 	for (auto& rend : renderComponents)
 	{
@@ -29,12 +29,12 @@ void RenderCP::draw()
 	}
 }
 
-void RenderCP::update(float deltaTime)
+void SpriteRenderCP::update(float deltaTime)
 {
 
 }
 
-void RenderCP::init()
+void SpriteRenderCP::init()
 {
 	if (!gameObject.expired())
 	{

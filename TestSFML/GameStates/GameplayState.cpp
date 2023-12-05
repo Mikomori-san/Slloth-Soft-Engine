@@ -10,6 +10,7 @@
 #include "../Components/Graphics_Components/RenderCP.h"
 #include "../Components/CameraCP.h"
 #include "../Components/Transformation_Components/CameraTransformationCP.h"
+#include "../Components/Graphics_Components/SpriteRenderCP.h"
 
 void GameplayState::init(sf::RenderWindow& rWindow)
 {
@@ -258,7 +259,7 @@ void GameplayState::addPlayerComponents(std::shared_ptr<GameObject> player, bool
 	std::shared_ptr<RectCollisionCP> playerCollisionCP = std::make_shared<RectCollisionCP>(player, "PlayerCollisionCP");
 	player->addComponent(playerCollisionCP);
 
-	std::shared_ptr<RenderCP> playerRenderCP = std::make_shared<RenderCP>(player, "PlayerRenderCP", window);
+	std::shared_ptr<SpriteRenderCP> playerRenderCP = std::make_shared<SpriteRenderCP>(player, "PlayerRenderCP", window);
 	player->addComponent(playerRenderCP);
 }
 
@@ -279,6 +280,6 @@ void GameplayState::addBackgroundComponents(std::shared_ptr<GameObject> Backgrou
 	transCP->setVelocity(VELOCITY);
 	Background->addComponent(transCP);
 
-	std::shared_ptr<RenderCP> backgroundRenderCP = std::make_shared<RenderCP>(Background, "BackgroundRenderCP", window);
+	std::shared_ptr<SpriteRenderCP> backgroundRenderCP = std::make_shared<SpriteRenderCP>(Background, "BackgroundRenderCP", window);
 	Background->addComponent(backgroundRenderCP);
 }
