@@ -5,12 +5,14 @@ class RenderCP : public Component
 {
 public:
 	RenderCP(std::weak_ptr<GameObject> gameObject, std::string id, std::weak_ptr<sf::RenderWindow> renderWindow) : Component(gameObject, id), window(renderWindow){}
-	void draw();
-	void update (float deltaTime) override;
-	std::string getComponentId() override { return this->componentId; }
-	void setComponentId(std::string id) override { this->componentId = id; }
-	void init() override;
-private:
-	std::vector<std::shared_ptr<GraphicsCP>> renderComponents;
+	virtual ~RenderCP() = default;
+
+	virtual void draw() = 0;
+	virtual void update (float deltaTime) override = 0;
+	virtual std::string getComponentId() override = 0;
+	virtual void setComponentId(std::string id) override = 0;
+	virtual void init() override = 0;
+
+protected:
 	std::shared_ptr<sf::RenderWindow> window;
 };

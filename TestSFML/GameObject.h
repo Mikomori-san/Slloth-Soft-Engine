@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
-#include "../Components/Component.h"
+#include "Components/Component.h"
 
 class Component;
 

@@ -156,6 +156,8 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="Components\Graphics_Components\GraphicsComponent.h" />
     <ClInclude Include="Components\Graphics_Components\GraphicsCP.h" />
     <ClInclude Include="Components\Graphics_Components\RenderCP.h" />
+    <ClInclude Include="Components\Graphics_Components\LayerCP.h" />
+    <ClInclude Include="Components\Graphics_Components\SpriteRenderCP.h" />
     <ClInclude Include="Components\Graphics_Components\StandardGraphicsCP.h" />
     <ClInclude Include="Components\Input_Components\InputCP.h" />
     <ClInclude Include="Components\Input_Components\MovementInputArrowsCP.h" />
@@ -167,9 +169,10 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClCompile Include="Components\Collision_Components\CircleCollisionCP.cpp" />
     <ClCompile Include="Components\Collision_Components\RectCollisionCP.cpp" />
     <ClCompile Include="Components\Graphics_Components\AnimatedGraphicsCP.cpp" />
+    <ClCompile Include="Components\Graphics_Components\LayerCP.cpp" />
+    <ClCompile Include="Components\Graphics_Components\SpriteRenderCP.cpp" />
     <ClCompile Include="Components\Graphics_Components\StandardGraphicsCP.cpp" />
     <ClCompile Include="Components\Graphics_Components\GraphicsCP.cpp" />
-    <ClCompile Include="Components\Graphics_Components\RenderCP.cpp" />
     <ClCompile Include="Components\Input_Components\InputCP.cpp" />
     <ClCompile Include="Components\Input_Components\MovementInputArrowsCP.cpp" />
     <ClCompile Include="Components\Input_Components\MovementInputWASDCP.cpp" />
@@ -178,14 +181,13 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClCompile Include="Components\Transformation_Components\TransformationCP.cpp" />
     <ClCompile Include="DebugDraw.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameObjects\GameObject.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameStates\GameplayState.cpp" />
     <ClCompile Include="GameStates\ExitState.cpp" />
     <ClCompile Include="GameStates\MenuState.cpp" />
     <ClCompile Include="Manager\AssetManager.cpp" />
     <ClCompile Include="Manager\GameStateManager.cpp" />
     <ClCompile Include="Manager\InputManager.cpp" />
-    <ClCompile Include="Manager\MapLoader.cpp" />
     <ClCompile Include="Slloth-Soft_Main.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -193,7 +195,7 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </ClCompile>
     <ClCompile Include="Utils.cpp" />
     <ClInclude Include="Enums\Animationtype.h" />
-    <ClInclude Include="Manager\MapLoader.h" />
+    <ClInclude Include="Manager\RenderManager.h" />
     <ClInclude Include="tileson.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -205,7 +207,7 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="DebugDraw.h" />
     <ClInclude Include="Enums\GameState.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="GameObjects\GameObject.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjects\Player.h" />
     <ClInclude Include="GameStates\ExitState.h" />
     <ClInclude Include="GameStates\GameplayState.h" />
