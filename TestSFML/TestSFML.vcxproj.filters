@@ -149,9 +149,6 @@
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Enums\Animationtype.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Components\Component.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -212,6 +209,9 @@
     <ClInclude Include="Components\Transformation_Components\CameraTransformationCP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Enums\Animationtype.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\playerSpriteSheet.png">
@@ -227,6 +227,12 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Assets\Textures\skull.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Textures\SpaceShip.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Textures\background.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

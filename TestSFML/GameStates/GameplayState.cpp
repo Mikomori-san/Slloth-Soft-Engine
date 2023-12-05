@@ -220,9 +220,9 @@ void GameplayState::addPlayerComponents(std::shared_ptr<GameObject> player, bool
 	const int PLAYER_ANIMATION_SPEED = 8;
 	if (!AssetManager::getInstance().Textures["PlayerTexture"])
 	{
-		AssetManager::getInstance().loadTexture("PlayerTexture", "Assets\\Textures\\playerSpriteSheet.png");
+		AssetManager::getInstance().loadTexture("PlayerTexture", "Assets\\Textures\\SpaceShip.png");
 	}
-	std::vector<int> playerSpriteSheetAnimationCounts = { 3, 3, 1, 3, 10, 10, 10, 10 };
+	std::vector<int> playerSpriteSheetAnimationCounts = { 1, 1, 1, 1, 4, 4, 4, 4 };
 
 	std::shared_ptr<AnimatedGraphicsCP> playerGraphicsCP = std::make_shared<AnimatedGraphicsCP>(
 		player, "PlayerSpriteCP", *AssetManager::getInstance().Textures.at("PlayerTexture"), playerSpriteSheetAnimationCounts, PLAYER_ANIMATION_SPEED
