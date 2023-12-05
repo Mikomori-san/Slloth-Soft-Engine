@@ -8,4 +8,6 @@ public:
 	void exit() override;
 	void update(float deltaTime) override;
 	void render() override;
+private:
+	std::shared_ptr<sf::RenderWindow> window;
 };

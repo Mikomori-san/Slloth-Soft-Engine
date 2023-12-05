@@ -88,6 +88,11 @@ void GameplayState::exit()
 
 	this->player.reset();
 	this->window.reset();
+	this->background1.reset();
+	this->background2.reset();
+	this->camera.reset();
+	this->player2.reset();
+
 	DebugDraw::getInstance().unload();
 
 	AssetManager::getInstance().unloadAssets();

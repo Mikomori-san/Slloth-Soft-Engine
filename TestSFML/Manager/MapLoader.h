@@ -5,31 +5,32 @@
 
 namespace fs = std::filesystem;
 
-using namespace sf;
-using namespace std;
-
-using TexturePtr = shared_ptr<Texture>;
-using SpritePtr = shared_ptr<Sprite>;
-using GameObjectPtr = shared_ptr<GameObject>;
-
-
 class MapLoader
 {
 public:
 
-	static MapLoader& getInstance()
-	{
-		static MapLoader instance;
-		return instance;
-	}
+    using GameObjectPtr = std::shared_ptr<GameObject>;
+    using TexturePtr = std::shared_ptr<sf::Texture>;
+    using SpritePtr = std::shared_ptr<sf::Sprite>;
 
-private:
-	void loadMap(const fs::path& filename, const Vector2f& offset);
-	GameObjectPtr loadSprite(tson::Object& object) const;
+    static MapLoader& getInstance()
+    {
+        static MapLoader instance;
+        return instance;
+    }
 
-	unordered_map<string, TexturePtr> m_tileSetTexture;
-	const fs::path m_resourcePath{ "../Assets/Maps/" };
+    void loadMap(const sf::Vector2f& offset);
+    void drawLayer(sf::RenderWindow& m_window, const std::vector<SpritePtr>& layer);
 
-	vector<vector<SpritePtr>> m_layers;
-	unordered_map<string, GameObjectPtr> m_objects;
+    sf::RenderWindow m_window;
+    float m_fScrollOffset{};
+    float m_fScrollOffsetPixelPrecise{};
+    sf::RenderTexture m_offscreen;
+    sf::Sprite m_offscreenSprite;
+
+    std::unordered_map<std::string, TexturePtr> m_tileSetTexture;
+    const std::filesystem::path m_resourcePath{ "Assets" };
+
+    std::vector<std::vector<SpritePtr>> m_layers;
+    std::unordered_map<std::string, GameObjectPtr> m_objects;
 };
