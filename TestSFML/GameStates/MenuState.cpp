@@ -8,7 +8,8 @@ void MenuState::init(sf::RenderWindow& rWindow)
 {
 	this->window.reset(&rWindow, [](sf::RenderWindow*) {});
 
-	loadMap("game.tmj", sf::Vector2f());
+	loadMap("game.tmj", sf::Vector2f());		// TODO: Implement a RenderManager class that renders sprites/tile layers in the correct order
+												// TODO: Add objects to an object layer of the tile map in the Tiled Map Editor and load them into the game
 
 	map = std::make_shared<GameObject>("Map");
 	int layerCount = 0;
