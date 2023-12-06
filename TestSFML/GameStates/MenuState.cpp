@@ -3,6 +3,7 @@
 #include "../GameObject.h"
 #include "../Components/Render_Components/LayerCP.h"
 #include "../tileson.hpp"
+#include "../Manager/RenderManager.h"
 
 void MenuState::init(sf::RenderWindow& rWindow)
 {
@@ -17,7 +18,14 @@ void MenuState::init(sf::RenderWindow& rWindow)
 	for (auto& go : gameObjects)
 	{
 		go->init();
+		
+		for (auto& renderCPs : go->getComponentsOfType<RenderCP>()) 
+		{
+			RenderManager::getInstance().addToLayers(renderCPs);
+		}
 	}
+	
+	window->setView(sf::View(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2), (sf::Vector2f)window->getSize()));
 }
 
 void MenuState::exit()
@@ -28,6 +36,12 @@ void MenuState::exit()
 	}
 	gameObjects.clear();
 
+	for (auto& comp : RenderManager::getInstance().getLayers())
+	{
+		comp.reset();
+	}
+
+	RenderManager::getInstance().getLayers().clear();
 }
 
 void MenuState::update(float deltaTime)
@@ -37,12 +51,7 @@ void MenuState::update(float deltaTime)
 
 void MenuState::render()
 {
-	for (auto& go : gameObjects) {
-		for (auto& render : go->getComponentsOfType<RenderCP>())
-		{
-			render->draw();
-		}
-	}
+	RenderManager::getInstance().render();
 }
 
 void MenuState::loadMap(std::string name, const sf::Vector2f& offset)

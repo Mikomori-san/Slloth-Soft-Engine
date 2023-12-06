@@ -1,5 +1,8 @@
 #include "stdafx.h"
 #include "RenderManager.h"
+#include <algorithm>
+
+bool compareByLayerNr(const std::shared_ptr<RenderCP>& a, const std::shared_ptr<RenderCP>& b);
 
 void RenderManager::render()
 {
@@ -12,4 +15,10 @@ void RenderManager::render()
 void RenderManager::addToLayers(std::shared_ptr<RenderCP> renderCP)
 {
 	layersToRender.push_back(renderCP);
+
+	std::sort(layersToRender.begin(), layersToRender.end(), compareByLayerNr);
+}
+
+bool compareByLayerNr(const std::shared_ptr<RenderCP>& a, const std::shared_ptr<RenderCP>& b) {
+	return a->getLayerNr() < b->getLayerNr();
 }
