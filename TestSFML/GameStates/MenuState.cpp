@@ -4,16 +4,22 @@
 #include "../Components/Render_Components/LayerCP.h"
 #include "../tileson.hpp"
 #include "../Manager/RenderManager.h"
+#include "../Manager/AssetManager.h"
+#include "../Components/Graphics_Components/AnimatedGraphicsCP.h"
+#include "../Components/Transformation_Components/TransformationCP.h"
+#include "../Components/Input_Components/MovementInputArrowsCP.h"
+#include "../Components/Input_Components/MovementInputWASDCP.h"
+#include "../Components/Collision_Components/RectCollisionCP.h"
+#include "../Components/Render_Components/SpriteRenderCP.h"
 
 void MenuState::init(sf::RenderWindow& rWindow)
 {
 	this->window.reset(&rWindow, [](sf::RenderWindow*) {});
-	map = std::make_shared<GameObject>("Map");
-	player = std::make_shared<GameObject>("Player");
 
-	loadMap("game.tmj", sf::Vector2f());								// TODO: Implement a RenderManager class that renders sprites/tile layers in the correct order
-																		// TODO: Add objects to an object layer of the tile map in the Tiled Map Editor and load them into the game
-	gameObjects.push_back(map);
+	spriteSheetCounts["Player1"] = { 1, 1, 1, 1, 4, 4, 4, 4 };
+
+	loadMap("game.tmj", sf::Vector2f());								// TODO: Add objects to an object layer of the tile map in the Tiled Map Editor and load them into the game
+
 
 	for (auto& go : gameObjects)
 	{
@@ -46,7 +52,12 @@ void MenuState::exit()
 
 void MenuState::update(float deltaTime)
 {
-	
+	for (auto& go : gameObjects)
+	{
+		go->update(deltaTime);
+	}
+
+	checkAreaBorders();
 }
 
 void MenuState::render()
@@ -58,6 +69,7 @@ void MenuState::loadMap(std::string name, const sf::Vector2f& offset)
 {
 	tson::Tileson t;
 	const std::unique_ptr<tson::Map> map = t.parse(m_resourcePath / name);
+	std::shared_ptr<GameObject> mapGO = std::make_shared<GameObject>("Map");
 
 	if (map->getStatus() == tson::ParseStatus::OK)
 	{
@@ -96,7 +108,7 @@ void MenuState::loadMap(std::string name, const sf::Vector2f& offset)
 
 		int layerNr = layer.getProp("LayerNr")->getValue<int>();
 
-		layerCP = std::make_shared<LayerCP>(this->map, "Layer" + layerNr, window, layerNr, std::vector<std::shared_ptr<sf::Sprite>>());
+		layerCP = std::make_shared<LayerCP>(mapGO, "Layer" + layerNr, window, layerNr, std::vector<std::shared_ptr<sf::Sprite>>());
 		
 		// iterate over all elements/tiles in the layer
 		for (int i = 0; i < size; i++)
@@ -140,9 +152,10 @@ void MenuState::loadMap(std::string name, const sf::Vector2f& offset)
 			layerCP->getLayer().push_back(sprite);
 
 		}
-		this->map->addComponent(layerCP);
+		mapGO->addComponent(layerCP);
 	}
 
+	this->gameObjects.push_back(mapGO);
 
 	for (auto group : map->getLayers())
 	{
@@ -158,6 +171,92 @@ void MenuState::loadMap(std::string name, const sf::Vector2f& offset)
 			// there you can see the properties that you can parse, that should help you set up the sprites
 			std::cout << object.getRotation() << std::endl;
 			std::cout << object.getType() << std::endl;
+			
+			if (object.getProp("ObjectGroup")->getValue<std::string>() == "Player")
+			{
+				int idNr = object.getProp("PlayerNr")->getValue<int>();
+				std::string stringId = "Player";
+				stringId += '0' + idNr;
+
+				std::shared_ptr<GameObject> playerTemp = std::make_shared<GameObject>(stringId);
+
+				if (!AssetManager::getInstance().Textures["PlayerTexture"])
+				{
+					AssetManager::getInstance().loadTexture("PlayerTexture", object.getProp("PlayerTexture")->getValue<std::string>());
+				}
+
+				const int PLAYER_ANIMATION_SPEED = object.getProp("AnimationSpeed")->getValue<int>();
+
+				std::shared_ptr<AnimatedGraphicsCP> playerGraphicsCP = std::make_shared<AnimatedGraphicsCP>(
+					playerTemp, "PlayerSpriteCP", *AssetManager::getInstance().Textures.at("PlayerTexture"), spriteSheetCounts[playerTemp->getId()], PLAYER_ANIMATION_SPEED
+				);
+
+				playerTemp->addComponent(playerGraphicsCP);
+
+				const float VELOCITY = object.getProp("Velocity")->getValue<int>();
+				sf::Vector2f pos(sf::Vector2f(object.getPosition().x, object.getPosition().y));
+
+				std::shared_ptr<TransformationCP> transCP = std::make_shared<TransformationCP>(playerTemp, "PlayerTransformationCP", pos, object.getRotation(), object.getSize().x);
+				transCP->setVelocity(VELOCITY);
+				
+				playerTemp->addComponent(transCP);
+
+				bool useArrowKeys = object.getProp("ArrowKeys")->getValue<bool>();
+
+				if (useArrowKeys) {
+					std::shared_ptr<MovementInputArrowsCP> movementInputCP = std::make_shared<MovementInputArrowsCP>(
+						playerTemp, "MovementInputCP", playerGraphicsCP, transCP
+					);
+					playerTemp->addComponent(movementInputCP);
+				}
+				else {
+					std::shared_ptr<MovementInputWASDCP> movementInputCP = std::make_shared<MovementInputWASDCP>(
+						playerTemp, "MovementInputCP", playerGraphicsCP, transCP
+					);
+					playerTemp->addComponent(movementInputCP);
+				}
+
+				std::shared_ptr<RectCollisionCP> playerCollisionCP = std::make_shared<RectCollisionCP>(playerTemp, "PlayerCollisionCP");
+				playerTemp->addComponent(playerCollisionCP);
+
+				std::shared_ptr<SpriteRenderCP> playerRenderCP = std::make_shared<SpriteRenderCP>(playerTemp, "PlayerRenderCP", window, group.getProp("LayerNr")->getValue<int>());
+				playerTemp->addComponent(playerRenderCP);
+
+				gameObjects.push_back(playerTemp);
+			}
+		}
+	}
+}
+
+void MenuState::checkAreaBorders()
+{
+	auto left = window->getView().getCenter().x - window->getView().getSize().x / 2;
+	auto top = window->getView().getCenter().y - window->getView().getSize().y / 2;
+	auto right = window->getView().getCenter().x + window->getView().getSize().x / 2;
+	auto bottom = window->getView().getCenter().y + window->getView().getSize().y / 2;
+
+	std::shared_ptr<TransformationCP> transf;
+	std::shared_ptr<RectCollisionCP> collision;
+
+	for (auto& go : gameObjects)
+	{
+		//Check for both players
+		if ((transf = std::dynamic_pointer_cast<TransformationCP>(go->getComponent("PlayerTransformationCP"))) && (collision = std::dynamic_pointer_cast<RectCollisionCP>(go->getComponent("PlayerCollisionCP"))))
+		{
+			if (transf && collision)
+			{
+				if (transf->getPosition().y > bottom - collision->getCollisionRect().height / 2)
+					transf->setPosition(sf::Vector2f(transf->getPosition().x, bottom - collision->getCollisionRect().height / 2));
+
+				if (transf->getPosition().y < top + collision->getCollisionRect().height / 2)
+					transf->setPosition(sf::Vector2f(transf->getPosition().x, top + collision->getCollisionRect().height / 2));
+
+				if (transf->getPosition().x > right - collision->getCollisionRect().width / 2)
+					transf->setPosition(sf::Vector2f(right - collision->getCollisionRect().width / 2, transf->getPosition().y));
+
+				if (transf->getPosition().x < left + collision->getCollisionRect().width / 2)
+					transf->setPosition(sf::Vector2f(left + collision->getCollisionRect().width / 2, transf->getPosition().y));
+			}
 		}
 	}
 }

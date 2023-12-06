@@ -18,10 +18,10 @@ public:
 private:
 	std::shared_ptr<sf::RenderWindow> window;
 	std::vector<std::shared_ptr<GameObject>> gameObjects;
-	std::shared_ptr<GameObject> map;
-	std::shared_ptr<GameObject> player;
+	std::map<std::string, std::vector<int>> spriteSheetCounts;
 
 	void loadMap(std::string name, const sf::Vector2f& offset);
+	void checkAreaBorders();
 
 	std::unordered_map<std::string, TexturePtr> m_tileSetTexture;
 	const std::filesystem::path m_resourcePath{ "Assets" };

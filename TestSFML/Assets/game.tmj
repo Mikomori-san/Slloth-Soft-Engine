@@ -40,6 +40,65 @@
          "y":0
         }, 
         {
+         "draworder":"topdown",
+         "id":4,
+         "name":"GameObjects",
+         "objects":[
+                {
+                 "height":0,
+                 "id":4,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"AnimationSpeed",
+                         "type":"int",
+                         "value":8
+                        }, 
+                        {
+                         "name":"ArrowKeys",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"ObjectGroup",
+                         "type":"string",
+                         "value":"Player"
+                        }, 
+                        {
+                         "name":"PlayerNr",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"PlayerTexture",
+                         "type":"string",
+                         "value":"Assets\\Textures\\SpaceShip.png"
+                        }, 
+                        {
+                         "name":"Velocity",
+                         "type":"int",
+                         "value":8
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":50.23,
+                 "y":561.09
+                }],
+         "opacity":1,
+         "properties":[
+                {
+                 "name":"LayerNr",
+                 "type":"int",
+                 "value":1
+                }],
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 339, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 339, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 291, 291, 339, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -68,7 +127,7 @@
                 {
                  "name":"LayerNr",
                  "type":"int",
-                 "value":1
+                 "value":2
                 }],
          "type":"tilelayer",
          "visible":true,
@@ -76,8 +135,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":4,
- "nextobjectid":1,
+ "nextlayerid":5,
+ "nextobjectid":5,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
