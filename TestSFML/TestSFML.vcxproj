@@ -178,6 +178,7 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClCompile Include="Components\Transformation_Components\TransformationCP.cpp" />
     <ClCompile Include="DebugDraw.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameObjectPools\ObjectPool.cpp" />
     <ClCompile Include="GameObjects\GameObject.cpp" />
     <ClCompile Include="GameStates\GameplayState.cpp" />
     <ClCompile Include="GameStates\ExitState.cpp" />
@@ -192,6 +193,7 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </ClCompile>
     <ClCompile Include="Utils.cpp" />
     <ClInclude Include="Enums\Animationtype.h" />
+    <ClInclude Include="GameObjectPools\ObjectPool.h" />
     <ClInclude Include="tileson.hpp" />
   </ItemGroup>
   <ItemGroup>

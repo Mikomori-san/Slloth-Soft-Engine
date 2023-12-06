@@ -14,6 +14,7 @@ public:
 
 private:
 	std::vector<std::shared_ptr<GameObject>> gameObjects;
+	std::vector<std::shared_ptr<GameObject>> projectiles;
 	std::shared_ptr<GameObject> background1;
 	std::shared_ptr<GameObject> background2;
 	std::shared_ptr<GameObject> player;
