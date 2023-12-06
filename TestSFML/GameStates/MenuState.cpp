@@ -24,7 +24,9 @@ void MenuState::init(sf::RenderWindow& rWindow)
 	spriteSheetCounts["Player2"] = { 1, 1, 1, 1, 4, 4, 4, 4 };
 
 	loadMap("game.tmj", sf::Vector2f());
-
+	
+	currentLayer = 0;
+	std::cout << "Current Layer: " << currentLayer << std::endl;
 
 	for (auto& go : gameObjects)
 	{
@@ -225,31 +227,54 @@ void MenuState::checkAreaBorders()
 
 void MenuState::checkPlayerLayer()
 {
+
 	if (InputManager::getInstance().getKeyDown(sf::Keyboard::Home) || InputManager::getInstance().getKeyDown(sf::Keyboard::End))
 	{
-		for (auto& go : gameObjects)
+		if (InputManager::getInstance().getKeyDown(sf::Keyboard::Home) && currentLayer < maxLayer)
 		{
-			if (go->getId().find("Player") != std::string::npos)
-			{
-				auto renderComp = go->getComponentsOfType<SpriteRenderCP>().at(0);
+			currentLayer++;
+			std::cout << "Current Layer: " << currentLayer << std::endl;
+		}
+		else if(currentLayer > 0)
+		{
+			currentLayer--;
+			std::cout << "Current Layer: " << currentLayer << std::endl;
+		}
+	}
 
-				if (InputManager::getInstance().getKeyDown(sf::Keyboard::Home))
+	if (InputManager::getInstance().getKeyDown(sf::Keyboard::PageUp) || InputManager::getInstance().getKeyDown(sf::Keyboard::PageDown))
+	{
+		if (InputManager::getInstance().getKeyDown(sf::Keyboard::PageUp) && currentLayer < maxLayer)
+		{
+			for (auto& cp : RenderManager::getInstance().getLayers())
+			{
+				if (cp->getLayerNr() == currentLayer)
 				{
-					if (renderComp->getLayerNr() < maxLayer)
-					{
-						renderComp->setLayerNr(renderComp->getLayerNr() + 1);
-						std::cout << "Layer: " << renderComp->getLayerNr() << std::endl;
-					}
+					cp->setLayerNr(currentLayer + 1);
 				}
-				else
+				else if (cp->getLayerNr() == currentLayer + 1)
 				{
-					if (renderComp->getLayerNr() > -1)
-					{
-						renderComp->setLayerNr(renderComp->getLayerNr() - 1);
-						std::cout << "Layer: " << renderComp->getLayerNr() << std::endl;
-					}
+					cp->setLayerNr(currentLayer);
 				}
 			}
+			currentLayer++;
+			std::cout << "New current Layer: " << currentLayer << std::endl;
+		}
+		else if (InputManager::getInstance().getKeyDown(sf::Keyboard::PageDown) && currentLayer > 0)
+		{
+			for (auto& cp : RenderManager::getInstance().getLayers())
+			{
+				if (cp->getLayerNr() == currentLayer)
+				{
+					cp->setLayerNr(currentLayer - 1);
+				}
+				else if (cp->getLayerNr() == currentLayer - 1)
+				{
+					cp->setLayerNr(currentLayer);
+				}
+			}
+			currentLayer--;
+			std::cout << "New current Layer: " << currentLayer << std::endl;
 		}
 	}
 }

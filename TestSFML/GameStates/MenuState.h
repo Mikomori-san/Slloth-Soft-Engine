@@ -27,6 +27,7 @@ private:
 	void createPlayers(tson::Object& object, tson::Layer group);
 
 	int maxLayer = 0;
+	int currentLayer = 0;
 
 	std::unordered_map<std::string, TexturePtr> m_tileSetTexture;
 	const std::filesystem::path m_resourcePath{ "Assets" };
