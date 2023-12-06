@@ -1,4 +1,6 @@
 #pragma once
+#include <vector>
+#include "../Components/Render_Components/RenderCP.h"
 
 class RenderManager
 {
@@ -9,5 +11,9 @@ public:
 		return instance;
 	}
 
+	void render();
+	void addToLayers(std::shared_ptr<RenderCP> renderCP);
 
+private:
+	std::vector<std::shared_ptr<RenderCP>> layersToRender;
 };

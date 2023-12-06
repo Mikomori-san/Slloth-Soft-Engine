@@ -27,6 +27,12 @@
          "id":1,
          "name":"Boden",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"LayerNr",
+                 "type":"int",
+                 "value":0
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":30,
@@ -58,6 +64,12 @@
          "id":3,
          "name":"Palme",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"LayerNr",
+                 "type":"int",
+                 "value":1
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":30,

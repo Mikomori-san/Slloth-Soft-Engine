@@ -99,10 +99,13 @@
     <ClCompile Include="Components\Transformation_Components\CameraTransformationCP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Components\Graphics_Components\LayerCP.cpp">
+    <ClCompile Include="Components\Render_Components\LayerCP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Components\Graphics_Components\SpriteRenderCP.cpp">
+    <ClCompile Include="Components\Render_Components\SpriteRenderCP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\RenderManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -191,7 +194,7 @@
     <ClInclude Include="Components\Transformation_Components\TransformationCP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Components\Graphics_Components\RenderCP.h">
+    <ClInclude Include="Components\Render_Components\RenderCP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="tileson.hpp">
@@ -212,10 +215,10 @@
     <ClInclude Include="Enums\Animationtype.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Components\Graphics_Components\LayerCP.h">
+    <ClInclude Include="Components\Render_Components\LayerCP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Components\Graphics_Components\SpriteRenderCP.h">
+    <ClInclude Include="Components\Render_Components\SpriteRenderCP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Manager\RenderManager.h">

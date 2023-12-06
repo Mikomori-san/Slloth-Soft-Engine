@@ -7,10 +7,10 @@
 #include "../Components/Input_Components/MovementInputWASDCP.h"
 #include "../Components/Input_Components/MovementInputArrowsCP.h"
 #include "../Components/Collision_Components/RectCollisionCP.h"
-#include "../Components/Graphics_Components/RenderCP.h"
+#include "../Components/Render_Components/RenderCP.h"
 #include "../Components/CameraCP.h"
 #include "../Components/Transformation_Components/CameraTransformationCP.h"
-#include "../Components/Graphics_Components/SpriteRenderCP.h"
+#include "../Components/Render_Components/SpriteRenderCP.h"
 
 void GameplayState::init(sf::RenderWindow& rWindow)
 {
@@ -259,7 +259,7 @@ void GameplayState::addPlayerComponents(std::shared_ptr<GameObject> player, bool
 	std::shared_ptr<RectCollisionCP> playerCollisionCP = std::make_shared<RectCollisionCP>(player, "PlayerCollisionCP");
 	player->addComponent(playerCollisionCP);
 
-	std::shared_ptr<SpriteRenderCP> playerRenderCP = std::make_shared<SpriteRenderCP>(player, "PlayerRenderCP", window);
+	std::shared_ptr<SpriteRenderCP> playerRenderCP = std::make_shared<SpriteRenderCP>(player, "PlayerRenderCP", window, 1);
 	player->addComponent(playerRenderCP);
 }
 
@@ -280,6 +280,6 @@ void GameplayState::addBackgroundComponents(std::shared_ptr<GameObject> Backgrou
 	transCP->setVelocity(VELOCITY);
 	Background->addComponent(transCP);
 
-	std::shared_ptr<SpriteRenderCP> backgroundRenderCP = std::make_shared<SpriteRenderCP>(Background, "BackgroundRenderCP", window);
+	std::shared_ptr<SpriteRenderCP> backgroundRenderCP = std::make_shared<SpriteRenderCP>(Background, "BackgroundRenderCP", window, 0);
 	Background->addComponent(backgroundRenderCP);
 }
