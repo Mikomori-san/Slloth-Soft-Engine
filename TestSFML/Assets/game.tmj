@@ -85,6 +85,48 @@
                  "width":0,
                  "x":50.23,
                  "y":561.09
+                }, 
+                {
+                 "height":0,
+                 "id":5,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"AnimationSpeed",
+                         "type":"int",
+                         "value":8
+                        }, 
+                        {
+                         "name":"ArrowKeys",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"ObjectGroup",
+                         "type":"string",
+                         "value":"Player"
+                        }, 
+                        {
+                         "name":"PlayerNr",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
+                         "name":"PlayerTexture",
+                         "type":"string",
+                         "value":"Assets\\Textures\\SpaceShip.png"
+                        }, 
+                        {
+                         "name":"Velocity",
+                         "type":"int",
+                         "value":8
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":59.7129186602871,
+                 "y":613.205741626794
                 }],
          "opacity":1,
          "properties":[
@@ -136,7 +178,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":5,
+ "nextobjectid":6,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

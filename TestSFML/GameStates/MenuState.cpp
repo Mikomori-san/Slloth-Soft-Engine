@@ -2,7 +2,6 @@
 #include "MenuState.h"
 #include "../GameObject.h"
 #include "../Components/Render_Components/LayerCP.h"
-#include "../tileson.hpp"
 #include "../Manager/RenderManager.h"
 #include "../Manager/AssetManager.h"
 #include "../Components/Graphics_Components/AnimatedGraphicsCP.h"
@@ -11,14 +10,20 @@
 #include "../Components/Input_Components/MovementInputWASDCP.h"
 #include "../Components/Collision_Components/RectCollisionCP.h"
 #include "../Components/Render_Components/SpriteRenderCP.h"
+#include "../DebugDraw.h"
 
 void MenuState::init(sf::RenderWindow& rWindow)
 {
 	this->window.reset(&rWindow, [](sf::RenderWindow*) {});
 
-	spriteSheetCounts["Player1"] = { 1, 1, 1, 1, 4, 4, 4, 4 };
+	this->window->setSize(sf::Vector2u(975, 650));
 
-	loadMap("game.tmj", sf::Vector2f());								// TODO: Add objects to an object layer of the tile map in the Tiled Map Editor and load them into the game
+	DebugDraw::getInstance().initialize(*window);
+
+	spriteSheetCounts["Player1"] = { 1, 1, 1, 1, 4, 4, 4, 4 };
+	spriteSheetCounts["Player2"] = { 1, 1, 1, 1, 4, 4, 4, 4 };
+
+	loadMap("game.tmj", sf::Vector2f());
 
 
 	for (auto& go : gameObjects)
@@ -48,6 +53,8 @@ void MenuState::exit()
 	}
 
 	RenderManager::getInstance().getLayers().clear();
+	maxLayer = 0;
+	DebugDraw::getInstance().unload();
 }
 
 void MenuState::update(float deltaTime)
@@ -58,6 +65,8 @@ void MenuState::update(float deltaTime)
 	}
 
 	checkAreaBorders();
+
+	checkPlayerLayer();
 }
 
 void MenuState::render()
@@ -153,6 +162,7 @@ void MenuState::loadMap(std::string name, const sf::Vector2f& offset)
 
 		}
 		mapGO->addComponent(layerCP);
+		maxLayer++;
 	}
 
 	this->gameObjects.push_back(mapGO);
@@ -174,55 +184,7 @@ void MenuState::loadMap(std::string name, const sf::Vector2f& offset)
 			
 			if (object.getProp("ObjectGroup")->getValue<std::string>() == "Player")
 			{
-				int idNr = object.getProp("PlayerNr")->getValue<int>();
-				std::string stringId = "Player";
-				stringId += '0' + idNr;
-
-				std::shared_ptr<GameObject> playerTemp = std::make_shared<GameObject>(stringId);
-
-				if (!AssetManager::getInstance().Textures["PlayerTexture"])
-				{
-					AssetManager::getInstance().loadTexture("PlayerTexture", object.getProp("PlayerTexture")->getValue<std::string>());
-				}
-
-				const int PLAYER_ANIMATION_SPEED = object.getProp("AnimationSpeed")->getValue<int>();
-
-				std::shared_ptr<AnimatedGraphicsCP> playerGraphicsCP = std::make_shared<AnimatedGraphicsCP>(
-					playerTemp, "PlayerSpriteCP", *AssetManager::getInstance().Textures.at("PlayerTexture"), spriteSheetCounts[playerTemp->getId()], PLAYER_ANIMATION_SPEED
-				);
-
-				playerTemp->addComponent(playerGraphicsCP);
-
-				const float VELOCITY = object.getProp("Velocity")->getValue<int>();
-				sf::Vector2f pos(sf::Vector2f(object.getPosition().x, object.getPosition().y));
-
-				std::shared_ptr<TransformationCP> transCP = std::make_shared<TransformationCP>(playerTemp, "PlayerTransformationCP", pos, object.getRotation(), object.getSize().x);
-				transCP->setVelocity(VELOCITY);
-				
-				playerTemp->addComponent(transCP);
-
-				bool useArrowKeys = object.getProp("ArrowKeys")->getValue<bool>();
-
-				if (useArrowKeys) {
-					std::shared_ptr<MovementInputArrowsCP> movementInputCP = std::make_shared<MovementInputArrowsCP>(
-						playerTemp, "MovementInputCP", playerGraphicsCP, transCP
-					);
-					playerTemp->addComponent(movementInputCP);
-				}
-				else {
-					std::shared_ptr<MovementInputWASDCP> movementInputCP = std::make_shared<MovementInputWASDCP>(
-						playerTemp, "MovementInputCP", playerGraphicsCP, transCP
-					);
-					playerTemp->addComponent(movementInputCP);
-				}
-
-				std::shared_ptr<RectCollisionCP> playerCollisionCP = std::make_shared<RectCollisionCP>(playerTemp, "PlayerCollisionCP");
-				playerTemp->addComponent(playerCollisionCP);
-
-				std::shared_ptr<SpriteRenderCP> playerRenderCP = std::make_shared<SpriteRenderCP>(playerTemp, "PlayerRenderCP", window, group.getProp("LayerNr")->getValue<int>());
-				playerTemp->addComponent(playerRenderCP);
-
-				gameObjects.push_back(playerTemp);
+				createPlayers(object, group);
 			}
 		}
 	}
@@ -259,4 +221,89 @@ void MenuState::checkAreaBorders()
 			}
 		}
 	}
+}
+
+void MenuState::checkPlayerLayer()
+{
+	if (InputManager::getInstance().getKeyDown(sf::Keyboard::Home) || InputManager::getInstance().getKeyDown(sf::Keyboard::End))
+	{
+		for (auto& go : gameObjects)
+		{
+			if (go->getId().find("Player") != std::string::npos)
+			{
+				auto renderComp = go->getComponentsOfType<SpriteRenderCP>().at(0);
+
+				if (InputManager::getInstance().getKeyDown(sf::Keyboard::Home))
+				{
+					if (renderComp->getLayerNr() < maxLayer)
+					{
+						renderComp->setLayerNr(renderComp->getLayerNr() + 1);
+						std::cout << "Layer: " << renderComp->getLayerNr() << std::endl;
+					}
+				}
+				else
+				{
+					if (renderComp->getLayerNr() > -1)
+					{
+						renderComp->setLayerNr(renderComp->getLayerNr() - 1);
+						std::cout << "Layer: " << renderComp->getLayerNr() << std::endl;
+					}
+				}
+			}
+		}
+	}
+}
+
+void MenuState::createPlayers(tson::Object& object, tson::Layer group)
+{
+	int idNr = object.getProp("PlayerNr")->getValue<int>();
+	std::string stringId = "Player";
+	stringId += '0' + idNr;
+
+	std::shared_ptr<GameObject> playerTemp = std::make_shared<GameObject>(stringId);
+
+	if (!AssetManager::getInstance().Textures["PlayerTexture"])
+	{
+		AssetManager::getInstance().loadTexture("PlayerTexture", object.getProp("PlayerTexture")->getValue<std::string>());
+	}
+
+	const int PLAYER_ANIMATION_SPEED = object.getProp("AnimationSpeed")->getValue<int>();
+
+	std::shared_ptr<AnimatedGraphicsCP> playerGraphicsCP = std::make_shared<AnimatedGraphicsCP>(
+		playerTemp, "PlayerSpriteCP", *AssetManager::getInstance().Textures.at("PlayerTexture"), spriteSheetCounts[playerTemp->getId()], PLAYER_ANIMATION_SPEED
+	);
+
+	playerTemp->addComponent(playerGraphicsCP);
+
+	const float VELOCITY = object.getProp("Velocity")->getValue<int>();
+	sf::Vector2f pos(sf::Vector2f(object.getPosition().x, object.getPosition().y));
+
+	std::shared_ptr<TransformationCP> transCP = std::make_shared<TransformationCP>(playerTemp, "PlayerTransformationCP", pos, object.getRotation(), object.getSize().x);
+	transCP->setVelocity(VELOCITY);
+
+	playerTemp->addComponent(transCP);
+
+	bool useArrowKeys = object.getProp("ArrowKeys")->getValue<bool>();
+
+	if (useArrowKeys) {
+		std::shared_ptr<MovementInputArrowsCP> movementInputCP = std::make_shared<MovementInputArrowsCP>(
+			playerTemp, "MovementInputCP", playerGraphicsCP, transCP
+		);
+		playerTemp->addComponent(movementInputCP);
+	}
+	else {
+		std::shared_ptr<MovementInputWASDCP> movementInputCP = std::make_shared<MovementInputWASDCP>(
+			playerTemp, "MovementInputCP", playerGraphicsCP, transCP
+		);
+		playerTemp->addComponent(movementInputCP);
+	}
+
+	std::shared_ptr<RectCollisionCP> playerCollisionCP = std::make_shared<RectCollisionCP>(playerTemp, "PlayerCollisionCP");
+	playerTemp->addComponent(playerCollisionCP);
+
+	std::shared_ptr<SpriteRenderCP> playerRenderCP = std::make_shared<SpriteRenderCP>(playerTemp, "PlayerRenderCP", window, group.getProp("LayerNr")->getValue<int>());
+	playerTemp->addComponent(playerRenderCP);
+
+	gameObjects.push_back(playerTemp);
+
 }

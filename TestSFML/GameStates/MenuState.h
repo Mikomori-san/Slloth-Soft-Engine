@@ -1,5 +1,6 @@
 #pragma once
 #include "GameState.h"
+#include "../tileson.hpp"
 #include <unordered_map>
 
 class GameObject;
@@ -22,6 +23,10 @@ private:
 
 	void loadMap(std::string name, const sf::Vector2f& offset);
 	void checkAreaBorders();
+	void checkPlayerLayer();
+	void createPlayers(tson::Object& object, tson::Layer group);
+
+	int maxLayer = 0;
 
 	std::unordered_map<std::string, TexturePtr> m_tileSetTexture;
 	const std::filesystem::path m_resourcePath{ "Assets" };
