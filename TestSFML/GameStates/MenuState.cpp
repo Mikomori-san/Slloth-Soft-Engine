@@ -326,6 +326,7 @@ void MenuState::createEnemies(tson::Object& object, tson::Layer group)
 
 	enemyTemp->addComponent(transCP);
 
+	//currently player logic
 	/*
 	std::shared_ptr<RectCollisionCP> enemyCollisionCP = std::make_shared<RectCollisionCP>(enemyTemp, "EnemyCollisionCP");
 	enemyTemp->addComponent(enemyCollisionCP);
