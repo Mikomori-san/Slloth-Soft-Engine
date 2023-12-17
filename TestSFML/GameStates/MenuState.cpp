@@ -22,6 +22,9 @@ void MenuState::init(sf::RenderWindow& rWindow)
 
 	spriteSheetCounts["Player1"] = { 1, 1, 1, 1, 4, 4, 4, 4 };
 	spriteSheetCounts["Player2"] = { 1, 1, 1, 1, 4, 4, 4, 4 };
+	spriteSheetCounts["Impostor"] = { 1, 1, 1, 1, 4, 4, 4, 4 };
+	spriteSheetCounts["Crawler"] = { 6, 6, 6, 6, 6, 6, 6, 6 };
+
 
 	loadMap("game.tmj", sf::Vector2f());
 	
@@ -188,6 +191,10 @@ void MenuState::loadMap(std::string name, const sf::Vector2f& offset)
 			{
 				createPlayers(object, group);
 			}
+			else if (object.getProp("ObjectGroup")->getValue<std::string>() == "Enemy")
+			{
+				createEnemies(object, group);
+			}
 		}
 	}
 }
@@ -277,6 +284,57 @@ void MenuState::checkPlayerLayer()
 			std::cout << "New current Layer: " << currentLayer << std::endl;
 		}
 	}
+}
+
+void MenuState::createEnemies(tson::Object& object, tson::Layer group)
+{
+	int idNr = object.getProp("EnemyNr")->getValue<int>();
+	std::string stringId = object.getProp("EnemyName")->getValue<std::string>();
+	stringId += '0' + idNr;
+
+	std::shared_ptr<GameObject> enemyTemp = std::make_shared<GameObject>(stringId);
+
+	const int ANIMATION_SPEED = object.getProp("AnimationSpeed")->getValue<int>();
+
+	std::string texName = "";
+
+	if (enemyTemp->getId().find("Impostor") != std::string::npos)
+	{
+		texName = "ImpostorTexture";
+	}
+	else if (enemyTemp->getId().find("Crawler") != std::string::npos)
+	{
+		texName = "CrawlerTexture";
+	}
+
+	if (!AssetManager::getInstance().Textures[texName])
+	{
+		AssetManager::getInstance().loadTexture(texName, object.getProp("EnemyTexture")->getValue<std::string>());
+	}
+
+	std::shared_ptr<AnimatedGraphicsCP> enemyGraphicsCP = std::make_shared<AnimatedGraphicsCP>(
+		enemyTemp, "EnemySpriteCP", *AssetManager::getInstance().Textures.at(texName), spriteSheetCounts[object.getProp("EnemyName")->getValue<std::string>()], ANIMATION_SPEED
+	);
+
+	enemyTemp->addComponent(enemyGraphicsCP);
+
+	const float VELOCITY = object.getProp("Velocity")->getValue<int>();
+	sf::Vector2f pos(sf::Vector2f(object.getPosition().x, object.getPosition().y));
+
+	std::shared_ptr<TransformationCP> transCP = std::make_shared<TransformationCP>(enemyTemp, "EnemyTransformationCP", pos, object.getRotation(), object.getSize().x);
+	transCP->setVelocity(VELOCITY);
+
+	enemyTemp->addComponent(transCP);
+
+	/*
+	std::shared_ptr<RectCollisionCP> enemyCollisionCP = std::make_shared<RectCollisionCP>(enemyTemp, "EnemyCollisionCP");
+	enemyTemp->addComponent(enemyCollisionCP);
+	*/
+
+	std::shared_ptr<SpriteRenderCP> enemyRenderCP = std::make_shared<SpriteRenderCP>(enemyTemp, "EnemyRenderCP", window, group.getProp("LayerNr")->getValue<int>());
+	enemyTemp->addComponent(enemyRenderCP);
+
+	gameObjects.push_back(enemyTemp);
 }
 
 void MenuState::createPlayers(tson::Object& object, tson::Layer group)
