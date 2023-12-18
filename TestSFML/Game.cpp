@@ -70,4 +70,10 @@ void Game::update(float deltaTime)
 	GameStateManager::getInstance().update(deltaTime);
 
 	InputManager::getInstance().update();
+
+	std::ostringstream ss;
+	m_fps.update();
+	ss << " | FPS: " << m_fps.getFps();
+
+	window.setTitle(ss.str());
 }

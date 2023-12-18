@@ -7,6 +7,7 @@
 #include "GameStates/MenuState.h"
 #include "GameStates/GameplayState.h"
 #include "GameStates/ExitState.h"
+#include "FPS.h"
 #pragma once
 
 class Game
@@ -22,6 +23,7 @@ private:
 	sf::Clock clock;
 	sf::VideoMode mode;
 	sf::RenderWindow window;
+	Fps m_fps;
 
 	void closeGame(const sf::Event& event);
 	void initialize();
