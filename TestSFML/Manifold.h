@@ -1,10 +1,10 @@
 #pragma once
-#include "Components/Collision_Components/RigidBodyCP.h"
+#include "GameObject.h"
 
 struct Manifold
 {
-	std::shared_ptr<RigidBodyCP> body1{};
-	std::shared_ptr<RigidBodyCP> body2{};
+	std::shared_ptr<GameObject> body1{};
+	std::shared_ptr<GameObject> body2{};
 
 	float penetration{};
 	sf::Vector2f normal;

@@ -68,9 +68,13 @@ void GameplayState::update(float deltaTime)
 	for (auto& go : gameObjects)
 	{
 		go->update(deltaTime);
+		if (go->getId().find("Player1") != std::string::npos)
+		{
+			std::cout << "Player Pos: " << go->getComponentsOfType<TransformationCP>().at(0)->getPosition().x << ", " << go->getComponentsOfType<TransformationCP>().at(0)->getPosition().y << std::endl;
+		}
 	}
 
-	checkAreaBorders();
+	//checkAreaBorders();
 
 	checkPlayerLayer();
 
@@ -198,6 +202,10 @@ void GameplayState::loadMap(std::string name, const sf::Vector2f& offset)
 			{
 				createEnemies(object, group);
 			}
+			else if (object.getProp("ObjectGroup")->getValue<std::string>() == "Boundary")
+			{
+				createBoundary(object, group);
+			}
 		}
 	}
 }
@@ -291,6 +299,26 @@ void GameplayState::checkPlayerLayer()
 	}
 }
 
+void GameplayState::createBoundary(tson::Object& object, tson::Layer group)
+{
+	std::string id = "Boundary " + object.getProp("Direction")->getValue<std::string>();
+
+	std::shared_ptr<GameObject> boundaryTemp = std::make_shared<GameObject>(id);
+
+	std::shared_ptr<RectCollisionCP> boundaryCollisionCP = std::make_shared<RectCollisionCP>(boundaryTemp, "BoundaryCollisionCP",
+		sf::Vector2f(object.getSize().x, object.getSize().y),
+		object.getProp("isTrigger")->getValue<bool>()
+	);
+	boundaryTemp->addComponent(boundaryCollisionCP);
+	
+	sf::Vector2f pos(sf::Vector2f(object.getPosition().x, object.getPosition().y));
+	std::shared_ptr<TransformationCP> transCP = std::make_shared<TransformationCP>(boundaryTemp, "EnemyTransformationCP", pos, object.getRotation(), object.getSize().x);
+	transCP->setVelocity(0);
+	boundaryTemp->addComponent(transCP);
+
+	gameObjects.push_back(boundaryTemp);
+}
+
 void GameplayState::createEnemies(tson::Object& object, tson::Layer group)
 {
 	int idNr = object.getProp("EnemyNr")->getValue<int>();
@@ -364,14 +392,6 @@ void GameplayState::createPlayers(tson::Object& object, tson::Layer group)
 		AssetManager::getInstance().loadTexture("PlayerTexture", object.getProp("PlayerTexture")->getValue<std::string>());
 	}
 
-	const int PLAYER_ANIMATION_SPEED = object.getProp("AnimationSpeed")->getValue<int>();
-
-	std::shared_ptr<AnimatedGraphicsCP> playerGraphicsCP = std::make_shared<AnimatedGraphicsCP>(
-		playerTemp, "PlayerSpriteCP", *AssetManager::getInstance().Textures.at("PlayerTexture"), spriteSheetCounts[playerTemp->getId()], PLAYER_ANIMATION_SPEED
-	);
-
-	playerTemp->addComponent(playerGraphicsCP);
-
 	const float VELOCITY = object.getProp("Velocity")->getValue<int>();
 	sf::Vector2f pos(sf::Vector2f(object.getPosition().x, object.getPosition().y));
 
@@ -380,26 +400,18 @@ void GameplayState::createPlayers(tson::Object& object, tson::Layer group)
 
 	playerTemp->addComponent(transCP);
 
-	bool useArrowKeys = object.getProp("ArrowKeys")->getValue<bool>();
+	const int PLAYER_ANIMATION_SPEED = object.getProp("AnimationSpeed")->getValue<int>();
 
-	if (useArrowKeys) {
-		std::shared_ptr<MovementInputArrowsCP> movementInputCP = std::make_shared<MovementInputArrowsCP>(
-			playerTemp, "MovementInputCP", playerGraphicsCP, transCP
-		);
-		playerTemp->addComponent(movementInputCP);
-	}
-	else {
-		std::shared_ptr<MovementInputWASDCP> movementInputCP = std::make_shared<MovementInputWASDCP>(
-			playerTemp, "MovementInputCP", playerGraphicsCP, transCP
-		);
-		playerTemp->addComponent(movementInputCP);
-	}
+	std::shared_ptr<AnimatedGraphicsCP> playerGraphicsCP = std::make_shared<AnimatedGraphicsCP>(
+		playerTemp, "PlayerSpriteCP", *AssetManager::getInstance().Textures.at("PlayerTexture"), spriteSheetCounts[playerTemp->getId()], PLAYER_ANIMATION_SPEED
+	);
+
+	playerTemp->addComponent(playerGraphicsCP);
+
+	bool useArrowKeys = object.getProp("ArrowKeys")->getValue<bool>();
 	
 	std::shared_ptr<RectCollisionCP> playerCollisionCP = std::make_shared<RectCollisionCP>(playerTemp, "PlayerCollisionCP",
-		sf::Vector2f(
-			playerGraphicsCP->getSprite().getTextureRect().getSize().x,
-			playerGraphicsCP->getSprite().getTextureRect().getSize().y
-		),
+		sf::Vector2f(object.getSize().x, object.getSize().y),
 		object.getProp("isTrigger")->getValue<bool>()
 	);
 	playerTemp->addComponent(playerCollisionCP);
@@ -412,6 +424,19 @@ void GameplayState::createPlayers(tson::Object& object, tson::Layer group)
 
 	std::shared_ptr<SpriteRenderCP> playerRenderCP = std::make_shared<SpriteRenderCP>(playerTemp, "PlayerRenderCP", window, group.getProp("LayerNr")->getValue<int>());
 	playerTemp->addComponent(playerRenderCP);
+
+	if (useArrowKeys) {
+		std::shared_ptr<MovementInputArrowsCP> movementInputCP = std::make_shared<MovementInputArrowsCP>(
+			playerTemp, "MovementInputCP"
+		);
+		playerTemp->addComponent(movementInputCP);
+	}
+	else {
+		std::shared_ptr<MovementInputWASDCP> movementInputCP = std::make_shared<MovementInputWASDCP>(
+			playerTemp, "MovementInputCP"
+		);
+		playerTemp->addComponent(movementInputCP);
+	}
 
 	gameObjects.push_back(playerTemp);
 }

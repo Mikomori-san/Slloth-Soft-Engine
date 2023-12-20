@@ -1,16 +1,21 @@
 #include "stdafx.h"
 #include "PhysicsManager.h"
 #include "../Components/Collision_Components/RectCollisionCP.h"
+#include "../Components/Collision_Components/RigidBodyCP.h"
+#include <iostream>
 
 void positionalCorrection(Manifold& man)
 {
     const float percent = 0.2f;
     const float slop = 0.01f;
 
-    sf::Vector2f correction = std::max(man.penetration - slop, 0.0f) / (man.body1->getInvMass() + man.body2->getInvMass()) * percent * man.normal;
+    std::shared_ptr<RigidBodyCP> r1 = man.body1->getComponentsOfType<RigidBodyCP>().at(0);
+    std::shared_ptr<RigidBodyCP> r2 = man.body2->getComponentsOfType<RigidBodyCP>().at(0);
 
-    man.body1->setPosNotifyTransf(man.body1->getPos() + man.body1->getInvMass() * correction);
-    man.body2->setPosNotifyTransf(man.body2->getPos() + man.body2->getInvMass() * correction);
+    sf::Vector2f correction = std::max(man.penetration - slop, 0.0f) / (r1->getInvMass() + r2->getInvMass()) * percent * man.normal;
+
+    r2->setPosNotifyTransf(r1->getPos() + r1->getInvMass() * correction);
+    r2->setPosNotifyTransf(r2->getPos() + r2->getInvMass() * correction);
 }
 
 bool aabbVsAabb(const sf::FloatRect& a, const sf::FloatRect& b, sf::Vector2f& normal, float& penetration)
@@ -74,12 +79,11 @@ void PhysicsManager::collisionCheck(std::vector<std::shared_ptr<GameObject>>& ga
     for (auto itA = gameObjects.begin(); itA != gameObjects.end(); ++itA)
     {
         auto& body1 = *itA;
+
         if (body1->getComponentsOfType<RigidBodyCP>().size() == 0)
         {
             continue;
         }
-
-        std::shared_ptr<RigidBodyCP> r1 = body1->getComponentsOfType<RigidBodyCP>().at(0);
 
         for (auto itB = itA; itB != gameObjects.end(); ++itB)
         {
@@ -88,22 +92,15 @@ void PhysicsManager::collisionCheck(std::vector<std::shared_ptr<GameObject>>& ga
                 continue;
             }
 
-            auto& body2 = *itB;
-
-            if (body2->getComponentsOfType<RigidBodyCP>().size() == 0)
-            {
-                continue;
-            }
-
-            std::shared_ptr<RigidBodyCP> r2 = body2->getComponentsOfType<RigidBodyCP>().at(0);
-
-            if (r1->getMass() == 0 && r2->getMass() == 0)
-            {
-                continue;
-            }
+            auto& body2 = *itB;  
 
             sf::Vector2f normal;
             float penetration = NAN;
+
+            if (body2->getComponentsOfType<RectCollisionCP>().size() == 0)
+            {
+                continue;
+            }
 
             std::shared_ptr<RectCollisionCP> c1 = body1->getComponentsOfType<RectCollisionCP>().at(0);
             std::shared_ptr<RectCollisionCP> c2 = body2->getComponentsOfType<RectCollisionCP>().at(0);
@@ -116,8 +113,8 @@ void PhysicsManager::collisionCheck(std::vector<std::shared_ptr<GameObject>>& ga
             {
                 std::shared_ptr<Manifold> manifold = std::make_shared<Manifold>();
 
-                manifold->body1 = r1;
-                manifold->body2 = r2;
+                manifold->body1 = body1;
+                manifold->body2 = body2;
                 manifold->normal = normal;
                 manifold->penetration = penetration;
 
@@ -131,20 +128,40 @@ void PhysicsManager::collisionResolve()
 {
     for (auto& man : manifolds)
     {
-        if (!man->body1->getGO().expired() && !man->body2->getGO().expired())
-        {
-            std::shared_ptr<GameObject> go1 = man->body1->getGO().lock();
-            std::shared_ptr<GameObject> go2 = man->body2->getGO().lock();
+            std::shared_ptr<GameObject> go1 = man->body1;
+            std::shared_ptr<GameObject> go2 = man->body2;
+            
+            // Collisions against Players are not being detected
+            if (go1->getId().find("Player") != std::string::npos && go2->getId().find("Player") != std::string::npos)
+            {
+                continue;
+            }
 
             if (go1->getComponentsOfType<RectCollisionCP>().at(0)->isTrigger() || go2->getComponentsOfType<RectCollisionCP>().at(0)->isTrigger())
             {
                 std::cout << "Collision Detected, Logic Trigger" << std::endl;
+
+                if (go1->getComponentsOfType<RigidBodyCP>().size() != 0)
+                {
+                    // Send Notification to Rigid Body of go1
+                    go1->getComponentsOfType<RigidBodyCP>().at(0)->onCollision(go2);
+                }
+                else if(go2->getComponentsOfType<RigidBodyCP>().size() != 0)
+                {
+                    // Send Notification to Rigid Body of go2
+                    go2->getComponentsOfType<RigidBodyCP>().at(0)->onCollision(go1);
+                }
             }
             else
             {
                 std::cout << "RigidBody Collision Detected" << std::endl;
 
-                const sf::Vector2f rv = man->body1->getVel() - man->body2->getVel();
+                // Rigid Body Logic
+
+                std::shared_ptr<RigidBodyCP> r1 = go1->getComponentsOfType<RigidBodyCP>().at(0);
+                std::shared_ptr<RigidBodyCP> r2 = go2->getComponentsOfType<RigidBodyCP>().at(0);
+
+                const sf::Vector2f rv = r1->getVel() - r2->getVel();
 
                 const float velAlongNormal = rv.x * man->normal.x + rv.y * man->normal.y;
 
@@ -157,8 +174,8 @@ void PhysicsManager::collisionResolve()
                 {
                     sf::Vector2f impulse = velAlongNormal * man->normal;
 
-                    man->body1->setVelNotifyTransf(man->body1->getVel() - 0.5f * impulse);
-                    man->body2->setVelNotifyTransf(man->body2->getVel() + 0.5f * impulse);
+                    r1->setVelNotifyTransf(r1->getVel() - 0.5f * impulse);
+                    r2->setVelNotifyTransf(r2->getVel() + 0.5f * impulse);
                 }
 
                 if (bool posCorrection = false)
@@ -166,7 +183,6 @@ void PhysicsManager::collisionResolve()
                     positionalCorrection(*man);
                 }
             }
-        }
     }
 }
 

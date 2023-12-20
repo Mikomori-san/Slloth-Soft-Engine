@@ -25,6 +25,8 @@ public:
     void setVel(sf::Vector2f vel) { this->velocity = vel; }
     void setVelNotifyTransf(sf::Vector2f vel);
 
+    void onCollision(std::shared_ptr<GameObject> go2);
+
     std::weak_ptr<GameObject> getGO() { return this->gameObject; }
 
 private:

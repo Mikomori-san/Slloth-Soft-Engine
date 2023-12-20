@@ -22,7 +22,7 @@ void SpriteRenderCP::draw()
 					sf::Color::Red
 				);
 
-				std::shared_ptr<RectCollisionCP> collision = std::dynamic_pointer_cast<RectCollisionCP>(go->getComponent("PlayerCollisionCP"));
+				std::shared_ptr<RectCollisionCP> collision = go->getComponentsOfType<RectCollisionCP>().at(0);
 				DebugDraw::getInstance().drawRectOutline(collision->getCollisionRect(), sf::Color::Green);
 			}
 		}

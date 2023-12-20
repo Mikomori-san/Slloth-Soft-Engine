@@ -7,9 +7,7 @@
 class MovementInputWASDCP : public InputCP
 {
 public:
-	MovementInputWASDCP(std::weak_ptr<GameObject> gameObject, std::string id, std::weak_ptr<AnimatedGraphicsCP> animatedGraphicsCP_, std::weak_ptr<TransformationCP> transformationCP_)
-		: InputCP(gameObject, id), animatedGraphicsCP(animatedGraphicsCP_), transformationCP(transformationCP_)
-	{}	
+	MovementInputWASDCP(std::weak_ptr<GameObject> gameObject, std::string id) : InputCP(gameObject, id){}	
 	~MovementInputWASDCP() = default;
 	
 	std::string getComponentId() override { return this->componentId; }
@@ -18,8 +16,6 @@ public:
 	void init() override;
 
 private:
-	std::weak_ptr<AnimatedGraphicsCP> animatedGraphicsCP;
-	std::weak_ptr<TransformationCP> transformationCP;
 	
 	void processInput() override;
 };

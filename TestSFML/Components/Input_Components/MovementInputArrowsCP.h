@@ -3,13 +3,12 @@
 #include "../../Enums/Animationtype.h"
 #include "../Graphics_Components/AnimatedGraphicsCP.h"
 #include "../Transformation_Components/TransformationCP.h"
+#include "../Collision_Components/RigidBodyCP.h"
 
 class MovementInputArrowsCP : public InputCP
 {
 public:
-	MovementInputArrowsCP(std::weak_ptr<GameObject> gameObject, std::string id, std::weak_ptr<AnimatedGraphicsCP> animatedGraphicsCP_, std::weak_ptr<TransformationCP> transformationCP_)
-		: InputCP(gameObject, id), animatedGraphicsCP(animatedGraphicsCP_), transformationCP(transformationCP_)
-	{}
+	MovementInputArrowsCP(std::weak_ptr<GameObject> gameObject, std::string id) : InputCP(gameObject, id){}
 	~MovementInputArrowsCP() = default;
 
 	std::string getComponentId() override { return this->componentId; }
@@ -18,8 +17,5 @@ public:
 	void init() override;
 
 private:
-	std::weak_ptr<AnimatedGraphicsCP> animatedGraphicsCP;
-	std::weak_ptr<TransformationCP> transformationCP;
-
 	void processInput() override;
 };

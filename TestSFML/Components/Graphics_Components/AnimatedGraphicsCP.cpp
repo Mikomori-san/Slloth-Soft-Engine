@@ -34,7 +34,7 @@ void AnimatedGraphicsCP::update(float deltaTime)
 			sprite->setPosition(transform->getPosition());
 			sprite->setRotation(transform->getRotation());
 			sprite->setScale(transform->getScale(), transform->getScale());
-			sprite->setOrigin(transform->getOrigin());
+			//sprite->setOrigin(transform->getOrigin());
 		}
 	}
 }

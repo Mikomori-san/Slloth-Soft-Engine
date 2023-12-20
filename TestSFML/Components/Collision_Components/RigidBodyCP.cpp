@@ -24,13 +24,46 @@ void RigidBodyCP::setVelNotifyTransf(sf::Vector2f vel)
         std::shared_ptr<TransformationCP> transCP = go->getComponentsOfType<TransformationCP>().at(0);
         if (vel.x == 0)
         {
-            transCP->setVelocity(vel.y);
-            transCP->setDirection(vel / vel.y);
+            transCP->setVelocity(abs(vel.y));
+            transCP->setDirection(vel / abs(vel.y));
         }
         else
         {
-            transCP->setVelocity(vel.x);
-            transCP->setDirection(vel / vel.x);
+            transCP->setVelocity(abs(vel.x));
+            transCP->setDirection(vel / abs(vel.x));
+        }
+    }
+}
+
+void RigidBodyCP::onCollision(std::shared_ptr<GameObject> go2)
+{
+    if (!gameObject.expired())
+    {
+        std::shared_ptr<GameObject> go = gameObject.lock();
+
+        if (go2->getId().find("Boundary") != std::string::npos)
+        {
+            float vel = velocity.x == 0 ? velocity.y : velocity.x;
+            sf::Vector2f direction(0, 0);
+
+            if (go2->getId().find("Left") != std::string::npos)
+            {
+                direction = sf::Vector2f(1, 0);
+            }
+            else if (go2->getId().find("Top") != std::string::npos)
+            {
+                direction = sf::Vector2f(0, 1);
+            }
+            else if (go2->getId().find("Right") != std::string::npos)
+            {
+                direction = sf::Vector2f(-1, 0);
+            }
+            else if (go2->getId().find("Bottom") != std::string::npos)
+            {
+                direction = sf::Vector2f(0, -1);
+            }
+            
+            setVelNotifyTransf(direction * abs(vel));
         }
     }
 }
