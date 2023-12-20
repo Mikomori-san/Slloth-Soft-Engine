@@ -73,7 +73,7 @@ void Game::update(float deltaTime)
 
 	std::ostringstream ss;
 	m_fps.update();
-	ss << " | FPS: " << m_fps.getFps();
+	ss << "SLLOTH-SOFT | FPS: " << m_fps.getFps();
 
 	window.setTitle(ss.str());
 }

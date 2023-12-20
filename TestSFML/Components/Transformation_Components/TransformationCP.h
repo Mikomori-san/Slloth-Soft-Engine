@@ -1,6 +1,7 @@
 #pragma once
 #include "../Component.h"
 #include "../../Manager/InputManager.h"
+#include "../Collision_Components/RigidBodyCP.h"
 
 
 class TransformationCP : public Component
@@ -44,4 +45,5 @@ protected:
 	sf::Vector2f direction = sf::Vector2f(0, 0);
 	float rotation;
 	float scale;
+	std::shared_ptr<RigidBodyCP> rigid;
 };

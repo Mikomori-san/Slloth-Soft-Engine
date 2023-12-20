@@ -149,6 +149,7 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Components\CameraCP.h" />
+    <ClInclude Include="Manager\PhysicsManager.h" />
     <ClInclude Include="Manifold.h" />
     <ClInclude Include="Components\Collision_Components\RectCollisionCP.h" />
     <ClInclude Include="Components\Collision_Components\RigidBodyCP.h" />
@@ -168,6 +169,7 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="Components\Transformation_Components\TransformationCP.h" />
     <ClCompile Include="Components\CameraCP.cpp" />
     <ClCompile Include="Components\Collision_Components\RectCollisionCP.cpp" />
+    <ClCompile Include="Components\Collision_Components\RigidBodyCP.cpp" />
     <ClCompile Include="Components\Graphics_Components\AnimatedGraphicsCP.cpp" />
     <ClCompile Include="Components\Render_Components\LayerCP.cpp" />
     <ClCompile Include="Components\Render_Components\SpriteRenderCP.cpp" />
@@ -188,6 +190,7 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClCompile Include="Manager\AssetManager.cpp" />
     <ClCompile Include="Manager\GameStateManager.cpp" />
     <ClCompile Include="Manager\InputManager.cpp" />
+    <ClCompile Include="Manager\PhysicsManager.cpp" />
     <ClCompile Include="Manager\RenderManager.cpp" />
     <ClCompile Include="Slloth-Soft_Main.cpp" />
     <ClCompile Include="stdafx.cpp">

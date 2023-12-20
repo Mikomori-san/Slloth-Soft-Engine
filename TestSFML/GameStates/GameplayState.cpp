@@ -12,6 +12,7 @@
 #include "../Components/Render_Components/SpriteRenderCP.h"
 #include "../DebugDraw.h"
 #include "../Components/Collision_Components/RigidBodyCP.h"
+#include "../Manager/PhysicsManager.h"
 
 void GameplayState::init(sf::RenderWindow& rWindow)
 {
@@ -72,6 +73,8 @@ void GameplayState::update(float deltaTime)
 	checkAreaBorders();
 
 	checkPlayerLayer();
+
+	PhysicsManager::getInstance().update(gameObjects);
 }
 
 void GameplayState::render()
@@ -237,7 +240,6 @@ void GameplayState::checkAreaBorders()
 
 void GameplayState::checkPlayerLayer()
 {
-
 	if (InputManager::getInstance().getKeyDown(sf::Keyboard::Home) || InputManager::getInstance().getKeyDown(sf::Keyboard::End))
 	{
 		if (InputManager::getInstance().getKeyDown(sf::Keyboard::Home) && currentLayer < maxLayer)
@@ -336,6 +338,12 @@ void GameplayState::createEnemies(tson::Object& object, tson::Layer group)
 	);
 	enemyTemp->addComponent(enemyCollisionCP);
 
+	float mass = object.getProp("Mass")->getValue<float>();
+	std::shared_ptr<RigidBodyCP> enemyRigidBodyCP = std::make_shared<RigidBodyCP>(enemyTemp, "EnemyRigidBodyCP", mass, mass == 0.f ? 0.f : 1.f / mass,
+		transCP->getDirection() * transCP->getVelocity()
+	);
+	enemyTemp->addComponent(enemyRigidBodyCP);
+
 	std::shared_ptr<SpriteRenderCP> enemyRenderCP = std::make_shared<SpriteRenderCP>(enemyTemp, "EnemyRenderCP", window, group.getProp("LayerNr")->getValue<int>());
 	enemyTemp->addComponent(enemyRenderCP);
 
@@ -394,12 +402,14 @@ void GameplayState::createPlayers(tson::Object& object, tson::Layer group)
 	);
 	playerTemp->addComponent(playerCollisionCP);
 	
+	float mass = object.getProp("Mass")->getValue<float>();
+	std::shared_ptr<RigidBodyCP> playerRigidBodyCP = std::make_shared<RigidBodyCP>(playerTemp, "PlayerRigidBodyCP", mass, mass == 0.f ? 0.f : 1.f / mass,
+		transCP->getDirection() * transCP->getVelocity()
+	);
+	playerTemp->addComponent(playerRigidBodyCP);
+
 	std::shared_ptr<SpriteRenderCP> playerRenderCP = std::make_shared<SpriteRenderCP>(playerTemp, "PlayerRenderCP", window, group.getProp("LayerNr")->getValue<int>());
 	playerTemp->addComponent(playerRenderCP);
-
-	float mass = object.getProp("Mass")->getValue<float>();
-	std::shared_ptr<RigidBodyCP> playerRigidBodyCP = std::make_shared<RigidBodyCP>(playerTemp, "PlayerRigidBodyCP", mass, mass == 0.f ? 0.f : 1.f / mass);
-	playerTemp->addComponent(playerRigidBodyCP);
 
 	gameObjects.push_back(playerTemp);
 }
