@@ -41,7 +41,7 @@ void DebugDraw::drawRectOutline(sf::Vector2f position, int width, int height, sf
 	window->draw(line, 2, sf::Lines);
 }
 
-void DebugDraw::drawRectOutline(sf::IntRect intRect, sf::Color color)
+void DebugDraw::drawRectOutline(sf::FloatRect intRect, sf::Color color)
 {
 	auto position = sf::Vector2f(intRect.left, intRect.top);
 	auto width = intRect.width;

@@ -51,7 +51,7 @@
     <ClCompile Include="GameStates\ExitState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameStates\MenuState.cpp">
+    <ClCompile Include="GameStates\GameplayState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
@@ -72,9 +72,6 @@
     <ClCompile Include="Components\Graphics_Components\GraphicsCP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Components\Collision_Components\CircleCollisionCP.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Components\Input_Components\InputCP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -87,7 +84,7 @@
     <ClCompile Include="Components\Input_Components\MovementInputArrowsCP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameStates\GameplayState.cpp">
+    <ClCompile Include="GameStates\ManuState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Components\Transformation_Components\BackgroundTransformationCP.cpp">
@@ -143,13 +140,13 @@
     <ClInclude Include="GameStates\ExitState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameStates\GameplayState.h">
+    <ClInclude Include="GameStates\MenuState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameStates\GameState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameStates\MenuState.h">
+    <ClInclude Include="GameStates\GameplayState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
@@ -188,9 +185,6 @@
     <ClInclude Include="Components\Collision_Components\RectCollisionCP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Components\Collision_Components\CircleCollisionCP.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Components\Transformation_Components\TransformationCP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -222,6 +216,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Manager\RenderManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Collision_Components\RigidBodyCP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Manifold.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,163 +1,200 @@
 #include "stdafx.h"
 #include "GameplayState.h"
+#include "../GameObject.h"
+#include "../Components/Render_Components/LayerCP.h"
+#include "../Manager/RenderManager.h"
+#include "../Manager/AssetManager.h"
 #include "../Components/Graphics_Components/AnimatedGraphicsCP.h"
-#include "../Components/Graphics_Components/StandardGraphicsCP.h"
 #include "../Components/Transformation_Components/TransformationCP.h"
-#include "../Components/Transformation_Components/BackgroundTransformationCP.h"
-#include "../Components/Input_Components/MovementInputWASDCP.h"
 #include "../Components/Input_Components/MovementInputArrowsCP.h"
+#include "../Components/Input_Components/MovementInputWASDCP.h"
 #include "../Components/Collision_Components/RectCollisionCP.h"
-#include "../Components/Render_Components/RenderCP.h"
-#include "../Components/CameraCP.h"
-#include "../Components/Transformation_Components/CameraTransformationCP.h"
 #include "../Components/Render_Components/SpriteRenderCP.h"
+#include "../DebugDraw.h"
+#include "../Components/Collision_Components/RigidBodyCP.h"
 
 void GameplayState::init(sf::RenderWindow& rWindow)
 {
-	this->window.reset(&rWindow, [](sf::RenderWindow*) {}); //Hahaha, ich bin ein böser Hacker :] / Ich nicht :(
+	this->window.reset(&rWindow, [](sf::RenderWindow*) {});
+
+	this->window->setSize(sf::Vector2u(975, 650));
 
 	DebugDraw::getInstance().initialize(*window);
 
-	this->camera = std::make_shared<GameObject>("Camera");
+	spriteSheetCounts["Player1"] = { 1, 1, 1, 1, 4, 4, 4, 4 };
+	spriteSheetCounts["Player2"] = { 1, 1, 1, 1, 4, 4, 4, 4 };
+	spriteSheetCounts["Impostor"] = { 1, 1, 1, 1, 4, 4, 4, 4 };
+	spriteSheetCounts["Crawler"] = { 6, 6, 6, 6, 6, 6, 6, 6 };
 
-	// Create the Bckgrounds
-	this->background1 = std::make_shared<GameObject>("Background1");
-	this->background2 = std::make_shared<GameObject>("Background2");
+	loadMap("game.tmj", sf::Vector2f());
 	
-	addBackgroundComponents(background1);
-	addBackgroundComponents(background2);
+	currentLayer = 0;
+	std::cout << "Current Layer: " << currentLayer << std::endl;
 
-	std::shared_ptr<BackgroundTransformationCP> background1Transf = std::dynamic_pointer_cast<BackgroundTransformationCP>(background1->getComponent("BackgroundTransformationCP"));
-	background1Transf->setPosition(sf::Vector2f(0, 0));
-	background1Transf->setDirection(-1, 0);
-	background1Transf->setVelocity(0);
-	gameObjects.push_back(background1);
-
-	std::shared_ptr<TransformationCP> background2Transf = std::dynamic_pointer_cast<TransformationCP>(background2->getComponent("BackgroundTransformationCP"));
-	background2Transf->setPosition(sf::Vector2f(window->getSize().x, 0));
-	background2Transf->setDirection(-1, 0);
-	background2Transf->setVelocity(0);
-	gameObjects.push_back(background2);
-
-
-
-	// Create the players
-	this->player = std::make_shared<GameObject>("Player");
-	this->player2 = std::make_shared<GameObject>("Player2");
-
-	addPlayerComponents(player, true);
-	addPlayerComponents(player2, false);
-
-	std::shared_ptr<CameraCP> cameraCP = std::make_shared<CameraCP>(camera, "CameraCP", (sf::Vector2f)window->getSize(), window);
-	sf::Vector2f camPos(window->getSize().x / 2, window->getSize().y / 2);
-	std::shared_ptr<CameraTransformationCP> cameraTransf = std::make_shared<CameraTransformationCP>(camera, "CameraTransformationCP", camPos, 0, 1);
-
-	cameraTransf->setVelocity(50);
-	cameraTransf->setDirection(1, 0);
-
-	camera->addComponent(cameraCP);
-	camera->addComponent(cameraTransf);
-	gameObjects.push_back(camera);
-
-	std::shared_ptr<TransformationCP> playerTransf = std::dynamic_pointer_cast<TransformationCP>(player->getComponent("PlayerTransformationCP"));
-	playerTransf->setPosition(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2));
-	gameObjects.push_back(player);
-
-	std::shared_ptr<TransformationCP> player2Transf = std::dynamic_pointer_cast<TransformationCP>(player2->getComponent("PlayerTransformationCP"));
-	player2Transf->setPosition(sf::Vector2f(window->getSize().x / 3, window->getSize().y / 3));
-	gameObjects.push_back(player2);
-
-
-
-	AssetManager::getInstance().loadSound("CompleteSound", "Assets\\Sounds\\completeSound.wav");
-	AssetManager::getInstance().loadMusic("MusicTrack", "Assets\\Music\\musicTrack.ogg");
-	AssetManager::Music["MusicTrack"]->play();
-
-	for (auto& gameObject : gameObjects)
+	for (auto& go : gameObjects)
 	{
-		gameObject->init();
+		go->init();
+		
+		for (auto& renderCPs : go->getComponentsOfType<RenderCP>()) 
+		{
+			RenderManager::getInstance().addToLayers(renderCPs);
+		}
 	}
+	
+	window->setView(sf::View(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2), (sf::Vector2f)window->getSize()));
 }
 
 void GameplayState::exit()
 {
-	for (auto gameObject : gameObjects)
+	for (auto& go : gameObjects)
 	{
-		gameObject.reset();
+		go.reset();
 	}
 	gameObjects.clear();
 
-	this->player.reset();
-	this->window.reset();
-	this->background1.reset();
-	this->background2.reset();
-	this->camera.reset();
-	this->player2.reset();
+	for (auto& comp : RenderManager::getInstance().getLayers())
+	{
+		comp.reset();
+	}
 
+	RenderManager::getInstance().getLayers().clear();
+	maxLayer = 0;
 	DebugDraw::getInstance().unload();
-
-	AssetManager::getInstance().unloadAssets();
 }
 
 void GameplayState::update(float deltaTime)
 {
-	for (auto gameObject : gameObjects)
-		gameObject->update(deltaTime);
-
-	checkBackgroundPos();
-	checkAreaBorders();
-}
-
-void GameplayState::checkBackgroundPos()
-{
-	std::shared_ptr<BackgroundTransformationCP> backgroundTransCP;
-	std::shared_ptr<StandardGraphicsCP> backgroundGraphicsCP;
-
-	sf::Vector2f pos;
-	sf::Vector2f scale;
-
-	for (auto& gameObject : gameObjects)
+	for (auto& go : gameObjects)
 	{
-		
-		auto backgroundTransformations = gameObject->getComponentsOfType<BackgroundTransformationCP>();
-		if (backgroundTransformations.size() > 0)
-		{
-			backgroundTransCP = backgroundTransformations.at(0);
-			pos = backgroundTransCP->getPosition();
-
-			auto backgroundGraphicsCP = gameObject->getComponentsOfType<StandardGraphicsCP>();
-			if (backgroundGraphicsCP.size() > 0)
-			{
-				scale = backgroundGraphicsCP.at(0)->getSize();
-			}
-
-			auto left = window->getView().getCenter().x - window->getView().getSize().x / 2;
-			auto right = window->getView().getCenter().x + window->getView().getSize().x / 2;
-
-			if ((pos.x + scale.x) < left)
-			{
-
-				std::cout << pos.x << std::endl;
-				std::cout << scale.x << std::endl;
-				backgroundTransCP->setPosition(sf::Vector2f(right, 0));
-			}
-		}
+		go->update(deltaTime);
 	}
-}
 
+	checkAreaBorders();
+
+	checkPlayerLayer();
+}
 
 void GameplayState::render()
 {
-	/*drawFloor(sf::Vector2f(0, 0),
-		sf::Vector2i(static_cast<int>(window->getSize().x / TILE_SIZE) + 1, static_cast<int>(window->getSize().y / TILE_SIZE + 1)),
-		sf::Vector2i(TILE_SIZE, TILE_SIZE)
-	);*/
+	RenderManager::getInstance().render();
+}
 
-	for (auto& gameObject : gameObjects)
+void GameplayState::loadMap(std::string name, const sf::Vector2f& offset)
+{
+	tson::Tileson t;
+	const std::unique_ptr<tson::Map> map = t.parse(m_resourcePath / name);
+	std::shared_ptr<GameObject> mapGO = std::make_shared<GameObject>("Map");
+
+	if (map->getStatus() == tson::ParseStatus::OK)
 	{
-		for (auto& component : gameObject->getComponentsOfType<RenderCP>())
+
+		sf::err() << "Load tile map with size: " << map->getSize().x << ", "
+			<< map->getSize().y << " and tile size: " << map->getTileSize().x
+			<< ", " << map->getTileSize().y << std::endl;
+
+		for (auto& tileSet : map->getTilesets())
 		{
-			component->draw();
+			fs::path tileSetPath = tileSet.getImage().u8string();
+
+			const auto texture = std::make_shared<sf::Texture>();
+			if (!texture->loadFromFile((m_resourcePath / tileSetPath).string()))
+			{
+				sf::err() << "Could not load texture " << m_resourcePath / tileSetPath << std::endl;
+			}
+			m_tileSetTexture[tileSet.getName()] = texture;
+		}
+	}
+	else
+	{
+		std::cout << "Parse error: " << map->getStatusMessage() << std::endl;
+	}
+
+	// go through all layers
+
+	std::shared_ptr<LayerCP> layerCP;
+
+	for(auto& layer : map->getLayers())
+	{
+		sf::err() << "Load layer: " << layer.getName() << " with width: "
+			<< layer.getSize().x << " and height: " << layer.getSize().y << std::endl;
+
+		const int size = layer.getSize().x * layer.getSize().y;
+
+		int layerNr = layer.getProp("LayerNr")->getValue<int>();
+
+		layerCP = std::make_shared<LayerCP>(mapGO, "Layer" + layerNr, window, layerNr, std::vector<std::shared_ptr<sf::Sprite>>());
+		
+		// iterate over all elements/tiles in the layer
+		for (int i = 0; i < size; i++)
+		{
+			const auto gid = layer.getData()[i];
+
+			if (gid == 0)
+			{
+				// 0 means there is no tile at this position.
+				continue;
+			}
+
+			// get tile set for tile and allocate the corresponding tileSet texture
+			const auto* const tileSet = map->getTilesetByGid(gid);
+			const sf::Vector2i tileSize(map->getTileSize().x, map->getTileSize().y);
+			sf::Texture& texture = *m_tileSetTexture[tileSet->getName()];
+			
+			// calculate position of tile
+			sf::Vector2f position;
+			position.x = i % layer.getSize().x * static_cast<float>(tileSize.x);
+			position.y = i / layer.getSize().x * static_cast<float>(tileSize.y);
+			position += offset;
+
+			// number of tiles in tile set texture (horizontally)
+			const int tileCountX = texture.getSize().x / tileSize.x;
+
+			// calculate 2d idx of tile in tile set texture
+			const int idx = gid - tileSet->getFirstgid();
+			const int idxX = idx % tileCountX;
+			const int idxY = idx / tileCountX;
+
+			// calculate source area of tile in tile set texture
+			sf::IntRect source(idxX * tileSize.x, idxY * tileSize.y, tileSize.x, tileSize.y);	
+
+			// create tile (Sprite) and put it into the appropriate layer.
+			auto sprite = std::make_shared<sf::Sprite>();
+			sprite->setTexture(texture);
+			sprite->setTextureRect(source);
+			sprite->setPosition(position.x, position.y);
+
+			layerCP->getLayer().push_back(sprite);
+
+		}
+		mapGO->addComponent(layerCP);
+		maxLayer++;
+	}
+
+	this->gameObjects.push_back(mapGO);
+
+	for (auto group : map->getLayers())
+	{
+		// go over all objects per layer
+		for (auto object : group.getObjects())
+		{
+			sf::Vector2f position(object.getPosition().x, object.getPosition().y);
+			position += offset;
+
+			// example to get a texture rectangle for a sprite
+			sf::FloatRect bounds(position.x, position.y, object.getSize().x, object.getSize().y);
+			// TODO: check out game.tmj and there the content contained within <object group name="Object Layer 1">
+			// there you can see the properties that you can parse, that should help you set up the sprites
+			std::cout << object.getRotation() << std::endl;
+			std::cout << object.getType() << std::endl;
+			
+			if (object.getProp("ObjectGroup")->getValue<std::string>() == "Player")
+			{
+				createPlayers(object, group);
+			}
+			else if (object.getProp("ObjectGroup")->getValue<std::string>() == "Enemy")
+			{
+				createEnemies(object, group);
+			}
 		}
 	}
 }
@@ -175,111 +212,194 @@ void GameplayState::checkAreaBorders()
 	for (auto& go : gameObjects)
 	{
 		//Check for both players
-		if ((transf = std::dynamic_pointer_cast<TransformationCP>(go->getComponent("PlayerTransformationCP"))) && (collision = std::dynamic_pointer_cast<RectCollisionCP>(go->getComponent("PlayerCollisionCP"))))
+		if (go->getId().find("Player") != std::string::npos)
 		{
-			if (transf && collision)
+			if ((transf = go->getComponentsOfType<TransformationCP>().at(0)) && (collision = go->getComponentsOfType<RectCollisionCP>().at(0)))
 			{
-				if (transf->getPosition().y > bottom - collision->getCollisionRect().height / 2)
-					transf->setPosition(sf::Vector2f(transf->getPosition().x, bottom - collision->getCollisionRect().height / 2));
+				if (transf && collision)
+				{
+					if (transf->getPosition().y > bottom - collision->getCollisionRect().height / 2)
+						transf->setPosition(sf::Vector2f(transf->getPosition().x, bottom - collision->getCollisionRect().height / 2));
 
-				if (transf->getPosition().y < top + collision->getCollisionRect().height / 2)
-					transf->setPosition(sf::Vector2f(transf->getPosition().x, top + collision->getCollisionRect().height / 2));
+					if (transf->getPosition().y < top + collision->getCollisionRect().height / 2)
+						transf->setPosition(sf::Vector2f(transf->getPosition().x, top + collision->getCollisionRect().height / 2));
 
-				if (transf->getPosition().x > right - collision->getCollisionRect().width / 2)
-					transf->setPosition(sf::Vector2f(right - collision->getCollisionRect().width / 2, transf->getPosition().y));
+					if (transf->getPosition().x > right - collision->getCollisionRect().width / 2)
+						transf->setPosition(sf::Vector2f(right - collision->getCollisionRect().width / 2, transf->getPosition().y));
 
-				if (transf->getPosition().x < left + collision->getCollisionRect().width / 2)
-					transf->setPosition(sf::Vector2f(left + collision->getCollisionRect().width / 2, transf->getPosition().y));
+					if (transf->getPosition().x < left + collision->getCollisionRect().width / 2)
+						transf->setPosition(sf::Vector2f(left + collision->getCollisionRect().width / 2, transf->getPosition().y));
+				}
 			}
 		}
 	}
 }
 
-void GameplayState::drawFloor(sf::Vector2f position, sf::Vector2i tiles, sf::Vector2i tileSize)
+void GameplayState::checkPlayerLayer()
 {
-	for (auto x = 0; x < tiles.x; x++)
+
+	if (InputManager::getInstance().getKeyDown(sf::Keyboard::Home) || InputManager::getInstance().getKeyDown(sf::Keyboard::End))
 	{
-		for (auto y = 0; y < tiles.y; y++)
+		if (InputManager::getInstance().getKeyDown(sf::Keyboard::Home) && currentLayer < maxLayer)
 		{
-			auto tilepos = sf::Vector2f(position.x + x * tileSize.x, position.y + y * tileSize.y);
-			DebugDraw::getInstance().drawRectangle(tilepos, tileSize.x, tileSize.y, (x + y) % 2 == 0 ? sf::Color::White : sf::Color::Black);
+			currentLayer++;
+			std::cout << "Current Layer: " << currentLayer << std::endl;
+		}
+		else if(currentLayer > 0)
+		{
+			currentLayer--;
+			std::cout << "Current Layer: " << currentLayer << std::endl;
 		}
 	}
-}
 
-void GameplayState::respawnPlayer()
-{
-	for (auto& comp : player->getComponents())
+	if (InputManager::getInstance().getKeyDown(sf::Keyboard::PageUp) || InputManager::getInstance().getKeyDown(sf::Keyboard::PageDown))
 	{
-		if (comp->getComponentId() == "PlayerTransformCP")
+		if (InputManager::getInstance().getKeyDown(sf::Keyboard::PageUp) && currentLayer < maxLayer)
 		{
-			if (std::shared_ptr<TransformationCP> transf = std::dynamic_pointer_cast<TransformationCP>(comp))
+			for (auto& cp : RenderManager::getInstance().getLayers())
 			{
-				transf->setPosition(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2));
+				if (cp->getLayerNr() == currentLayer)
+				{
+					cp->setLayerNr(currentLayer + 1);
+				}
+				else if (cp->getLayerNr() == currentLayer + 1)
+				{
+					cp->setLayerNr(currentLayer);
+				}
 			}
+			currentLayer++;
+			std::cout << "New current Layer: " << currentLayer << std::endl;
+		}
+		else if (InputManager::getInstance().getKeyDown(sf::Keyboard::PageDown) && currentLayer > 0)
+		{
+			for (auto& cp : RenderManager::getInstance().getLayers())
+			{
+				if (cp->getLayerNr() == currentLayer)
+				{
+					cp->setLayerNr(currentLayer - 1);
+				}
+				else if (cp->getLayerNr() == currentLayer - 1)
+				{
+					cp->setLayerNr(currentLayer);
+				}
+			}
+			currentLayer--;
+			std::cout << "New current Layer: " << currentLayer << std::endl;
 		}
 	}
 }
 
-void GameplayState::addPlayerComponents(std::shared_ptr<GameObject> player, bool useArrowKeys)
+void GameplayState::createEnemies(tson::Object& object, tson::Layer group)
 {
-	const int PLAYER_ANIMATION_SPEED = 8;
-	if (!AssetManager::getInstance().Textures["PlayerTexture"])
-	{
-		AssetManager::getInstance().loadTexture("PlayerTexture", "Assets\\Textures\\SpaceShip.png");
-	}
-	std::vector<int> playerSpriteSheetAnimationCounts = { 1, 1, 1, 1, 4, 4, 4, 4 };
+	int idNr = object.getProp("EnemyNr")->getValue<int>();
+	std::string stringId = object.getProp("EnemyName")->getValue<std::string>();
+	stringId += '0' + idNr;
 
-	std::shared_ptr<AnimatedGraphicsCP> playerGraphicsCP = std::make_shared<AnimatedGraphicsCP>(
-		player, "PlayerSpriteCP", *AssetManager::getInstance().Textures.at("PlayerTexture"), playerSpriteSheetAnimationCounts, PLAYER_ANIMATION_SPEED
+	std::shared_ptr<GameObject> enemyTemp = std::make_shared<GameObject>(stringId);
+
+	const int ANIMATION_SPEED = object.getProp("AnimationSpeed")->getValue<int>();
+
+	std::string texName = "";
+
+	if (enemyTemp->getId().find("Impostor") != std::string::npos)
+	{
+		texName = "ImpostorTexture";
+	}
+	else if (enemyTemp->getId().find("Crawler") != std::string::npos)
+	{
+		texName = "CrawlerTexture";
+	}
+
+	if (!AssetManager::getInstance().Textures[texName])
+	{
+		AssetManager::getInstance().loadTexture(texName, object.getProp("EnemyTexture")->getValue<std::string>());
+	}
+
+	std::shared_ptr<AnimatedGraphicsCP> enemyGraphicsCP = std::make_shared<AnimatedGraphicsCP>(
+		enemyTemp, "EnemySpriteCP", *AssetManager::getInstance().Textures.at(texName), spriteSheetCounts[object.getProp("EnemyName")->getValue<std::string>()], ANIMATION_SPEED
 	);
 
-	player->addComponent(playerGraphicsCP);
+	enemyTemp->addComponent(enemyGraphicsCP);
 
-	const float VELOCITY = 8;
-	sf::Vector2f pos(window->getSize().x / 2, window->getSize().y / 2);
-	std::shared_ptr<TransformationCP> transCP = std::make_shared<TransformationCP>(player, "PlayerTransformationCP", pos, 0, 1);
+	const float VELOCITY = object.getProp("Velocity")->getValue<int>();
+	sf::Vector2f pos(sf::Vector2f(object.getPosition().x, object.getPosition().y));
+
+	std::shared_ptr<TransformationCP> transCP = std::make_shared<TransformationCP>(enemyTemp, "EnemyTransformationCP", pos, object.getRotation(), object.getSize().x);
 	transCP->setVelocity(VELOCITY);
-	player->addComponent(transCP);
 
+	enemyTemp->addComponent(transCP);
+
+	std::shared_ptr<RectCollisionCP> enemyCollisionCP = std::make_shared<RectCollisionCP>(enemyTemp, "EnemyCollisionCP", 
+		sf::Vector2f(enemyGraphicsCP->getSprite().getTextureRect().getSize().x, 
+			enemyGraphicsCP->getSprite().getTextureRect().getSize().y
+		)
+	);
+	enemyTemp->addComponent(enemyCollisionCP);
+
+	std::shared_ptr<SpriteRenderCP> enemyRenderCP = std::make_shared<SpriteRenderCP>(enemyTemp, "EnemyRenderCP", window, group.getProp("LayerNr")->getValue<int>());
+	enemyTemp->addComponent(enemyRenderCP);
+
+	gameObjects.push_back(enemyTemp);
+}
+
+void GameplayState::createPlayers(tson::Object& object, tson::Layer group)
+{
+	int idNr = object.getProp("PlayerNr")->getValue<int>();
+	std::string stringId = "Player";
+	stringId += '0' + idNr;
+
+	std::shared_ptr<GameObject> playerTemp = std::make_shared<GameObject>(stringId);
+
+	if (!AssetManager::getInstance().Textures["PlayerTexture"])
+	{
+		AssetManager::getInstance().loadTexture("PlayerTexture", object.getProp("PlayerTexture")->getValue<std::string>());
+	}
+
+	const int PLAYER_ANIMATION_SPEED = object.getProp("AnimationSpeed")->getValue<int>();
+
+	std::shared_ptr<AnimatedGraphicsCP> playerGraphicsCP = std::make_shared<AnimatedGraphicsCP>(
+		playerTemp, "PlayerSpriteCP", *AssetManager::getInstance().Textures.at("PlayerTexture"), spriteSheetCounts[playerTemp->getId()], PLAYER_ANIMATION_SPEED
+	);
+
+	playerTemp->addComponent(playerGraphicsCP);
+
+	const float VELOCITY = object.getProp("Velocity")->getValue<int>();
+	sf::Vector2f pos(sf::Vector2f(object.getPosition().x, object.getPosition().y));
+
+	std::shared_ptr<TransformationCP> transCP = std::make_shared<TransformationCP>(playerTemp, "PlayerTransformationCP", pos, object.getRotation(), object.getSize().x);
+	transCP->setVelocity(VELOCITY);
+
+	playerTemp->addComponent(transCP);
+
+	bool useArrowKeys = object.getProp("ArrowKeys")->getValue<bool>();
 
 	if (useArrowKeys) {
 		std::shared_ptr<MovementInputArrowsCP> movementInputCP = std::make_shared<MovementInputArrowsCP>(
-			player, "MovementInputCP", playerGraphicsCP, transCP
+			playerTemp, "MovementInputCP", playerGraphicsCP, transCP
 		);
-		player->addComponent(movementInputCP);
+		playerTemp->addComponent(movementInputCP);
 	}
 	else {
 		std::shared_ptr<MovementInputWASDCP> movementInputCP = std::make_shared<MovementInputWASDCP>(
-			player, "MovementInputCP", playerGraphicsCP, transCP
+			playerTemp, "MovementInputCP", playerGraphicsCP, transCP
 		);
-		player->addComponent(movementInputCP);
+		playerTemp->addComponent(movementInputCP);
 	}
+	
+	std::shared_ptr<RectCollisionCP> playerCollisionCP = std::make_shared<RectCollisionCP>(playerTemp, "PlayerCollisionCP", 
+		sf::Vector2f(
+			playerGraphicsCP->getSprite().getTextureRect().getSize().x,
+			playerGraphicsCP->getSprite().getTextureRect().getSize().y
+		)
+	);
+	playerTemp->addComponent(playerCollisionCP);
+	
+	std::shared_ptr<SpriteRenderCP> playerRenderCP = std::make_shared<SpriteRenderCP>(playerTemp, "PlayerRenderCP", window, group.getProp("LayerNr")->getValue<int>());
+	playerTemp->addComponent(playerRenderCP);
 
-	std::shared_ptr<RectCollisionCP> playerCollisionCP = std::make_shared<RectCollisionCP>(player, "PlayerCollisionCP");
-	player->addComponent(playerCollisionCP);
+	float mass = object.getProp("Mass")->getValue<float>();
+	std::shared_ptr<RigidBodyCP> playerRigidBodyCP = std::make_shared<RigidBodyCP>(playerTemp, "PlayerRigidBodyCP", mass, mass == 0.f ? 0.f : 1.f / mass);
+	playerTemp->addComponent(playerRigidBodyCP);
 
-	std::shared_ptr<SpriteRenderCP> playerRenderCP = std::make_shared<SpriteRenderCP>(player, "PlayerRenderCP", window, 1);
-	player->addComponent(playerRenderCP);
-}
-
-
-
-void GameplayState::addBackgroundComponents(std::shared_ptr<GameObject> Background)
-{
-	if (!AssetManager::getInstance().Textures["BackgroundTexture"])
-	{
-		AssetManager::getInstance().loadTexture("BackgroundTexture", "Assets\\Textures\\background.png");
-	}
-	std::shared_ptr<StandardGraphicsCP> backgroundGraphicsCP = std::make_shared<StandardGraphicsCP>(Background, "BackgroudTexture", *AssetManager::getInstance().Textures.at("BackgroundTexture"));
-	Background->addComponent(backgroundGraphicsCP);
-
-	const float VELOCITY = 8;
-	sf::Vector2f pos(0, 0);
-	std::shared_ptr<BackgroundTransformationCP> transCP = std::make_shared<BackgroundTransformationCP>(Background, "BackgroundTransformationCP", pos, 0, 1);
-	transCP->setVelocity(VELOCITY);
-	Background->addComponent(transCP);
-
-	std::shared_ptr<SpriteRenderCP> backgroundRenderCP = std::make_shared<SpriteRenderCP>(Background, "BackgroundRenderCP", window, 0);
-	Background->addComponent(backgroundRenderCP);
+	gameObjects.push_back(playerTemp);
 }

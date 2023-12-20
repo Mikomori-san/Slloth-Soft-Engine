@@ -12,7 +12,7 @@ public:
     void initialize(sf::RenderWindow& renderWindow);
     void drawLine(sf::Vector2f startPoint, sf::Vector2f endPoint, sf::Color color);
     void drawRectOutline(sf::Vector2f position, int width, int height, sf::Color color);
-    void drawRectOutline(sf::IntRect intRect, sf::Color color);
+    void drawRectOutline(sf::FloatRect intRect, sf::Color color);
     void drawRectangle(sf::Vector2f position, int width, int height, sf::Color color);
     void drawRectangle(sf::IntRect rect, sf::Color color);
     void unload();

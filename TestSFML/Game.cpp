@@ -17,11 +17,11 @@ void Game::initialize()
 {
 	InputManager::getInstance().init(window);
 
-	GameStateManager::getInstance().reg("Start", std::make_shared<MenuState>());
+	GameStateManager::getInstance().reg("Menu", std::make_shared<MenuState>());
 	GameStateManager::getInstance().reg("Gameplay", std::make_shared<GameplayState>());
 	GameStateManager::getInstance().reg("Exit", std::make_shared<ExitState>());
 
-	GameStateManager::getInstance().setState("Start", window);
+	GameStateManager::getInstance().setState("Gameplay", window);
 }
 
 void Game::run()
@@ -63,9 +63,9 @@ void Game::draw()
 void Game::update(float deltaTime)
 {
 	if (InputManager::getInstance().getKeyDown(sf::Keyboard::Num1))
-		GameStateManager::getInstance().setState("Gameplay", window);
+		GameStateManager::getInstance().setState("Menu", window);
 	else if (InputManager::getInstance().getKeyDown(sf::Keyboard::Num2))
-		GameStateManager::getInstance().setState("Start", window);
+		GameStateManager::getInstance().setState("Gameplay", window);
 
 	GameStateManager::getInstance().update(deltaTime);
 

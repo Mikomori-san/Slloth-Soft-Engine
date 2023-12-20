@@ -13,7 +13,7 @@ void SpriteRenderCP::draw()
 		if (!gameObject.expired())
 		{
 			std::shared_ptr<GameObject> go = gameObject.lock();
-			if (go->getId() == "Player" || go->getId() == "Player1")
+			if (go->getId().find("Player") != std::string::npos)
 			{
 				DebugDraw::getInstance().drawRectOutline(
 					sf::Vector2f(sprite.getGlobalBounds().left, sprite.getGlobalBounds().top),

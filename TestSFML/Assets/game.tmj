@@ -97,6 +97,11 @@
                          "value":false
                         }, 
                         {
+                         "name":"Mass",
+                         "type":"float",
+                         "value":100
+                        }, 
+                        {
                          "name":"ObjectGroup",
                          "type":"string",
                          "value":"Player"
@@ -137,6 +142,11 @@
                          "name":"ArrowKeys",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"Mass",
+                         "type":"float",
+                         "value":100
                         }, 
                         {
                          "name":"ObjectGroup",

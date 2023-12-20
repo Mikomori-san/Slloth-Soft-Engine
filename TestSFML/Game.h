@@ -4,8 +4,8 @@
 #include "DebugDraw.h"
 #include "GameObject.h"
 #include "Manager/GameStateManager.h"
-#include "GameStates/MenuState.h"
 #include "GameStates/GameplayState.h"
+#include "GameStates/MenuState.h"
 #include "GameStates/ExitState.h"
 #pragma once
 
