@@ -196,6 +196,7 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </ClCompile>
     <ClCompile Include="Utils.cpp" />
     <ClInclude Include="Enums\Animationtype.h" />
+    <ClInclude Include="FPS.h" />
     <ClInclude Include="Manager\RenderManager.h" />
     <ClInclude Include="tileson.hpp" />
   </ItemGroup>
