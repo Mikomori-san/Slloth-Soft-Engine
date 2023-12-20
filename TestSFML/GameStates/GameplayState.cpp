@@ -331,10 +331,11 @@ void GameplayState::createEnemies(tson::Object& object, tson::Layer group)
 
 	enemyTemp->addComponent(transCP);
 
-	std::shared_ptr<RectCollisionCP> enemyCollisionCP = std::make_shared<RectCollisionCP>(enemyTemp, "EnemyCollisionCP", 
-		sf::Vector2f(enemyGraphicsCP->getSprite().getTextureRect().getSize().x, 
+	std::shared_ptr<RectCollisionCP> enemyCollisionCP = std::make_shared<RectCollisionCP>(enemyTemp, "EnemyCollisionCP",
+		sf::Vector2f(enemyGraphicsCP->getSprite().getTextureRect().getSize().x,
 			enemyGraphicsCP->getSprite().getTextureRect().getSize().y
-		)
+		),
+		object.getProp("isTrigger")->getValue<bool>()
 	);
 	enemyTemp->addComponent(enemyCollisionCP);
 
@@ -394,11 +395,12 @@ void GameplayState::createPlayers(tson::Object& object, tson::Layer group)
 		playerTemp->addComponent(movementInputCP);
 	}
 	
-	std::shared_ptr<RectCollisionCP> playerCollisionCP = std::make_shared<RectCollisionCP>(playerTemp, "PlayerCollisionCP", 
+	std::shared_ptr<RectCollisionCP> playerCollisionCP = std::make_shared<RectCollisionCP>(playerTemp, "PlayerCollisionCP",
 		sf::Vector2f(
 			playerGraphicsCP->getSprite().getTextureRect().getSize().x,
 			playerGraphicsCP->getSprite().getTextureRect().getSize().y
-		)
+		),
+		object.getProp("isTrigger")->getValue<bool>()
 	);
 	playerTemp->addComponent(playerCollisionCP);
 	

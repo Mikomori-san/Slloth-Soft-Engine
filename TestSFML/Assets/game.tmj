@@ -120,6 +120,11 @@
                          "name":"Velocity",
                          "type":"int",
                          "value":8
+                        }, 
+                        {
+                         "name":"isTrigger",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"",
@@ -167,6 +172,11 @@
                          "name":"Velocity",
                          "type":"int",
                          "value":8
+                        }, 
+                        {
+                         "name":"isTrigger",
+                         "type":"bool",
+                         "value":false
                         }],
                  "rotation":0,
                  "type":"",
@@ -214,6 +224,11 @@
                          "name":"Velocity",
                          "type":"int",
                          "value":8
+                        }, 
+                        {
+                         "name":"isTrigger",
+                         "type":"bool",
+                         "value":false
                         }],
                  "rotation":0,
                  "type":"",
@@ -261,6 +276,11 @@
                          "name":"Velocity",
                          "type":"int",
                          "value":8
+                        }, 
+                        {
+                         "name":"isTrigger",
+                         "type":"bool",
+                         "value":false
                         }],
                  "rotation":0,
                  "type":"",

@@ -131,28 +131,41 @@ void PhysicsManager::collisionResolve()
 {
     for (auto& man : manifolds)
     {
-        std::cout << "Collision Detected" << std::endl;
-
-        const sf::Vector2f rv = man->body1->getVel() - man->body2->getVel();
-
-        const float velAlongNormal = rv.x * man->normal.x + rv.y * man->normal.y;
-
-        if (velAlongNormal >= 0)
+        if (!man->body1->getGO().expired() && !man->body2->getGO().expired())
         {
-            return;
-        }
+            std::shared_ptr<GameObject> go1 = man->body1->getGO().lock();
+            std::shared_ptr<GameObject> go2 = man->body2->getGO().lock();
 
-        if (bool restitutionOn = true)
-        {
-            sf::Vector2f impulse = velAlongNormal * man->normal;
+            if (go1->getComponentsOfType<RectCollisionCP>().at(0)->isTrigger() || go2->getComponentsOfType<RectCollisionCP>().at(0)->isTrigger())
+            {
+                std::cout << "Collision Detected, Logic Trigger" << std::endl;
+            }
+            else
+            {
+                std::cout << "RigidBody Collision Detected" << std::endl;
 
-            man->body1->setVelNotifyTransf(man->body1->getVel() - 0.5f * impulse);
-            man->body2->setVelNotifyTransf(man->body2->getVel() + 0.5f * impulse);
-        }
+                const sf::Vector2f rv = man->body1->getVel() - man->body2->getVel();
 
-        if (bool posCorrection = false)
-        {
-            positionalCorrection(*man);
+                const float velAlongNormal = rv.x * man->normal.x + rv.y * man->normal.y;
+
+                if (velAlongNormal >= 0) // > 0
+                {
+                    return;
+                }
+
+                if (bool restitutionOn = true)
+                {
+                    sf::Vector2f impulse = velAlongNormal * man->normal;
+
+                    man->body1->setVelNotifyTransf(man->body1->getVel() - 0.5f * impulse);
+                    man->body2->setVelNotifyTransf(man->body2->getVel() + 0.5f * impulse);
+                }
+
+                if (bool posCorrection = false)
+                {
+                    positionalCorrection(*man);
+                }
+            }
         }
     }
 }

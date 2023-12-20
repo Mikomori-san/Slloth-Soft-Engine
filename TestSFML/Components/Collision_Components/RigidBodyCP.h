@@ -25,6 +25,8 @@ public:
     void setVel(sf::Vector2f vel) { this->velocity = vel; }
     void setVelNotifyTransf(sf::Vector2f vel);
 
+    std::weak_ptr<GameObject> getGO() { return this->gameObject; }
+
 private:
     float mass;
     float invMass;
