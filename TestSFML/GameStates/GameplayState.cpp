@@ -78,7 +78,7 @@ void GameplayState::update(float deltaTime)
 
 	checkPlayerLayer();
 
-	PhysicsManager::getInstance().update(gameObjects);
+	PhysicsManager::getInstance().update(gameObjects, deltaTime);
 }
 
 void GameplayState::render()

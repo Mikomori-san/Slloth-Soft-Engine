@@ -186,10 +186,17 @@ void PhysicsManager::collisionResolve()
     }
 }
 
-void PhysicsManager::update(std::vector<std::shared_ptr<GameObject>> gameObjects)
+void PhysicsManager::update(std::vector<std::shared_ptr<GameObject>> gameObjects, float deltaTime)
 {
-    manifolds.clear();
+    const float step = 1.f / 100.f;
+    accumulator += deltaTime;
 
-    collisionCheck(gameObjects);
-    collisionResolve();
+    while (accumulator > step)
+    {
+        manifolds.clear();
+        collisionCheck(gameObjects);
+        collisionResolve();
+
+        accumulator -= step;
+    }
 }

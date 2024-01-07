@@ -12,7 +12,7 @@ public:
 		return instance;
 	}
 
-	void update(std::vector<std::shared_ptr<GameObject>> gameObjects);
+	void update(std::vector<std::shared_ptr<GameObject>> gameObjects, float deltaTime);
 
 private:
 	PhysicsManager() = default;
@@ -21,4 +21,6 @@ private:
 
 	void collisionCheck(std::vector<std::shared_ptr<GameObject>>& gameObjects); // store manifolds for collisions in vector
 	void collisionResolve(); // resolve manifolds foreach man : manifolds
+
+	float accumulator = 0;
 };
