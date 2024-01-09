@@ -1,4 +1,4 @@
-## My university project - the Slloth-Soft Engine <br>
+## My university project - the Slloth-Soft Engine (WIP) <br>
 Made with SFML in C++ <br>
 <br>
 Features: <br>
