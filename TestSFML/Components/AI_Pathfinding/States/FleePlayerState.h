@@ -5,7 +5,7 @@
 class FleePlayerState : public AIState
 {
 public:
-	FleePlayerState(std::shared_ptr<GameObject> incPlayer) : player(incPlayer) {};
+	FleePlayerState(std::weak_ptr<GameObject> incGameObject, std::shared_ptr<GameObject> incPlayer) : AIState(incGameObject), player(incPlayer) {};
 	void update(float deltaTime) override;
 	
 private:

@@ -4,7 +4,7 @@
 class AttackPlayerState : public AIState
 {
 public:
-	AttackPlayerState(std::shared_ptr<GameObject> incPlayer) : player(incPlayer) {};
+	AttackPlayerState(std::weak_ptr<GameObject> incGameObject, std::shared_ptr<GameObject> incPlayer) : AIState(incGameObject), player(incPlayer) {};
 	void update(float deltaTime) override;
 
 private:

@@ -4,7 +4,7 @@
 class PatrolState : public AIState
 {
 public:
-	PatrolState(std::vector<std::shared_ptr<GameObject>> incPatrolPoints) : patrolPoints(incPatrolPoints) {};
+	PatrolState(std::weak_ptr<GameObject> incGameObject, std::vector<std::shared_ptr<GameObject>> incPatrolPoints) : AIState(incGameObject), patrolPoints(incPatrolPoints) {};
 	void update(float deltaTime) override;
 
 private:

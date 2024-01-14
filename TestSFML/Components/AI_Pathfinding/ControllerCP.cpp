@@ -36,27 +36,26 @@ void ControllerCP::update(float deltaTime)
 		{
 			if (!std::dynamic_pointer_cast<FleePlayerState>(currentState))
 			{
-				currentState = std::make_shared<FleePlayerState>(nearestPlayer);
+				currentState = std::make_shared<FleePlayerState>(gameObject, nearestPlayer);
 			}
 		}
 		else if (nearestDistance < 500)
 		{
 			if (!std::dynamic_pointer_cast<AttackPlayerState>(currentState))
 			{
-				currentState = std::make_shared<AttackPlayerState>(nearestPlayer);
+				currentState = std::make_shared<AttackPlayerState>(gameObject, nearestPlayer);
 			}
 		}
 		else
 		{
 			if (!std::dynamic_pointer_cast<PatrolState>(currentState))
 			{
-				currentState = std::make_shared<PatrolState>(patrolPoints);
+				currentState = std::make_shared<PatrolState>(gameObject, patrolPoints);
 			}
 		}
 	}
 
 	currentState->update(deltaTime);
-
 }
 
 void ControllerCP::init()
