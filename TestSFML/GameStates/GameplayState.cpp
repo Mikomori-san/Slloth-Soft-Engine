@@ -13,6 +13,9 @@
 #include "../DebugDraw.h"
 #include "../Components/Collision_Components/RigidBodyCP.h"
 #include "../Manager/PhysicsManager.h"
+#include "../Components/StatsCP.h"
+#include "../Components/DecisionHandlerCP.h"
+#include "../Components/AI_Pathfinding/ControllerCP.h"
 
 void GameplayState::init(sf::RenderWindow& rWindow)
 {
@@ -198,6 +201,10 @@ void GameplayState::loadMap(std::string name, const sf::Vector2f& offset)
 			{
 				createPlayers(object, group);
 			}
+			else if (object.getProp("ObjectGroup")->getValue<std::string>() == "PatrolPoint")
+			{
+				createPatrolPoints(object, group);
+			}
 			else if (object.getProp("ObjectGroup")->getValue<std::string>() == "Enemy")
 			{
 				createEnemies(object, group);
@@ -299,6 +306,18 @@ void GameplayState::checkPlayerLayer()
 	}
 }
 
+void GameplayState::createPatrolPoints(tson::Object& object, tson::Layer group)
+{
+	std::string id = "PatrolPoint" + object.getProp("PatrolNr")->getValue<int>();
+	std::shared_ptr<GameObject> patrolPointTemp = std::make_shared<GameObject>(id);
+
+	sf::Vector2f pos(sf::Vector2f(object.getPosition().x, object.getPosition().y));
+	std::shared_ptr<TransformationCP> transCP = std::make_shared<TransformationCP>(patrolPointTemp, "PatrolTransformationCP", pos, object.getRotation(), object.getSize().x);
+	patrolPointTemp->addComponent(transCP);
+
+	gameObjects.push_back(patrolPointTemp);
+}
+
 void GameplayState::createBoundary(tson::Object& object, tson::Layer group)
 {
 	std::string id = "Boundary " + object.getProp("Direction")->getValue<std::string>();
@@ -376,6 +395,29 @@ void GameplayState::createEnemies(tson::Object& object, tson::Layer group)
 	std::shared_ptr<SpriteRenderCP> enemyRenderCP = std::make_shared<SpriteRenderCP>(enemyTemp, "EnemyRenderCP", window, group.getProp("LayerNr")->getValue<int>());
 	enemyTemp->addComponent(enemyRenderCP);
 
+	int hp = object.getProp("Health")->getValue<int>();
+	std::shared_ptr<StatsCP> enemyStats = std::make_shared<StatsCP>(enemyTemp, "EnemyStatsCP", hp);
+	enemyTemp->addComponent(enemyStats);
+
+	if (object.getProp("isAI")->getValue<bool>())
+	{
+		std::vector<std::shared_ptr<GameObject>> players;
+		std::vector<std::shared_ptr<GameObject>> patrolPoints;
+		for (auto& go : gameObjects)
+		{
+			if (go->getId().find("Player") != std::string::npos)
+			{
+				players.push_back(go);
+			}
+			else if (go->getId().find("PatrolPoint") != std::string::npos && go->getId().find((char)object.getProp("PatrolNr")->getValue<int>()) != std::string::npos)
+			{
+				patrolPoints.push_back(go);
+			}
+		}
+		std::shared_ptr<ControllerCP> enemyAIController = std::make_shared<ControllerCP>(enemyTemp, "EnemyControllerCP", players, patrolPoints);
+		enemyTemp->addComponent(enemyAIController);
+	}
+
 	gameObjects.push_back(enemyTemp);
 }
 
@@ -437,6 +479,9 @@ void GameplayState::createPlayers(tson::Object& object, tson::Layer group)
 		);
 		playerTemp->addComponent(movementInputCP);
 	}
+
+	std::shared_ptr<DecisionHandlerCP> decHandler = std::make_shared<DecisionHandlerCP>(playerTemp, "PlayerDecisionHandlerCP");
+	playerTemp->addComponent(decHandler);
 
 	gameObjects.push_back(playerTemp);
 }

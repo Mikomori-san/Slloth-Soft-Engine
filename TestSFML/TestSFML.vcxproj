@@ -148,7 +148,15 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Components\AI_Pathfinding\ControllerCP.h" />
+    <ClInclude Include="Components\AI_Pathfinding\States\AIState.h" />
+    <ClInclude Include="Components\AI_Pathfinding\States\AttackPlayerState.h" />
+    <ClInclude Include="Components\AI_Pathfinding\States\FleePlayerState.h" />
+    <ClInclude Include="Components\AI_Pathfinding\States\PatrolState.h" />
     <ClInclude Include="Components\CameraCP.h" />
+    <ClInclude Include="Components\DecisionHandlerCP.h" />
+    <ClInclude Include="Components\StatsCP.h" />
+    <ClInclude Include="Enums\Direction.h" />
     <ClInclude Include="Manager\PhysicsManager.h" />
     <ClInclude Include="Manifold.h" />
     <ClInclude Include="Components\Collision_Components\RectCollisionCP.h" />
@@ -167,9 +175,14 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="Components\Transformation_Components\BackgroundTransformationCP.h" />
     <ClInclude Include="Components\Transformation_Components\CameraTransformationCP.h" />
     <ClInclude Include="Components\Transformation_Components\TransformationCP.h" />
+    <ClCompile Include="Components\AI_Pathfinding\ControllerCP.cpp" />
+    <ClCompile Include="Components\AI_Pathfinding\States\AttackPlayerState.cpp" />
+    <ClCompile Include="Components\AI_Pathfinding\States\FleePlayerState.cpp" />
+    <ClCompile Include="Components\AI_Pathfinding\States\PatrolState.cpp" />
     <ClCompile Include="Components\CameraCP.cpp" />
     <ClCompile Include="Components\Collision_Components\RectCollisionCP.cpp" />
     <ClCompile Include="Components\Collision_Components\RigidBodyCP.cpp" />
+    <ClCompile Include="Components\DecisionHandlerCP.cpp" />
     <ClCompile Include="Components\Graphics_Components\AnimatedGraphicsCP.cpp" />
     <ClCompile Include="Components\Render_Components\LayerCP.cpp" />
     <ClCompile Include="Components\Render_Components\SpriteRenderCP.cpp" />
@@ -178,6 +191,7 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClCompile Include="Components\Input_Components\InputCP.cpp" />
     <ClCompile Include="Components\Input_Components\MovementInputArrowsCP.cpp" />
     <ClCompile Include="Components\Input_Components\MovementInputWASDCP.cpp" />
+    <ClCompile Include="Components\StatsCP.cpp" />
     <ClCompile Include="Components\Transformation_Components\BackgroundTransformationCP.cpp" />
     <ClCompile Include="Components\Transformation_Components\CameraTransformationCP.cpp" />
     <ClCompile Include="Components\Transformation_Components\TransformationCP.cpp" />

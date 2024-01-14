@@ -97,6 +97,11 @@
                          "value":false
                         }, 
                         {
+                         "name":"Health",
+                         "type":"int",
+                         "value":100
+                        }, 
+                        {
                          "name":"Mass",
                          "type":"float",
                          "value":100
@@ -120,6 +125,11 @@
                          "name":"Velocity",
                          "type":"int",
                          "value":8
+                        }, 
+                        {
+                         "name":"isAI",
+                         "type":"bool",
+                         "value":false
                         }, 
                         {
                          "name":"isTrigger",
@@ -149,6 +159,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"Health",
+                         "type":"int",
+                         "value":100
+                        }, 
+                        {
                          "name":"Mass",
                          "type":"float",
                          "value":100
@@ -172,6 +187,11 @@
                          "name":"Velocity",
                          "type":"int",
                          "value":8
+                        }, 
+                        {
+                         "name":"isAI",
+                         "type":"bool",
+                         "value":false
                         }, 
                         {
                          "name":"isTrigger",
@@ -211,6 +231,11 @@
                          "value":"Assets\\Textures\\SpaceShip.png"
                         }, 
                         {
+                         "name":"Health",
+                         "type":"int",
+                         "value":100
+                        }, 
+                        {
                          "name":"Mass",
                          "type":"float",
                          "value":200
@@ -221,9 +246,19 @@
                          "value":"Enemy"
                         }, 
                         {
+                         "name":"PatrolNr",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
                          "name":"Velocity",
                          "type":"int",
                          "value":8
+                        }, 
+                        {
+                         "name":"isAI",
+                         "type":"bool",
+                         "value":true
                         }, 
                         {
                          "name":"isTrigger",
@@ -263,6 +298,11 @@
                          "value":"Assets\\Textures\\Crawler.png"
                         }, 
                         {
+                         "name":"Health",
+                         "type":"int",
+                         "value":100
+                        }, 
+                        {
                          "name":"Mass",
                          "type":"float",
                          "value":0
@@ -273,9 +313,19 @@
                          "value":"Enemy"
                         }, 
                         {
+                         "name":"PatrolNr",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
                          "name":"Velocity",
                          "type":"int",
                          "value":8
+                        }, 
+                        {
+                         "name":"isAI",
+                         "type":"bool",
+                         "value":true
                         }, 
                         {
                          "name":"isTrigger",
@@ -396,6 +446,138 @@
                  "width":956,
                  "x":4.66666666666663,
                  "y":1.00015
+                }, 
+                {
+                 "height":0,
+                 "id":16,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"ObjectGroup",
+                         "type":"string",
+                         "value":"PatrolPoint"
+                        }, 
+                        {
+                         "name":"PatrolNr",
+                         "type":"int",
+                         "value":0
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":416,
+                 "y":349.333333333333
+                }, 
+                {
+                 "height":0,
+                 "id":17,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"ObjectGroup",
+                         "type":"string",
+                         "value":"PatrolPoint"
+                        }, 
+                        {
+                         "name":"PatrolNr",
+                         "type":"int",
+                         "value":0
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":510.666666666667,
+                 "y":202.666666666667
+                }, 
+                {
+                 "height":0,
+                 "id":18,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"ObjectGroup",
+                         "type":"string",
+                         "value":"PatrolPoint"
+                        }, 
+                        {
+                         "name":"PatrolNr",
+                         "type":"int",
+                         "value":0
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":632,
+                 "y":349.333333333333
+                }, 
+                {
+                 "height":0,
+                 "id":19,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"ObjectGroup",
+                         "type":"string",
+                         "value":"PatrolPoint"
+                        }, 
+                        {
+                         "name":"PatrolNr",
+                         "type":"int",
+                         "value":1
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":645.333333333333,
+                 "y":486.666666666667
+                }, 
+                {
+                 "height":0,
+                 "id":21,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"ObjectGroup",
+                         "type":"string",
+                         "value":"PatrolPoint"
+                        }, 
+                        {
+                         "name":"PatrolNr",
+                         "type":"int",
+                         "value":1
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":810.666666666667,
+                 "y":410.666666666667
+                }, 
+                {
+                 "height":0,
+                 "id":22,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"ObjectGroup",
+                         "type":"string",
+                         "value":"PatrolPoint"
+                        }, 
+                        {
+                         "name":"PatrolNr",
+                         "type":"int",
+                         "value":1
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":765.333333333333,
+                 "y":598.666666666667
                 }],
          "opacity":1,
          "properties":[
@@ -447,7 +629,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":16,
+ "nextobjectid":23,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

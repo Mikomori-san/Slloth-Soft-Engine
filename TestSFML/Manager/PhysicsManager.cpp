@@ -158,6 +158,7 @@ void PhysicsManager::collisionResolve()
 
                 // Rigid Body Logic
 
+                /*
                 std::shared_ptr<RigidBodyCP> r1 = go1->getComponentsOfType<RigidBodyCP>().at(0);
                 std::shared_ptr<RigidBodyCP> r2 = go2->getComponentsOfType<RigidBodyCP>().at(0);
 
@@ -182,6 +183,8 @@ void PhysicsManager::collisionResolve()
                 {
                     positionalCorrection(*man);
                 }
+                */
+                
             }
     }
 }
