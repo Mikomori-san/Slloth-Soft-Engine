@@ -5,8 +5,19 @@
 
 void TransformationCP::update(float deltaTime)
 {
-	oldPos = position - direction * 50.f * deltaTime;
-	position = position + direction * velocity * deltaTime;
+	// for positional correction when hitting a boundary
+	oldPos = position;
+	oldDir = direction;
+	
+	// for AI
+	if (backupVel)
+	{
+		curVelocity = backupVel;	
+	}
+
+	curVelocity *= velModifier;
+
+	position = position + direction * curVelocity * deltaTime;
 	if (rigid)
 	{
 		rigid->setPos(position);

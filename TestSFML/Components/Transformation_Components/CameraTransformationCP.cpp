@@ -13,5 +13,5 @@ void CameraTransformationCP::init()
 
 void CameraTransformationCP::update(float deltaTime)
 {
-	position = position + direction * velocity * deltaTime;
+	position = position + direction * curVelocity * deltaTime;
 }

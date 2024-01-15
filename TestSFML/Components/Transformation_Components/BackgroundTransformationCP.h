@@ -15,8 +15,8 @@ public:
 	virtual std::string getComponentId() override { return this->componentId; }
 	virtual void setComponentId(std::string id) override { this->componentId = id; }
 
-	virtual void setVelocity(float vel) override { this->velocity = vel; }
-	virtual float getVelocity() { return velocity; }
+	virtual void setVelocity(float vel) override { this->curVelocity = vel; }
+	virtual float getVelocity() { return curVelocity; }
 
 	virtual void setDirection(sf::Vector2f dir) override { this->direction = dir; }
 	virtual void setDirection(float x, float y) override { this->direction = sf::Vector2f(x, y); }

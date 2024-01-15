@@ -75,6 +75,5 @@ void ControllerCP::init()
 	{
 		std::shared_ptr<GameObject> go = gameObject.lock();
 		maxHealth = go->getComponentsOfType<StatsCP>().at(0)->getHealth();
-		go->getComponentsOfType<TransformationCP>().at(0)->setVelocity(50);
 	}
 }

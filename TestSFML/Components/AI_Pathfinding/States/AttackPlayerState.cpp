@@ -9,6 +9,7 @@ void AttackPlayerState::update(float deltaTime)
 	{
 		std::shared_ptr<GameObject> go = gameObject.lock();
 		//steer to player
+		go->getComponentsOfType<TransformationCP>().at(0)->setVelocity(50);
 		go->getComponentsOfType<SteeringCP>().at(0)->setDestination(player->getComponentsOfType<TransformationCP>().at(0)->getPosition());
 	}
 }

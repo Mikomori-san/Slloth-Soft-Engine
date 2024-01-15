@@ -19,8 +19,13 @@ public:
 	virtual std::string getComponentId() override { return this->componentId; }
 	virtual void setComponentId(std::string id) override { this->componentId = id; }
 
-	virtual void setVelocity(float vel) { this->velocity = vel; }
-	virtual float getVelocity() { return velocity; }
+	virtual void setVelocity(float vel) { this->curVelocity = vel; }
+	virtual float getVelocity() { return curVelocity; }
+	
+	virtual float getOriginalVelocity() { return this->originalVel; }
+
+	virtual void setVelocityModifier(float modifier) { this->velModifier = modifier; }
+	virtual void setBackupVel() { this->backupVel = originalVel; }
 
 	virtual void setDirection(sf::Vector2f dir) { this->direction = dir; }
 	virtual void setDirection(float x, float y) { this->direction = sf::Vector2f(x, y); }
@@ -38,15 +43,19 @@ public:
 	virtual void setPosition(sf::Vector2f newPosition) { position = newPosition; }
 	virtual sf::Vector2f& getPosition() { return position; }
 
-	void setOldPos() { position = oldPos; rigid->setPos(position); }
+	void setOldPos() { position = oldPos - oldDir; rigid->setPos(position); }
 
 protected:
 	sf::Vector2f position;
 	sf::Vector2f origin;
-	float velocity = 0;
+	float curVelocity = 0;
 	sf::Vector2f direction = sf::Vector2f(0, 0);
 	float rotation;
 	float scale;
 	std::shared_ptr<RigidBodyCP> rigid;
 	sf::Vector2f oldPos;
+	sf::Vector2f oldDir;
+	float originalVel = 10;
+	float backupVel;
+	float velModifier = 1;
 };
