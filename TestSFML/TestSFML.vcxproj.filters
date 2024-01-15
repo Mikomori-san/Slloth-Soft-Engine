@@ -132,6 +132,9 @@
     <ClCompile Include="Components\AI_Pathfinding\SteeringCP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Components\AI_Pathfinding\AISpriteUpdateCP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Manager\AssetManager.h">
@@ -288,6 +291,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Trigonometry.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\AI_Pathfinding\AISpriteUpdateCP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

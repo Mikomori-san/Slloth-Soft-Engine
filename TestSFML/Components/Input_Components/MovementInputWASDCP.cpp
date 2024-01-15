@@ -16,7 +16,23 @@ void MovementInputWASDCP::processInput()
 
         std::shared_ptr<DecisionHandlerCP> decHandler = gameObject.lock()->getComponentsOfType<DecisionHandlerCP>().at(0);
 
-        if (InputManager::getInstance().getKeyPressed(sf::Keyboard::W))
+        if (InputManager::getInstance().getKeyPressed(sf::Keyboard::W) && InputManager::getInstance().getKeyPressed(sf::Keyboard::D))
+        {
+            decHandler->handleMovement(Direction::upRight, sf::Vector2f(0.75f, -0.75f), 150);
+        }
+        else if (InputManager::getInstance().getKeyPressed(sf::Keyboard::D) && InputManager::getInstance().getKeyPressed(sf::Keyboard::S))
+        {
+            decHandler->handleMovement(Direction::rightDown, sf::Vector2f(0.75f, 0.75f), 150);
+        }
+        else if (InputManager::getInstance().getKeyPressed(sf::Keyboard::S) && InputManager::getInstance().getKeyPressed(sf::Keyboard::A))
+        {
+            decHandler->handleMovement(Direction::downLeft, sf::Vector2f(-0.75f, 0.75f), 150);
+        }
+        else if (InputManager::getInstance().getKeyPressed(sf::Keyboard::A) && InputManager::getInstance().getKeyPressed(sf::Keyboard::W))
+        {
+            decHandler->handleMovement(Direction::leftUp, sf::Vector2f(-0.75f, -0.75f), 150);
+        }
+        else if (InputManager::getInstance().getKeyPressed(sf::Keyboard::W))
         {
             decHandler->handleMovement(Direction::up, sf::Vector2f(0, -1), 150);
         }

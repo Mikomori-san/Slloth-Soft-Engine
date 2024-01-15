@@ -33,7 +33,7 @@ void ControllerCP::update(float deltaTime)
 				nearestPlayer = player;
 			}
 		}
-
+												//TODO: Implement A* for every movement
 		nearestDistance /= 100;
 
 		if ((health / maxHealth) * 100 < 20)
@@ -50,6 +50,10 @@ void ControllerCP::update(float deltaTime)
 			if (!std::dynamic_pointer_cast<AttackPlayerState>(currentState))
 			{
 				currentState = std::make_shared<AttackPlayerState>(gameObject, nearestPlayer);
+			}
+			else if(std::shared_ptr<AttackPlayerState> aps = std::dynamic_pointer_cast<AttackPlayerState>(currentState))
+			{
+				aps->updateNearestPlayer(nearestPlayer);
 			}
 		}
 		else

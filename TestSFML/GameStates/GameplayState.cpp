@@ -17,6 +17,7 @@
 #include "../Components/DecisionHandlerCP.h"
 #include "../Components/AI_Pathfinding/ControllerCP.h"
 #include "../Components/AI_Pathfinding/SteeringCP.h"
+#include "../Components/AI_Pathfinding/AISpriteUpdateCP.h"
 
 void GameplayState::init(sf::RenderWindow& rWindow)
 {
@@ -430,6 +431,9 @@ void GameplayState::createEnemies(tson::Object& object, tson::Layer group)
 
 		std::shared_ptr<SteeringCP> enemySteeringCP = std::make_shared<SteeringCP>(enemyTemp, "EnemySteeringCP");
 		enemyTemp->addComponent(enemySteeringCP);
+
+		std::shared_ptr<AISpriteUpdateCP> enemyAISpriteUpdateCP = std::make_shared<AISpriteUpdateCP>(enemyTemp, "EnemyAISpriteUpdateCP");
+		enemyTemp->addComponent(enemyAISpriteUpdateCP);
 	}
 
 	gameObjects.push_back(enemyTemp);

@@ -5,5 +5,9 @@ enum Direction
 	down,
 	left,
 	right,
+	upRight,
+	rightDown,
+	downLeft,
+	leftUp,
 	none
 };

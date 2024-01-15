@@ -148,6 +148,7 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Components\AI_Pathfinding\AISpriteUpdateCP.h" />
     <ClInclude Include="Components\AI_Pathfinding\ControllerCP.h" />
     <ClInclude Include="Components\AI_Pathfinding\States\AIState.h" />
     <ClInclude Include="Components\AI_Pathfinding\States\AttackPlayerState.h" />
@@ -176,6 +177,7 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="Components\Transformation_Components\BackgroundTransformationCP.h" />
     <ClInclude Include="Components\Transformation_Components\CameraTransformationCP.h" />
     <ClInclude Include="Components\Transformation_Components\TransformationCP.h" />
+    <ClCompile Include="Components\AI_Pathfinding\AISpriteUpdateCP.cpp" />
     <ClCompile Include="Components\AI_Pathfinding\ControllerCP.cpp" />
     <ClCompile Include="Components\AI_Pathfinding\States\AttackPlayerState.cpp" />
     <ClCompile Include="Components\AI_Pathfinding\States\FleePlayerState.cpp" />

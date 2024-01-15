@@ -48,6 +48,18 @@ void DecisionHandlerCP::handleMovement(Direction dir, sf::Vector2f dirVec, float
     case right:
         aniGraphics->setAnimationType(Animationtype::Right);
         break;
+    case upRight:
+        aniGraphics->setAnimationType(Animationtype::UpRight);
+        break;
+    case rightDown:
+        aniGraphics->setAnimationType(Animationtype::RightDown);
+        break;
+    case downLeft:
+        aniGraphics->setAnimationType(Animationtype::DownLeft);
+        break;
+    case leftUp:
+        aniGraphics->setAnimationType(Animationtype::LeftUp);
+        break;
     default:
         break;
     }
