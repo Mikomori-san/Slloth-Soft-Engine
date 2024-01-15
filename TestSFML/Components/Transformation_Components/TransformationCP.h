@@ -38,6 +38,8 @@ public:
 	virtual void setPosition(sf::Vector2f newPosition) { position = newPosition; }
 	virtual sf::Vector2f& getPosition() { return position; }
 
+	void setOldPos() { position = oldPos; rigid->setPos(position); }
+
 protected:
 	sf::Vector2f position;
 	sf::Vector2f origin;
@@ -46,4 +48,5 @@ protected:
 	float rotation;
 	float scale;
 	std::shared_ptr<RigidBodyCP> rigid;
+	sf::Vector2f oldPos;
 };

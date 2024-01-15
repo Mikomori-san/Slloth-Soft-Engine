@@ -21,7 +21,6 @@ void AnimatedGraphicsCP::update(float deltaTime)
 {
 	animationTimeIndex += deltaTime * ANIMATION_SPEED;
 	doAnimation();
-	handleIdle();
 	if (!gameObject.expired())
 	{
 		std::shared_ptr<TransformationCP> transform;
@@ -31,10 +30,10 @@ void AnimatedGraphicsCP::update(float deltaTime)
 
 		if (transform)
 		{
-			sprite->setPosition(transform->getPosition());
+			sprite->setPosition(sf::Vector2f(transform->getPosition().x + sprite->getLocalBounds().width / 2, transform->getPosition().y + sprite->getLocalBounds().height / 2));
 			sprite->setRotation(transform->getRotation());
 			sprite->setScale(transform->getScale(), transform->getScale());
-			//sprite->setOrigin(transform->getOrigin());
+			sprite->setOrigin(sf::Vector2f(sprite->getLocalBounds().width / 2, sprite->getLocalBounds().height / 2));
 		}
 	}
 }
@@ -60,25 +59,4 @@ void AnimatedGraphicsCP::doAnimation()
 	textureRect.height = sprite->getTextureRect().height;
 
 	sprite->setTextureRect(textureRect);
-}
-
-void AnimatedGraphicsCP::handleIdle()
-{
-	switch (m_animationType)
-	{
-	case RunDown:
-		m_animationType = Animationtype::IdleDown;
-		break;
-	case RunLeft:
-		m_animationType = Animationtype::IdleLeft;
-		break;
-	case RunUp:
-		m_animationType = Animationtype::IdleUp;
-		break;
-	case RunRight:
-		m_animationType = Animationtype::IdleRight;
-		break;
-	default:
-		break;
-	}
 }

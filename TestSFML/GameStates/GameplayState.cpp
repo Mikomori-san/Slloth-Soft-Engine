@@ -16,6 +16,7 @@
 #include "../Components/StatsCP.h"
 #include "../Components/DecisionHandlerCP.h"
 #include "../Components/AI_Pathfinding/ControllerCP.h"
+#include "../Components/AI_Pathfinding/SteeringCP.h"
 
 void GameplayState::init(sf::RenderWindow& rWindow)
 {
@@ -25,10 +26,10 @@ void GameplayState::init(sf::RenderWindow& rWindow)
 
 	DebugDraw::getInstance().initialize(*window);
 
-	spriteSheetCounts["Player1"] = { 1, 1, 1, 1, 4, 4, 4, 4 };
-	spriteSheetCounts["Player2"] = { 1, 1, 1, 1, 4, 4, 4, 4 };
-	spriteSheetCounts["Impostor"] = { 1, 1, 1, 1, 4, 4, 4, 4 };
-	spriteSheetCounts["Crawler"] = { 6, 6, 6, 6, 6, 6, 6, 6 };
+	spriteSheetCounts["Player1"] = { 6, 6, 6, 6, 6, 6, 6, 6 };
+	spriteSheetCounts["Player2"] = { 6, 6, 6, 6, 6, 6, 6, 6 };
+	spriteSheetCounts["Impostor"] = { 6, 6, 6, 6, 6, 6, 6, 6 };
+	spriteSheetCounts["Crawler"] = { 1, 1, 1, 1, 4, 4, 4, 4 };
 
 	loadMap("game.tmj", sf::Vector2f());
 	
@@ -71,10 +72,12 @@ void GameplayState::update(float deltaTime)
 	for (auto& go : gameObjects)
 	{
 		go->update(deltaTime);
+		/*
 		if (go->getId().find("Player1") != std::string::npos)
 		{
 			std::cout << "Player Pos: " << go->getComponentsOfType<TransformationCP>().at(0)->getPosition().x << ", " << go->getComponentsOfType<TransformationCP>().at(0)->getPosition().y << std::endl;
 		}
+		*/
 	}
 
 	//checkAreaBorders();
@@ -363,9 +366,17 @@ void GameplayState::createEnemies(tson::Object& object, tson::Layer group)
 	{
 		AssetManager::getInstance().loadTexture(texName, object.getProp("EnemyTexture")->getValue<std::string>());
 	}
-
+	Animationtype aniType;
+	if (enemyTemp->getId().find("Impostor") != std::string::npos)
+	{
+		aniType = Animationtype::Right;
+	}
+	else if (enemyTemp->getId().find("Crawler") != std::string::npos)
+	{
+		aniType = Animationtype::LeftUp;
+	}
 	std::shared_ptr<AnimatedGraphicsCP> enemyGraphicsCP = std::make_shared<AnimatedGraphicsCP>(
-		enemyTemp, "EnemySpriteCP", *AssetManager::getInstance().Textures.at(texName), spriteSheetCounts[object.getProp("EnemyName")->getValue<std::string>()], ANIMATION_SPEED
+		enemyTemp, "EnemySpriteCP", *AssetManager::getInstance().Textures.at(texName), spriteSheetCounts[object.getProp("EnemyName")->getValue<std::string>()], ANIMATION_SPEED, aniType
 	);
 
 	enemyTemp->addComponent(enemyGraphicsCP);
@@ -416,6 +427,9 @@ void GameplayState::createEnemies(tson::Object& object, tson::Layer group)
 		}
 		std::shared_ptr<ControllerCP> enemyAIController = std::make_shared<ControllerCP>(enemyTemp, "EnemyControllerCP", players, patrolPoints);
 		enemyTemp->addComponent(enemyAIController);
+
+		std::shared_ptr<SteeringCP> enemySteeringCP = std::make_shared<SteeringCP>(enemyTemp, "EnemySteeringCP");
+		enemyTemp->addComponent(enemySteeringCP);
 	}
 
 	gameObjects.push_back(enemyTemp);
@@ -445,7 +459,7 @@ void GameplayState::createPlayers(tson::Object& object, tson::Layer group)
 	const int PLAYER_ANIMATION_SPEED = object.getProp("AnimationSpeed")->getValue<int>();
 
 	std::shared_ptr<AnimatedGraphicsCP> playerGraphicsCP = std::make_shared<AnimatedGraphicsCP>(
-		playerTemp, "PlayerSpriteCP", *AssetManager::getInstance().Textures.at("PlayerTexture"), spriteSheetCounts[playerTemp->getId()], PLAYER_ANIMATION_SPEED
+		playerTemp, "PlayerSpriteCP", *AssetManager::getInstance().Textures.at("PlayerTexture"), spriteSheetCounts[playerTemp->getId()], PLAYER_ANIMATION_SPEED, Animationtype::Right
 	);
 
 	playerTemp->addComponent(playerGraphicsCP);

@@ -2,12 +2,12 @@
 
 enum Animationtype
 {
-	IdleDown,
-	IdleLeft,
-	IdleUp,
-	IdleRight,
-	RunDown,
-	RunLeft,
-	RunUp,
-	RunRight
+	Up,
+	UpRight,
+	Right,
+	RightDown,
+	Down,
+	DownLeft,
+	Left,
+	LeftUp
 };

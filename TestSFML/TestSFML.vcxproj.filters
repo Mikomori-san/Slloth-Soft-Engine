@@ -129,6 +129,9 @@
     <ClCompile Include="Components\AI_Pathfinding\States\AttackPlayerState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Components\AI_Pathfinding\SteeringCP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Manager\AssetManager.h">
@@ -278,6 +281,15 @@
     <ClInclude Include="Components\AI_Pathfinding\States\AIState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Components\AI_Pathfinding\SteeringCP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VectorAlgebra2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Trigonometry.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\playerSpriteSheet.png">
@@ -309,5 +321,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Music\musicTrack.ogg" />
+    <None Include="VectorAlgebra2D.inl">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

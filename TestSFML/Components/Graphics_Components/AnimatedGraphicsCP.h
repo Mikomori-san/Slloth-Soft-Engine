@@ -4,7 +4,7 @@
 
 class AnimatedGraphicsCP : public GraphicsCP {
 public:
-    AnimatedGraphicsCP(std::weak_ptr<GameObject> gameObject, std::string id, const sf::Texture& texture, std::vector<int> animationTypeFramesCountVar, float animationSpeed)
+    AnimatedGraphicsCP(std::weak_ptr<GameObject> gameObject, std::string id, const sf::Texture& texture, std::vector<int> animationTypeFramesCountVar, float animationSpeed, Animationtype aniType)
         : GraphicsCP(gameObject, id, texture), animationTypeFramesCount(animationTypeFramesCountVar), ANIMATION_SPEED(animationSpeed),
             TILING_X([this]() {
                 int max = 0;
@@ -15,7 +15,8 @@ public:
                 }
                 return max;
             }()), 
-            TILING_Y(animationTypeFramesCount.size())
+            TILING_Y(animationTypeFramesCount.size()),
+            m_animationType(aniType)
     {}
 
     ~AnimatedGraphicsCP() = default;
@@ -30,11 +31,10 @@ public:
     
 private:
     std::vector<int> animationTypeFramesCount;
-    Animationtype m_animationType = Animationtype::IdleDown; //All GameObjects with Sprites got IdleDown and stuff, trust me :)
+    Animationtype m_animationType;
     float animationTimeIndex = 0;
     const float ANIMATION_SPEED;
     const int TILING_X;
     const int TILING_Y;
     void doAnimation();
-    void handleIdle();
 };

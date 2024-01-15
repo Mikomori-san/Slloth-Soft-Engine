@@ -153,6 +153,7 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="Components\AI_Pathfinding\States\AttackPlayerState.h" />
     <ClInclude Include="Components\AI_Pathfinding\States\FleePlayerState.h" />
     <ClInclude Include="Components\AI_Pathfinding\States\PatrolState.h" />
+    <ClInclude Include="Components\AI_Pathfinding\SteeringCP.h" />
     <ClInclude Include="Components\CameraCP.h" />
     <ClInclude Include="Components\DecisionHandlerCP.h" />
     <ClInclude Include="Components\StatsCP.h" />
@@ -179,6 +180,7 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClCompile Include="Components\AI_Pathfinding\States\AttackPlayerState.cpp" />
     <ClCompile Include="Components\AI_Pathfinding\States\FleePlayerState.cpp" />
     <ClCompile Include="Components\AI_Pathfinding\States\PatrolState.cpp" />
+    <ClCompile Include="Components\AI_Pathfinding\SteeringCP.cpp" />
     <ClCompile Include="Components\CameraCP.cpp" />
     <ClCompile Include="Components\Collision_Components\RectCollisionCP.cpp" />
     <ClCompile Include="Components\Collision_Components\RigidBodyCP.cpp" />
@@ -216,6 +218,8 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="FPS.h" />
     <ClInclude Include="Manager\RenderManager.h" />
     <ClInclude Include="tileson.hpp" />
+    <ClInclude Include="Trigonometry.h" />
+    <ClInclude Include="VectorAlgebra2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\ColliderComponent.h" />
@@ -251,6 +255,7 @@ sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Music\musicTrack.ogg" />
+    <None Include="VectorAlgebra2D.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

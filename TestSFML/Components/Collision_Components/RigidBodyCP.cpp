@@ -16,6 +16,7 @@ void RigidBodyCP::setPosNotifyTransf(sf::Vector2f pos)
 // RigidBody Vel => transform.direction * transform.velocity => vel = RigidBodyVel / x or y (what is not 0)
 void RigidBodyCP::setVelNotifyTransf(sf::Vector2f vel)
 {
+    
     this->velocity = vel;
 
     if (!gameObject.expired())
@@ -41,6 +42,7 @@ void RigidBodyCP::onCollision(std::shared_ptr<GameObject> go2)
     {
         std::shared_ptr<GameObject> go = gameObject.lock();
 
+        /*
         if (go2->getId().find("Boundary") != std::string::npos)
         {
             float vel = velocity.x == 0 ? velocity.y : velocity.x;
@@ -62,8 +64,12 @@ void RigidBodyCP::onCollision(std::shared_ptr<GameObject> go2)
             {
                 direction = sf::Vector2f(0, -1);
             }
-            
-            setVelNotifyTransf(direction * abs(vel));
-        }
+        */
+        
+            std::shared_ptr<TransformationCP> transCP = go->getComponentsOfType<TransformationCP>().at(0);
+            transCP->setOldPos();
+            transCP->setVelocity(0);
+            //setVelNotifyTransf(direction * abs(vel));
+        //}
     }
 }

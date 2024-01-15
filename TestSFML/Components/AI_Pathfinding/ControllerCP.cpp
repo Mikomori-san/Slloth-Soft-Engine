@@ -7,6 +7,8 @@
 #include "States/FleePlayerState.h"
 #include "States/AttackPlayerState.h"
 #include "States/PatrolState.h"
+#include "SteeringCP.h"
+#include <iostream>
 
 void ControllerCP::update(float deltaTime)
 {
@@ -32,8 +34,11 @@ void ControllerCP::update(float deltaTime)
 			}
 		}
 
+		nearestDistance /= 100;
+
 		if ((health / maxHealth) * 100 < 20)
 		{
+			std::cout << "Health low!" << std::endl;
 			if (!std::dynamic_pointer_cast<FleePlayerState>(currentState))
 			{
 				currentState = std::make_shared<FleePlayerState>(gameObject, nearestPlayer);
@@ -41,6 +46,7 @@ void ControllerCP::update(float deltaTime)
 		}
 		else if (nearestDistance < 500)
 		{
+			std::cout << "Near Player" << std::endl;
 			if (!std::dynamic_pointer_cast<AttackPlayerState>(currentState))
 			{
 				currentState = std::make_shared<AttackPlayerState>(gameObject, nearestPlayer);
@@ -53,6 +59,7 @@ void ControllerCP::update(float deltaTime)
 				currentState = std::make_shared<PatrolState>(gameObject, patrolPoints);
 			}
 		}
+		std::cout << nearestDistance << std::endl;
 	}
 
 	currentState->update(deltaTime);
@@ -64,5 +71,6 @@ void ControllerCP::init()
 	{
 		std::shared_ptr<GameObject> go = gameObject.lock();
 		maxHealth = go->getComponentsOfType<StatsCP>().at(0)->getHealth();
+		go->getComponentsOfType<TransformationCP>().at(0)->setVelocity(50);
 	}
 }

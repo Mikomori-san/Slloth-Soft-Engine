@@ -139,7 +139,6 @@ void PhysicsManager::collisionResolve()
 
             if (go1->getComponentsOfType<RectCollisionCP>().at(0)->isTrigger() || go2->getComponentsOfType<RectCollisionCP>().at(0)->isTrigger())
             {
-                std::cout << "Collision Detected, Logic Trigger" << std::endl;
 
                 if (go1->getComponentsOfType<RigidBodyCP>().size() != 0)
                 {
@@ -154,7 +153,6 @@ void PhysicsManager::collisionResolve()
             }
             else
             {
-                std::cout << "RigidBody Collision Detected" << std::endl;
 
                 // Rigid Body Logic
 

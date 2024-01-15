@@ -5,6 +5,7 @@
 
 void TransformationCP::update(float deltaTime)
 {
+	oldPos = position - direction * 50.f * deltaTime;
 	position = position + direction * velocity * deltaTime;
 	if (rigid)
 	{
