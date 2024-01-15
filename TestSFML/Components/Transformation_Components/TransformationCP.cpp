@@ -6,16 +6,18 @@
 void TransformationCP::update(float deltaTime)
 {
 	// for positional correction when hitting a boundary
-	oldPos = position;
-	oldDir = direction;
+	posResetTimer++;
+	if (posResetTimer > 5)
+	{
+		oldPos = position;
+		posResetTimer = 0;
+	}
 	
 	// for AI
-	if (backupVel)
+	if (backupVel != 0)
 	{
 		curVelocity = backupVel;	
 	}
-
-	curVelocity *= velModifier;
 
 	position = position + direction * curVelocity * deltaTime;
 	if (rigid)

@@ -23,8 +23,7 @@ public:
 	virtual float getVelocity() { return curVelocity; }
 	
 	virtual float getOriginalVelocity() { return this->originalVel; }
-
-	virtual void setVelocityModifier(float modifier) { this->velModifier = modifier; }
+	virtual void setOriginalVelocity(float vel) { this->originalVel = vel; }
 	virtual void setBackupVel() { this->backupVel = originalVel; }
 
 	virtual void setDirection(sf::Vector2f dir) { this->direction = dir; }
@@ -45,6 +44,8 @@ public:
 
 	void setOldPos() { position = oldPos - oldDir; rigid->setPos(position); }
 
+	void setPosResetTimer() { this->posResetTimer = 0; }
+
 protected:
 	sf::Vector2f position;
 	sf::Vector2f origin;
@@ -55,7 +56,7 @@ protected:
 	std::shared_ptr<RigidBodyCP> rigid;
 	sf::Vector2f oldPos;
 	sf::Vector2f oldDir;
-	float originalVel = 10;
-	float backupVel;
-	float velModifier = 1;
+	float originalVel;
+	float backupVel = 0;
+	int posResetTimer = 0;
 };

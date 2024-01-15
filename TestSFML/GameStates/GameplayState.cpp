@@ -382,11 +382,11 @@ void GameplayState::createEnemies(tson::Object& object, tson::Layer group)
 
 	enemyTemp->addComponent(enemyGraphicsCP);
 
-	const float VELOCITY_MODIFIER = object.getProp("Velocity")->getValue<int>();
+	const float VELOCITY = object.getProp("Velocity")->getValue<int>();
 	sf::Vector2f pos(sf::Vector2f(object.getPosition().x, object.getPosition().y));
 
 	std::shared_ptr<TransformationCP> transCP = std::make_shared<TransformationCP>(enemyTemp, "EnemyTransformationCP", pos, object.getRotation(), object.getSize().x);
-	transCP->setVelocityModifier(VELOCITY_MODIFIER);
+	transCP->setOriginalVelocity(VELOCITY);
 	transCP->setBackupVel();
 
 	enemyTemp->addComponent(transCP);
@@ -453,11 +453,11 @@ void GameplayState::createPlayers(tson::Object& object, tson::Layer group)
 		AssetManager::getInstance().loadTexture("PlayerTexture", object.getProp("PlayerTexture")->getValue<std::string>());
 	}
 
-	const float VELOCITY_MODIFIER = object.getProp("Velocity")->getValue<int>();
+	const float VELOCITY = object.getProp("Velocity")->getValue<int>();
 	sf::Vector2f pos(sf::Vector2f(object.getPosition().x, object.getPosition().y));
 
 	std::shared_ptr<TransformationCP> transCP = std::make_shared<TransformationCP>(playerTemp, "PlayerTransformationCP", pos, object.getRotation(), object.getSize().x);
-	transCP->setVelocityModifier(VELOCITY_MODIFIER);
+	transCP->setOriginalVelocity(VELOCITY);
 	playerTemp->addComponent(transCP);
 
 	const int PLAYER_ANIMATION_SPEED = object.getProp("AnimationSpeed")->getValue<int>();

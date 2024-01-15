@@ -67,8 +67,9 @@ void RigidBodyCP::onCollision(std::shared_ptr<GameObject> go2)
         */
         
             std::shared_ptr<TransformationCP> transCP = go->getComponentsOfType<TransformationCP>().at(0);
-            transCP->setOldPos();
             transCP->setVelocity(0);
+            transCP->setOldPos();
+            transCP->setPosResetTimer();
             //setVelNotifyTransf(direction * abs(vel));
         //}
     }
