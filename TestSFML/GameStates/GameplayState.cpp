@@ -18,6 +18,7 @@
 #include "../Components/AI_Pathfinding/ControllerCP.h"
 #include "../Components/AI_Pathfinding/SteeringCP.h"
 #include "../Components/AI_Pathfinding/AISpriteUpdateCP.h"
+#include "../Components/AI_Pathfinding/AStarCP.h"
 
 void GameplayState::init(sf::RenderWindow& rWindow)
 {
@@ -126,6 +127,9 @@ void GameplayState::loadMap(std::string name, const sf::Vector2f& offset)
 	// go through all layers
 
 	std::shared_ptr<LayerCP> layerCP;
+	sf::Vector2i aStarGridSize;
+	std::vector<sf::Vector2i> unMovablePositions;
+	int mapTileSize;
 
 	for(auto& layer : map->getLayers())
 	{
@@ -136,8 +140,14 @@ void GameplayState::loadMap(std::string name, const sf::Vector2f& offset)
 
 		int layerNr = layer.getProp("LayerNr")->getValue<int>();
 
-		layerCP = std::make_shared<LayerCP>(mapGO, "Layer" + layerNr, window, layerNr, std::vector<std::shared_ptr<sf::Sprite>>());
+		layerCP = std::make_shared<LayerCP>(mapGO, "Layer" + std::to_string(layerNr), window, layerNr, std::vector<std::shared_ptr<sf::Sprite>>());
 		
+		if (layerNr == 0) // 0 => Background, get all Grid Stats (width, height) for A*
+		{
+			aStarGridSize.x = layer.getSize().y;
+			aStarGridSize.y = layer.getSize().x;
+		}
+
 		// iterate over all elements/tiles in the layer
 		for (int i = 0; i < size; i++)
 		{
@@ -149,11 +159,18 @@ void GameplayState::loadMap(std::string name, const sf::Vector2f& offset)
 				continue;
 			}
 
+			if (layerNr == 3 && gid != 0)
+			{
+				unMovablePositions.push_back(sf::Vector2i(i / layer.getSize().x, i % layer.getSize().x));
+			}
+
 			// get tile set for tile and allocate the corresponding tileSet texture
 			const auto* const tileSet = map->getTilesetByGid(gid);
 			const sf::Vector2i tileSize(map->getTileSize().x, map->getTileSize().y);
 			sf::Texture& texture = *m_tileSetTexture[tileSet->getName()];
 			
+			mapTileSize = tileSize.x;
+
 			// calculate position of tile
 			sf::Vector2f position;
 			position.x = i % layer.getSize().x * static_cast<float>(tileSize.x);
@@ -216,6 +233,45 @@ void GameplayState::loadMap(std::string name, const sf::Vector2f& offset)
 			else if (object.getProp("ObjectGroup")->getValue<std::string>() == "Boundary")
 			{
 				createBoundary(object, group);
+			}
+		}
+	}
+
+	for (auto& go : gameObjects)
+	{
+		if (auto stats = go->getComponentsOfType<StatsCP>(); stats.size() > 0)
+		{
+			std::string objectType = stats.at(0)->getObjectType();
+			if (objectType == "Enemy")
+			{
+				std::vector<std::shared_ptr<GameObject>> players;
+				std::vector<std::shared_ptr<GameObject>> patrolPoints;
+				for (auto& go1 : gameObjects)
+				{
+					if (go1->getId().find("Player") != std::string::npos)
+					{
+						players.push_back(go1);
+					}
+					else if (go1->getId().find("PatrolPoint") != std::string::npos)
+					{
+						if (go1->getId().find(stats.at(0)->ifEnemyGetPatrolPoints()) != std::string::npos)
+						{
+							patrolPoints.push_back(go1);
+						}
+					}
+				}
+
+				std::shared_ptr<ControllerCP> enemyAIController = std::make_shared<ControllerCP>(go, "EnemyControllerCP", players, patrolPoints);
+				go->addComponent(enemyAIController);
+
+				std::shared_ptr<AStarCP> enemyAStarCP = std::make_shared<AStarCP>(go, "EnemyAStarCP", std::vector<std::vector<int>>(aStarGridSize.x, std::vector<int>(aStarGridSize.y, 0)), unMovablePositions, sf::Vector2f(0, 0), mapTileSize);
+				go->addComponent(enemyAStarCP);
+
+				std::shared_ptr<SteeringCP> enemySteeringCP = std::make_shared<SteeringCP>(go, "EnemySteeringCP");
+				go->addComponent(enemySteeringCP);
+
+				std::shared_ptr<AISpriteUpdateCP> enemyAISpriteUpdateCP = std::make_shared<AISpriteUpdateCP>(go, "EnemyAISpriteUpdateCP");
+				go->addComponent(enemyAISpriteUpdateCP);
 			}
 		}
 	}
@@ -312,7 +368,7 @@ void GameplayState::checkPlayerLayer()
 
 void GameplayState::createPatrolPoints(tson::Object& object, tson::Layer group)
 {
-	std::string id = "PatrolPoint" + object.getProp("PatrolNr")->getValue<int>();
+	std::string id = "PatrolPoint" + object.getProp("PatrolNr")->getValue<std::string>();
 	std::shared_ptr<GameObject> patrolPointTemp = std::make_shared<GameObject>(id);
 
 	sf::Vector2f pos(sf::Vector2f(object.getPosition().x, object.getPosition().y));
@@ -409,33 +465,9 @@ void GameplayState::createEnemies(tson::Object& object, tson::Layer group)
 	enemyTemp->addComponent(enemyRenderCP);
 
 	int hp = object.getProp("Health")->getValue<int>();
-	std::shared_ptr<StatsCP> enemyStats = std::make_shared<StatsCP>(enemyTemp, "EnemyStatsCP", hp);
+	std::shared_ptr<StatsCP> enemyStats = std::make_shared<StatsCP>(enemyTemp, "EnemyStatsCP", hp, "Enemy");
+	enemyStats->ifEnemyAddPatrolPoints(object.getProp("PatrolNr")->getValue<std::string>());
 	enemyTemp->addComponent(enemyStats);
-
-	if (object.getProp("isAI")->getValue<bool>())
-	{
-		std::vector<std::shared_ptr<GameObject>> players;
-		std::vector<std::shared_ptr<GameObject>> patrolPoints;
-		for (auto& go : gameObjects)
-		{
-			if (go->getId().find("Player") != std::string::npos)
-			{
-				players.push_back(go);
-			}
-			else if (go->getId().find("PatrolPoint") != std::string::npos && go->getId().find((char)object.getProp("PatrolNr")->getValue<int>()) != std::string::npos)
-			{
-				patrolPoints.push_back(go);
-			}
-		}
-		std::shared_ptr<ControllerCP> enemyAIController = std::make_shared<ControllerCP>(enemyTemp, "EnemyControllerCP", players, patrolPoints);
-		enemyTemp->addComponent(enemyAIController);
-
-		std::shared_ptr<SteeringCP> enemySteeringCP = std::make_shared<SteeringCP>(enemyTemp, "EnemySteeringCP");
-		enemyTemp->addComponent(enemySteeringCP);
-
-		std::shared_ptr<AISpriteUpdateCP> enemyAISpriteUpdateCP = std::make_shared<AISpriteUpdateCP>(enemyTemp, "EnemyAISpriteUpdateCP");
-		enemyTemp->addComponent(enemyAISpriteUpdateCP);
-	}
 
 	gameObjects.push_back(enemyTemp);
 }
@@ -500,6 +532,10 @@ void GameplayState::createPlayers(tson::Object& object, tson::Layer group)
 
 	std::shared_ptr<DecisionHandlerCP> decHandler = std::make_shared<DecisionHandlerCP>(playerTemp, "PlayerDecisionHandlerCP");
 	playerTemp->addComponent(decHandler);
+
+	int hp = object.getProp("Health")->getValue<int>();
+	std::shared_ptr<StatsCP> playerStats = std::make_shared<StatsCP>(playerTemp, "PlayerStatsCP", hp, "Player");
+	playerTemp->addComponent(playerStats);
 
 	gameObjects.push_back(playerTemp);
 }

@@ -135,6 +135,9 @@
     <ClCompile Include="Components\AI_Pathfinding\AISpriteUpdateCP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Components\AI_Pathfinding\AStarCP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Manager\AssetManager.h">
@@ -294,6 +297,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Components\AI_Pathfinding\AISpriteUpdateCP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\AI_Pathfinding\AStarCP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -12,6 +12,7 @@ public:
 	std::string getComponentId() override { return this->componentId; };
 	void setComponentId(std::string id) override { this->componentId = id; };
 	void init() override;
+	void setPlayers(std::vector<std::shared_ptr<GameObject>> incPlayers) { players = incPlayers; }
 private:
 	std::vector<std::shared_ptr<GameObject>> players;
 	std::vector<std::shared_ptr<GameObject>> patrolPoints;
